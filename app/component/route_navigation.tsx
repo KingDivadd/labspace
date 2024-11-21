@@ -96,7 +96,7 @@ const Route_navigation = () => {
 
                 {user_role === 'user' && <div className="w-[400px]  h-full flex items-center justify-between">
 
-                    <button className="px-[20px] h-[45px] rounded-[3px] bg-amber-700 hover:bg-amber-800 text-white text-sm ">New Loan</button>
+                    {route_nav  !== 'my-loans' ?  <button className="px-[20px] h-[45px] rounded-[3px] bg-amber-700 hover:bg-amber-800 text-white text-sm ">New Loan</button> : <p> </p> }
 
                     <button className="px-[20px] h-[45px] rounded-[3px] bg-blue-600 hover:bg-blue-700 text-white text-sm ">Support</button>
                 </div>}

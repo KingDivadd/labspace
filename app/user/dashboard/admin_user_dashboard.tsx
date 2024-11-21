@@ -1,10 +1,10 @@
 'use client'
 import React, {useState, useEffect} from 'react'
-import App_navigation from "../component/app_navigation"
-import Welcome_navigation from "../component/welcome_navigation"
-import Route_navigation from "../component/route_navigation"
-import { useChat } from '../context/ChatContext'
-import Admin_dashboard from '../component/admin_dashboard'
+import App_navigation from "../../component/app_navigation"
+import Welcome_navigation from "../../component/welcome_navigation"
+import Route_navigation from "../../component/route_navigation"
+import { useChat } from '../../context/ChatContext'
+import Admin_dashboard from '../../component/admin_dashboard'
 
 
 

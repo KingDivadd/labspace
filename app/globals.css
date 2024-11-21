@@ -72,6 +72,10 @@
     @apply h-[45px] w-[100%] outline-none p-[0] px-[10px] border-2 border-red-500 text-[15px] rounded-[3px] bg-transparent
 }
 
+.input-type-2 {
+    @apply h-[35px] w-[100%] outline-none p-[0] px-[10px] border border-slate-400 text-[15px] rounded-[3px] bg-transparent
+}
+
 .input-type-1 {
     @apply h-[45px] w-[100%] outline-none p-[0] px-[10px] border border-slate-400 text-[15px] rounded-[3px] bg-transparent
 }

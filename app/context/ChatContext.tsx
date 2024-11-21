@@ -15,6 +15,14 @@ interface ChatContextType {
     setTrigger_notification: (trigger_notification: boolean) => void; 
     user_role: string; 
     setUser_role: (user_role: string) => void; 
+    showModal: boolean;
+    setShowModal: (showModal:boolean ) => void;
+    selectedItem: any;
+    setSelectedItem: (selectedItem: any) => void;
+    modalFor: string;
+    setModalFor: (modalFor: string) => void;
+    modalSource: string;
+    setModalSource: (modalSource: string) => void;
     
 }
 
@@ -29,6 +37,10 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [close_welcome_nav, setClose_welcome_nav] = useState(false)
     const [user_role, setUser_role] = useState('')
     const [trigger_notification, setTrigger_notification] = useState(false)
+    const [showModal, setShowModal] = useState(false)
+    const [selectedItem, setSelectedItem] = useState(null)
+    const [modalFor, setModalFor] = useState('')
+    const [modalSource, setModalSource] = useState('')
     
 
     return (
@@ -38,7 +50,8 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             route_nav, setRoute_nav,
             close_welcome_nav, setClose_welcome_nav,
             user_role, setUser_role,
-            trigger_notification, setTrigger_notification
+            trigger_notification, setTrigger_notification,
+            showModal, setShowModal, selectedItem, setSelectedItem, modalFor, setModalFor, modalSource, setModalSource
             }}>
             {children}
         </ChatContext.Provider>

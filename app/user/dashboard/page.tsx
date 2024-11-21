@@ -1,8 +1,8 @@
 
 'use client'
 import React, {useState, useEffect} from 'react'
-import Admin_User_dashboard from '../../pages/admin_user_dashboard'
-import Single_User_dashboard from '../../pages/single_user_dashboard'
+import Admin_User_dashboard from './admin_user_dashboard'
+import Single_User_dashboard from './single_user_dashboard'
 
 import { useRouter } from 'next/navigation'
 import { useChat } from '@/app/context/ChatContext'

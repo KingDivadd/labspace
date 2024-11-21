@@ -37,10 +37,10 @@ export const DoughnutChartOne: React.FC = () => {
                     datasets: [{
                         data: [10, 35, 20, 35],
                         backgroundColor: [
-                            '#007985',
-                            '#007985',
+                            '#0097A7',
+                            '#0097A7',
                             '#FFFFFF',
-                            '#007985',
+                            '#0097A7',
                         ],
                         borderWidth: 0, // Remove the border
                         hoverOffset: 4

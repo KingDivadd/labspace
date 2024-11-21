@@ -97,7 +97,7 @@ const User_Dashboard = () => {
                         <span className="  flex flex-col justify-center items-center relative  ">
                             <DoughnutChartOne  /> 
                             <span className="w-[225px] h-[225px]  flex flex-col items-center justify-center absolute top-0 right-0 ">
-                                <p className="text-3xl font-bold text-teal-600">638</p>
+                                <p className="text-3xl font-bold text-teal-700">638</p>
                                 <p className="text-sm text-blue-600">Exuifax</p>
                                 <p className="text-sm ">Nov 16, 2024</p>
                                 
@@ -181,7 +181,7 @@ const User_Dashboard = () => {
                 </div>
 
                 {/* section three upcoming loan payment */}
-                <div className="mt-10 w-full flex flex-col items-start justify-start shadow-lg  rounded-[3px]">
+                <div className="mt-10 w-full flex flex-col items-start justify-start shadow-lg  rounded-[3px] border border-slate-200 ">
                     <span className="h-[50px] w-full flex items-center justify-start px-[15px] border-b border-slate-300 ">
                         <p className="text-md font-[600] ">Upcoming Loan Payment</p>
                     </span>
@@ -233,7 +233,7 @@ const User_Dashboard = () => {
                 </div>
 
                 {/* section four recent transaction table */}
-                <div className="mt-10 w-full flex flex-col items-start justify-start shadow-lg  rounded-[3px]">
+                <div className="mt-10 w-full flex flex-col items-start justify-start shadow-lg  rounded-[3px] border border-slate-200">
                     <span className="h-[50px] w-full flex items-center justify-start px-[15px] border-b border-slate-300 ">
                         <p className="text-md font-[600] ">Recent Transactions</p>
                     </span>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useChat } from '../context/ChatContext';
 
 interface AlertProps {
@@ -130,3 +130,26 @@ export function get_current_time() {
     
     return formattedTime;
 }
+
+export const Show_current_date_time: React.FC = () => {
+    const [currentDateTime, setCurrentDateTime] = useState<string>('');
+
+    useEffect(() => {
+    const formatDate = (date: Date) => {
+        const options:any = { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+        return date.toLocaleDateString('en-US', options).replace(',', '');
+    };
+
+    const updateDateTime = () => {
+        const now = new Date();
+        setCurrentDateTime(formatDate(now));
+    };
+
+    updateDateTime(); // Set the initial date-time
+    const interval = setInterval(updateDateTime, 60 * 1000); // Update every minute
+
+    return () => clearInterval(interval); // Cleanup on component unmount
+    }, []);
+
+    return <div>{currentDateTime}</div>;
+};
