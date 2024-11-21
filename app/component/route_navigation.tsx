@@ -31,7 +31,7 @@ const Route_navigation = () => {
     useEffect(() => {
         get_user_data()
         const item = sessionStorage.getItem('nav')
-        if (!item || !['dashhoard', 'credit-report', 'dispute-management','credit-analysis', 'tracking-and-monitoring', 'education-resources', 'billing-and-invoices', 'settings']) {
+        if (!item) {
             setRoute_nav('dashboard')
         }else{
             setRoute_nav(item)
