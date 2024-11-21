@@ -3,9 +3,9 @@ import "./globals.css";
 import {ChatProvider} from '@/app/context/ChatContext'
 
 export const metadata: Metadata = {
-  title: "ease credit",
-  description: "",
-  keywords: "SEO, project management, web tools, Insightedge",
+  title: "Fintaza",
+  description: "A comprehensive platform for managing loans, streamlining application processes, automating credit evaluation, enabling seamless payments, and enhancing user experience with secure customer and admin portals.",
+  keywords: "Lending Management, Loan Application Portal, Credit Scoring, KYC/AML Verification, Payment Processing, User Roles & Permissions",
 
 };
 
