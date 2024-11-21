@@ -7,6 +7,8 @@ import Route_navigation from "../../component/route_navigation"
 import { useChat } from '../../context/ChatContext'
 import User_Dashboard from '../../component/user_dashboard'
 import My_loans from '../../pages/my_loans_page'
+import User_payment_page from '../../pages/user_payment_page'
+import User_transaction_page from '../../pages/user_transaction_page'
 
 
 const Single_User_dashboard = () => {
@@ -22,6 +24,8 @@ const Single_User_dashboard = () => {
 
                     {route_nav == 'dashboard' && <User_Dashboard /> }
                     {route_nav == 'my-loans' && <My_loans /> }
+                    {route_nav == 'payment' && <User_payment_page /> }
+                    {route_nav == 'transaction' && <User_transaction_page /> }
 
             </div>
         </div>
