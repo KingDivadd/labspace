@@ -1,0 +1,173 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Montserrat:wght@200;300;400;500;600;700;800&family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat";
+    box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
+
+::-moz-scrollbar {
+    width: 0px;
+}
+
+::-moz-scrollbar-thumb {
+    @apply bg-sky-700 rounded-[5px];
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-sky-700 rounded-b-[5px] cursor-pointer;
+}
+
+.custom-calendar {
+    @apply rounded-[5px]
+}
+
+.custom-calendar .react-calendar__month-view__weekdays {
+    @apply border-b border-gray-300 mb-[5px];
+    font-family: "Montserrat", sans-serif;
+}
+
+.custom-calendar .react-calendar__month-view__weekdays__weekday abbr {
+    @apply text-teal-600 font-semibold text-[13px];
+    text-decoration: none;
+}
+
+.cont-1-scrollbar::-webkit-scrollbar {
+    @apply w-[8px] h-[5px]
+}
+
+.cont-1-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-[3px]
+}
+
+
+/* header page style */
+
+.header-nav-link {
+    @apply text-lg text-slate-300 cursor-pointer;
+}
+
+.header-nav-link:hover {
+    @apply text-amber-500;
+}
+
+.active-header-nav-link {
+    @apply text-lg text-white font-[500] cursor-pointer;
+}
+
+
+/* input areas */
+
+.input-error-1 {
+    @apply h-[45px] w-[100%] outline-none p-[0] px-[10px] border-2 border-red-500 text-[15px] rounded-[3px] bg-transparent
+}
+
+.input-type-1 {
+    @apply h-[45px] w-[100%] outline-none p-[0] px-[10px] border border-slate-400 text-[15px] rounded-[3px] bg-transparent
+}
+
+.text-area-input-1 {
+    @apply w-[100%] outline-none p-[10px] border border-slate-400 text-[15px] rounded-[3px] bg-transparent resize-none
+}
+
+.dark-normal-input {
+    @apply h-[40px] w-[100%] outline-none p-[0] px-[10px] border border-slate-200 text-[15px] rounded-[3px] text-slate-200 bg-transparent;
+}
+
+.dark-normal-input:focus {
+    @apply bg-slate-700
+}
+
+.normal-input {
+    @apply h-[40px] w-[100%] outline-none p-[0] px-[10px] border border-gray-400 rounded-[3px]
+}
+
+.normal-input-error {
+    @apply h-[40px] w-[100%] outline-none p-[0] px-[10px] border-2 border-red-500 rounded-[3px]
+}
+
+.normal-input:focus {
+    @apply border-2 border-teal-500
+}
+
+.signup-input {
+    @apply h-[50px] w-[100%] outline-none p-[0] px-[10px] border border-gray-400 rounded-[3px] text-sm;
+}
+
+.signup-input:focus {
+    @apply border-2 border-teal-500 text-sm;
+}
+
+.signup-input-error {
+    @apply h-[50px] w-[100%] outline-none p-[0] px-[10px] border-2 border-red-500 rounded-[5px] text-sm;
+}
+
+.password-input {
+    @apply h-[50px] w-[100%] outline-none p-[0] pr-[40px] pl-[10px] border border-gray-400 rounded-[5px] text-sm;
+}
+
+.password-input:focus {
+    @apply border-2 border-teal-500 text-sm;
+}
+
+.password-input-error {
+    @apply h-[50px] w-[100%] outline-none p-[0] pr-[40px] pl-[10px] border-2 border-red-500 rounded-[5px] text-sm;
+}
+
+.nav-input {
+    @apply h-[40px] w-[100%] outline-none p-[0] pr-[50px] pl-[10px] border border-gray-400 rounded-[3px] text-sm;
+}
+
+.nav-input-error {
+    @apply h-[40px] w-[100%] outline-none p-[0] pr-[50px] pl-[10px] border-2 border-red-500 rounded-[5px] text-sm;
+}
+
+.nav-input:focus {
+    @apply border-2 border-teal-500 text-sm;
+}
+
+.checkbox-40 {
+    @apply h-[17px] w-[17px]
+}
+
+
+/* navigation buttons */
+
+.nav-box {
+    @apply px-[15px] h-[50px] flex items-center justify-center relative text-slate-800 whitespace-nowrap;
+}
+
+.nav-box:hover {
+    @apply bg-blue-400 text-white cursor-pointer;
+}
+
+.active-nav-box {
+    @apply px-[15px] h-[50px] flex items-center justify-center relative whitespace-nowrap;
+}
+
+.active-nav-box::before {
+    @apply absolute w-full h-[5px] bg-blue-600 bottom-0 whitespace-nowrap;
+    content: "";
+}
+
+.table-body-row-1 {
+    @apply w-full min-h-[50px] flex items-center justify-between;
+}
+
+.table-body-row-1:nth-child(even) {
+    @apply bg-slate-200
+}
+
+.table-body-row-1:hover {
+    @apply bg-slate-300
+}
