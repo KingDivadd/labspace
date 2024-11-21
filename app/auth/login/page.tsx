@@ -51,45 +51,47 @@ const Login = () => {
     async function handle_login(e: any) {
         e.preventDefault();
 
-        if (!auth.email || !auth.password) {
-            if (!auth.email){ showAlert('Please provide email address', 'warning');  }
-            if (!auth.password){showAlert('Please enter password', 'warning'); }
-            if (!auth.email && !auth.password) {showAlert('Please enter email and password ', 'warning')}
+        router.push('/user/dashboard')
+
+        // if (!auth.email || !auth.password) {
+        //     if (!auth.email){ showAlert('Please provide email address', 'warning');  }
+        //     if (!auth.password){showAlert('Please enter password', 'warning'); }
+        //     if (!auth.email && !auth.password) {showAlert('Please enter email and password ', 'warning')}
             
-            setInputError({
-                ...inputError,
-                email: auth.email === "",
-                password: auth.password === "",
-            });
-            return;
-        } else {
-            setLoading(true); 
+        //     setInputError({
+        //         ...inputError,
+        //         email: auth.email === "",
+        //         password: auth.password === "",
+        //     });
+        //     return;
+        // } else {
+        //     setLoading(true); 
 
-            try {
+        //     try {
                 
-                const response = await post_request('app/login', auth)                
+        //         const response = await post_request('app/login', auth)                
 
-                if (response.status == 200 || response.status == 201){
+        //         if (response.status == 200 || response.status == 201){
 
-                    localStorage.setItem('x-id-key' ,response.headers.get('x-id-key'));
-                    sessionStorage.setItem('role', response.data.user_data.user_role)
+        //             localStorage.setItem('x-id-key' ,response.headers.get('x-id-key'));
+        //             sessionStorage.setItem('role', response.data.user_data.user_role)
                     
-                    showAlert(response.data.msg, "success")
-                    setAuth({email: '', password: ''})
-                    setLoading(false)
-                    router.push('/user/dashboard')
-                }
-                else{
-                    showAlert(response.response.data.err, "error")
-                    setLoading(false)
-                }
-            } catch (err:any) {
-                console.error('Network or unexpected error:', err);
-                showAlert('An unexpected error occurred. Please try again later.', 'error');
-            } finally {
-                setLoading(false); 
-            }
-        }
+        //             showAlert(response.data.msg, "success")
+        //             setAuth({email: '', password: ''})
+        //             setLoading(false)
+        //             router.push('/user/dashboard')
+        //         }
+        //         else{
+        //             showAlert(response.response.data.err, "error")
+        //             setLoading(false)
+        //         }
+        //     } catch (err:any) {
+        //         console.error('Network or unexpected error:', err);
+        //         showAlert('An unexpected error occurred. Please try again later.', 'error');
+        //     } finally {
+        //         setLoading(false); 
+        //     }
+        // }
     }
 
 
@@ -119,7 +121,7 @@ const Login = () => {
 
                 <span className="w-full flex items-center justify-start gap-[10px] ">
                     <input type="checkbox" name="remember_me" id="remember_me" />
-                    <label htmlFor="remember_me" className="text-sm  cursor-pointer "  >Remember me</label>
+                    <label htmlFor="remember_me" className="text-sm  cursor-pointer " >Remember me</label>
                 </span>
 
                 <button className="w-full flex items-center justify-center h-[45px] rounded-[3px] bg-blue-600 hover:bg-blue-700 text-white" onClick={handle_login} disabled={loading}>
