@@ -52,6 +52,9 @@ const Login = () => {
         e.preventDefault();
 
 
+        router.push('/user/porter')
+
+
         // if (!auth.email || !auth.password) {
         //     if (!auth.email){ showAlert('Please provide email address', 'warning');  }
         //     if (!auth.password){showAlert('Please enter password', 'warning'); }
