@@ -93,35 +93,35 @@ const Admin_dashboard = () => {
 
                 {/* section one metrics card */}
                 <div className="w-full flex flex-wrap justify-between gap-10">
-                    <div className="w-[185px] h-[175px] rounded-[5px]  p-[25px] shadow-md flex flex-col items-center justify-start gap-5 border border-slate-200">
+                    <div className="w-[185px] h-[175px] rounded-[5px]  p-[25px] shadow-md flex flex-col items-center justify-between gap-5 border border-slate-200">
                             <p className="text-2xl font-[600] text-blue-600">1,250</p>
-                            <p className="text-lg font-[500]  ">Total Loans </p>
+                            <p className="text-lg font-[500] text-blue-600 ">Total Loans </p>
                     </div>
                     
-                    <div className="w-[185px] h-[175px] rounded-[5px]  p-[25px] shadow-md flex flex-col items-center justify-start gap-5 border border-slate-200">
+                    <div className="w-[185px] h-[175px] rounded-[5px]  p-[25px] shadow-md flex flex-col items-center justify-between gap-5 border border-slate-200">
                             <p className="text-2xl font-[600] text-teal-700">1,250</p>
-                            <p className="text-lg font-[500]  ">Active Loans </p>
+                            <p className="text-lg font-[500] text-teal-700 ">Active Loans </p>
                     </div>
                     
-                    <div className="w-[185px] h-[175px] rounded-[5px]  p-[25px] shadow-md flex flex-col items-center justify-start gap-5 border border-slate-200">
+                    <div className="w-[185px] h-[175px] rounded-[5px]  p-[25px] shadow-md flex flex-col items-center justify-between gap-5 border border-slate-200">
                             <p className="text-2xl font-[600] text-amber-600">55</p>
-                            <p className="text-lg font-[500] text-center ">Pending Approval </p>
+                            <p className="text-lg font-[500] text-center text-amber-600 ">Pending Approval </p>
                     </div>
                     
-                    <div className="w-[185px] h-[175px] rounded-[5px]  p-[25px] shadow-md flex flex-col items-center justify-start gap-5 border border-slate-200">
+                    <div className="w-[185px] h-[175px] rounded-[5px]  p-[25px] shadow-md flex flex-col items-center justify-between gap-5 border border-slate-200">
                             <p className="text-2xl font-[600] text-blue-600">$1,350,000</p>
-                            <p className="text-lg font-[500] text-center ">Amount Disbursed </p>
+                            <p className="text-lg font-[500] text-center text-blue-600 ">Amount Disbursed </p>
                     </div>
                     
-                    <div className="w-[185px] h-[175px] rounded-[5px]  p-[25px] shadow-md flex flex-col items-center justify-start gap-5 border border-slate-200">
+                    <div className="w-[185px] h-[175px] rounded-[5px]  p-[25px] shadow-md flex flex-col items-center justify-between gap-5 border border-slate-200">
                             <p className="text-2xl font-[600] text-red-600">120</p>
-                            <p className="text-lg font-[500] text-center ">Overdue Loans </p>
+                            <p className="text-lg font-[500] text-center text-red-600">Overdue Loans </p>
                     </div>
                     
                     
-                    <div className="w-[185px] h-[175px] rounded-[5px]  p-[25px] shadow-md flex flex-col items-center justify-start gap-5 border border-slate-200">
+                    <div className="w-[185px] h-[175px] rounded-[5px]  p-[25px] shadow-md flex flex-col items-center justify-between gap-5 border border-slate-200">
                             <p className="text-2xl font-[600] text-red-600">$850,000</p>
-                            <p className="text-lg font-[500] text-center ">Outstanding Amount </p>
+                            <p className="text-lg font-[500] text-center text-red-600 ">Outstanding Amount </p>
                     </div>
                     
                 </div>

@@ -9,6 +9,8 @@ import User_Dashboard from '../../component/user_dashboard'
 import My_loans from '../../pages/my_loans_page'
 import User_payment_page from '../../pages/user_payment_page'
 import User_transaction_page from '../../pages/user_transaction_page'
+import User_notification_page from '../../pages/user_notification_page'
+import User_document_page from '../../pages/user_document_page'
 
 
 const Single_User_dashboard = () => {
@@ -26,6 +28,8 @@ const Single_User_dashboard = () => {
                     {route_nav == 'my-loans' && <My_loans /> }
                     {route_nav == 'payment' && <User_payment_page /> }
                     {route_nav == 'transaction' && <User_transaction_page /> }
+                    {route_nav == 'notification' && <User_notification_page /> }
+                    {route_nav == 'documents' && <User_document_page /> }
 
             </div>
         </div>

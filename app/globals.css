@@ -172,6 +172,4 @@
     @apply bg-slate-200
 }
 
-.table-body-row-1:hover {
-    @apply bg-slate-300
-}
+.table-body-row-1:hover {}
