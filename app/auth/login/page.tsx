@@ -52,45 +52,45 @@ const Login = () => {
         e.preventDefault();
 
 
-        if (!auth.email || !auth.password) {
-            if (!auth.email){ showAlert('Please provide email address', 'warning');  }
-            if (!auth.password){showAlert('Please enter password', 'warning'); }
-            if (!auth.email && !auth.password) {showAlert('Please enter email and password ', 'warning')}
+        // if (!auth.email || !auth.password) {
+        //     if (!auth.email){ showAlert('Please provide email address', 'warning');  }
+        //     if (!auth.password){showAlert('Please enter password', 'warning'); }
+        //     if (!auth.email && !auth.password) {showAlert('Please enter email and password ', 'warning')}
             
-            setInputError({
-                ...inputError,
-                email: auth.email === "",
-                password: auth.password === "",
-            });
-            return;
-        } else {
-            setLoading(true); 
+        //     setInputError({
+        //         ...inputError,
+        //         email: auth.email === "",
+        //         password: auth.password === "",
+        //     });
+        //     return;
+        // } else {
+        //     setLoading(true); 
 
-            try {
+        //     try {
                 
-                const response = await post_request('app/login', auth)                
+        //         const response = await post_request('app/login', auth)                
 
-                if (response.status == 200 || response.status == 201){
+        //         if (response.status == 200 || response.status == 201){
 
-                    localStorage.setItem('x-id-key' ,response.headers.get('x-id-key'));
-                    sessionStorage.setItem('role', response.data.user_data.user_role)
+        //             localStorage.setItem('x-id-key' ,response.headers.get('x-id-key'));
+        //             sessionStorage.setItem('role', response.data.user_data.user_role)
                     
-                    showAlert(response.data.msg, "success")
-                    setAuth({email: '', password: ''})
-                    setLoading(false)
-                    router.push('/user/porter')
-                }
-                else{
-                    showAlert(response.response.data.err, "error")
-                    setLoading(false)
-                }
-            } catch (err:any) {
-                console.error('Network or unexpected error:', err);
-                showAlert('An unexpected error occurred. Please try again later.', 'error');
-            } finally {
-                setLoading(false); 
-            }
-        }
+        //             showAlert(response.data.msg, "success")
+        //             setAuth({email: '', password: ''})
+        //             setLoading(false)
+        //             router.push('/user/porter')
+        //         }
+        //         else{
+        //             showAlert(response.response.data.err, "error")
+        //             setLoading(false)
+        //         }
+        //     } catch (err:any) {
+        //         console.error('Network or unexpected error:', err);
+        //         showAlert('An unexpected error occurred. Please try again later.', 'error');
+        //     } finally {
+        //         setLoading(false); 
+        //     }
+        // }
     }
 
 

@@ -146,10 +146,18 @@ const User_transaction_page = () => {
                         <p className="text-md font-[600] ">Transactions</p>
                     </span>
                     
-                    <span className="w-full flex items-center justify-end p-[15px] pb-0 ">
+                    <span className="w-full flex items-center justify-between p-[15px] pb-0 ">
+                        <span className="w-auto flex items-center gap-5">
+                            <button className="h-[45px] px-5 border border-slate-500  rounded-[3px] hover:border-blue-600 hover:text-blue-600 ">
+                                Export PDF
+                            </button>
+                            <button className="h-[45px] px-5 border border-slate-500  rounded-[3px] hover:border-blue-600 hover:text-blue-600 ">
+                                Export CSV
+                            </button>
+                        </span>
 
-                        <span className="w-[200px] ">
-                            <input type="text" placeholder='search' className='input-type-2 ' />
+                        <span className="w-[250px] ">
+                            <input type="text" placeholder='search' className='input-type-1 ' />
                         </span>
 
                     </span>
@@ -162,7 +170,7 @@ const User_transaction_page = () => {
                             <p className="text-sm font-[600] w-[20%] px-[15px] ">Description</p>
                             <p className="text-sm font-[600] w-[10%] px-[15px] ">Amount</p>
                             <p className="text-sm font-[600] w-[15%] px-[15px] ">Status</p>
-                            <p className="text-sm font-[600] w-[15%] px-[15px] ">Action</p>
+                            <p className="text-sm font-[600] w-[15%] px-[15px] text-center ">Action</p>
                         </span>
 
                         <div className="w-full h-[500px] flex flex-col items-start justify-start overflow-y-auto">
@@ -176,7 +184,7 @@ const User_transaction_page = () => {
                                             <p className="text-sm font-[500] w-[20%] px-[15px] ">Payment towards Loan-1001</p>
                                             <p className="text-sm font-[500] w-[10%] px-[15px] ">$12,250</p>
                                             <p className="text-sm font-[500] w-[15%] px-[15px] text-teal-700 ">Completed</p>
-                                            <p className="text-sm font-[500] w-[15%] px-[15px] text-blue-700 hover:underline cursor-pointer">View details</p>
+                                            <p className="text-sm font-[500] w-[15%] px-[15px] text-blue-700 hover:underline cursor-pointer text-center">View details</p>
                                             
                                         </span>
                                     )
