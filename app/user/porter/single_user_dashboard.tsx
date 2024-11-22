@@ -11,6 +11,8 @@ import User_payment_page from '../../pages/user_payment_page'
 import User_transaction_page from '../../pages/user_transaction_page'
 import User_notification_page from '../../pages/user_notification_page'
 import User_document_page from '../../pages/user_document_page'
+import User_support_page from '../../pages/user_support_page'
+import User_profile_page from '../../pages/user_profile_page'
 
 
 const Single_User_dashboard = () => {
@@ -30,6 +32,8 @@ const Single_User_dashboard = () => {
                     {route_nav == 'transaction' && <User_transaction_page /> }
                     {route_nav == 'notification' && <User_notification_page /> }
                     {route_nav == 'documents' && <User_document_page /> }
+                    {route_nav == 'support' && <User_support_page /> }
+                    {route_nav == 'profile' && <User_profile_page /> }
 
             </div>
         </div>

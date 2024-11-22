@@ -1,7 +1,12 @@
 'use client'
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-
+interface ProfileToggle {
+    two_fa: boolean,
+    email_auth: boolean,
+    sms_auth: boolean,
+    web_push: boolean
+}
 interface ChatContextType {
     header_nav: string; 
     setHeader_nav: (header_nav: string) => void; 
@@ -23,7 +28,8 @@ interface ChatContextType {
     setModalFor: (modalFor: string) => void;
     modalSource: string;
     setModalSource: (modalSource: string) => void;
-    
+    profileToggle: ProfileToggle;
+    setProfileToggle: (profileToggle: ProfileToggle) => void
 }
 
 
@@ -41,6 +47,7 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [selectedItem, setSelectedItem] = useState(null)
     const [modalFor, setModalFor] = useState('')
     const [modalSource, setModalSource] = useState('')
+    const [profileToggle, setProfileToggle] = useState({two_fa: false, email_auth: true, sms_auth: true, web_push: false })
     
 
     return (
@@ -51,7 +58,8 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             close_welcome_nav, setClose_welcome_nav,
             user_role, setUser_role,
             trigger_notification, setTrigger_notification,
-            showModal, setShowModal, selectedItem, setSelectedItem, modalFor, setModalFor, modalSource, setModalSource
+            showModal, setShowModal, selectedItem, setSelectedItem, modalFor, setModalFor, modalSource, setModalSource,
+            profileToggle, setProfileToggle
             }}>
             {children}
         </ChatContext.Provider>

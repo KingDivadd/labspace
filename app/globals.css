@@ -172,4 +172,10 @@
     @apply bg-slate-200
 }
 
-.table-body-row-1:hover {}
+.toggle {
+    @apply h-[25px] w-[45px] cursor-pointer rounded-[25px] bg-slate-200;
+}
+
+.active-toggle {
+    @apply h-[25px] w-[45px] cursor-pointer rounded-[25px] bg-blue-600;
+}
