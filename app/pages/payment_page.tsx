@@ -364,7 +364,7 @@ const Payment_page = () => {
                                                 <p className="text-sm font-[500] w-[8%] px-[15px] text-slate-600 ">{Number(amount).toLocaleString()}</p>
                                                 <p className="text-sm font-[500] w-[10%] px-[15px] text-slate-600 ">{added_by.first_name} {added_by.last_name}</p>
                                                 <p className="text-sm font-[500] w-[15%] px-[15px] text-slate-600 hover:text-blue-600 hover:underline">
-                                                    <Link href={payment_receipt[0].url} >{payment_receipt[0].name}</Link>
+                                                    {payment_receipt.length && <Link href={payment_receipt[0].url} >{payment_receipt[0].name}</Link>}
                                                 </p>
                                                 <p className="text-sm font-[500] w-[15%] px-[15px] text-slate-600 ">{formatted_time(Number(created_at))}</p>
                                                 <span className="px-[15px] w-[8%] flex items-center ">
