@@ -39,9 +39,8 @@ const Admin_dashboard = () => {
                 console.log(response)           
 
                 if (response.status == 200 || response.status == 201){
-
                     
-                    console.log('admin_dashboard ', response.data)
+                    // console.log('admin_dashboard ', response.data)
                     setAdmin_dash(response.data)
                 }else if(response.response.status == 401){
                     router.push('/auth/login')

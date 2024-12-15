@@ -31,7 +31,7 @@ const Route_navigation = () => {
                 if (response.status == 200 || response.status == 201){
 
                     
-                    console.log('notification ', response.data)
+                    // console.log('notification ', response.data)
                     setNotification(response.data)
 
                 }else if(response.response.status == 401){
