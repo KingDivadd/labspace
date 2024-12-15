@@ -98,7 +98,7 @@ const Admin_dashboard = () => {
                 {alert.message && <Alert message={alert.message} type={alert.type} />} 
             </span>
             
-            <div className="w-full flex flex-col justify-start items-center gap-5 ">
+            {admin_dash.recent_users ? <div className="w-full flex flex-col justify-start items-center gap-5 ">
 
                 {/* section one metrics card */}
                 <div className="w-full flex flex-wrap justify-between gap-[20px] sm:gap-10">
@@ -383,6 +383,11 @@ const Admin_dashboard = () => {
 
             
             </div>
+            :
+            <div className="w-full h-[500] flex items-center justify-center ">
+                <Loading />
+            </div>
+            }
             
             {showModal && <Modal showModal={showModal} setShowModal={setShowModal} modalFor={modalFor} setModalFor={setModalFor} selectedItem={selectedItem} setSelectedItem={setSelectedItem} modalSource={modalSource} setModalSource={setModalSource} />}
         </div>
