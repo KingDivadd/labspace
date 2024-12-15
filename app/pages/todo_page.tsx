@@ -387,7 +387,7 @@ const Todo_page = () => {
                                     </>
                                     : 
                                     <div className="w-full flex items-center justify-center h-full  ">
-                                        {loggedInUser.is_admin ? <p className="text-md font-[500] ">Click on Add Task to begin creating Task</p>:
+                                        {loggedInUser.is_admin ? <p className="text-md font-[500] ">You have no task assigned to you yet</p>:
                                         <p className="text-md font-[500] ">No Task has been assigned to you yet.</p>}
                                     </div> }
                                 </div>

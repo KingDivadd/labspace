@@ -35,6 +35,7 @@ const Login = () => {
                 const response = await post_auth_request('app/persist-login', auth)            
                 
 
+
                 if (response.status == 200 || response.status == 201){
 
                     const user_data = response.data.user_data
@@ -109,7 +110,9 @@ const Login = () => {
             setLoading(true); 
             try {
                 
-                const response = await post_request('app/login', auth)                
+                const response = await post_request('app/login', auth)         
+                
+                console.log('response ', response)
 
                 if (response.status == 200 || response.status == 201){
 
