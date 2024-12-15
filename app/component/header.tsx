@@ -12,7 +12,9 @@ const Header = () => {
     const {header_nav, setHeader_nav} = useChat()
 
     useEffect(() => {
-        router.push('/auth/login')
+        setTimeout(() => {
+            router.push('/auth/login')
+        }, 2000);
     }, [])
 
     const toggleMenu = () => {
@@ -33,33 +35,28 @@ const Header = () => {
                 {/* left nav */}
                 <div className=" flex h-full items-center justify-start gap-5">
                     <span className="flex items-center mr-5 cursor-pointer" onClick={()=> setHeader_nav('home') }>
-                        <p className="text-xl font-semibold text-white">insight</p>
-                        <p className="text-xl font-semibold text-amber-500">Edge</p>
+                        <p className="text-xl font-semibold text-white">Labp</p>
+                        <p className="text-xl font-semibold text-sky-400">space</p>
                     </span>
 
-                    <Link href={'/'} onClick={()=> nav_to('features')} className={header_nav == 'features'? 'active-header-nav-link': 'header-nav-link'}>Features</Link>
-                    <Link href={'/'} onClick={()=> nav_to('pricing')} className={header_nav == 'pricing'? 'active-header-nav-link': 'header-nav-link'}>Pricing</Link>
-                    <Link href={'/'} onClick={()=> nav_to('about_us')} className={header_nav == 'about_us'? 'active-header-nav-link': 'header-nav-link'}>About Us</Link>
-                    <Link href={'/'} onClick={()=> nav_to('contacts')} className={header_nav == 'contacts' ? 'active-header-nav-link' : 'header-nav-link'}>Contacts</Link>
+                    
                 </div>
                 {/* right nav */}
 
                 <div className=" flex h-full items-center justify-end gap-5">
-                    <button className="h-[50px] text-lg font-[500] px-5 flex items-center text-slate-300 hover:text-amber-500" onClick={()=> router.push('/user/login')}>
+                    
+                    <button className="h-[50px] font-[500] text-lg px-5 flex items-center text-slate-300 border-2 border-slate-300 hover:text-sky-400 hover:border-sky-400  "  onClick={()=> router.push('/auth/login')}>
                         Sign in
-                    </button>
-                    <button className="h-[50px] font-[500] text-lg px-5 flex items-center text-slate-300 border-2 border-slate-300 hover:text-amber-500 hover:border-amber-500 "  onClick={handle_signup}>
-                        Sign up
                     </button>
                 </div>
             </nav>
 
             {(header_nav == 'home' || header_nav == 'features' ) && 
             <div className="w-[70%] mx-auto flex flex-col items-start justify-start gap-5 mb-20">
-                <p className="xl:text-[65px] font-bold text-white">SEO DASHBOARD</p>
-                <p className="xl:text-lg w-[550px] text-start font-[400] text-white">Get a high-level view of all your projects and track their SEO performance and progress.</p>
-                <button className="h-[60px] text-xl font-[400] bg-amber-500 px-5 flex items-center text-white hover:bg-amber-600 mt-5">
-                        Sign up for InsightEdge
+                <p className="xl:text-[65px] font-bold text-white">LABPSPACE</p>
+                <p className="xl:text-lg w-[550px] text-start font-[400] text-white">Get a high-level view of all your task, manage, assign and track progress.</p>
+                <button className="h-[60px] text-xl font-[400] bg-sky-400  px-5 flex items-center text-white hover:bg-sky-500 mt-5">
+                    Proceed
                 </button>
 
             </div>}

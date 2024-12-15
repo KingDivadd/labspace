@@ -3,9 +3,9 @@ import "./globals.css";
 import {ChatProvider} from '@/app/context/ChatContext'
 
 export const metadata: Metadata = {
-  title: "Fintaza",
-  description: "A comprehensive platform for managing loans, streamlining application processes, automating credit evaluation, enabling seamless payments, and enhancing user experience with secure customer and admin portals.",
-  keywords: "Lending Management, Loan Application Portal, Credit Scoring, KYC/AML Verification, Payment Processing, User Roles & Permissions",
+  title: "Labpspace",
+  description: "A lab porter for managing and assigning tasks",
+  keywords: "",
 
 };
 
@@ -18,7 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body className='relative'>
         <ChatProvider>
-            <div className="container mx-auto ">
+            <div className="2xl:container mx-auto ">
               {children}
             </div>
           </ChatProvider>

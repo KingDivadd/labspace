@@ -11,6 +11,15 @@ module.exports = {
       fontFamily: {
         inter: ["Inter", "sans-serif"],
       },
+      fontSize: {
+        sm: ['12.7px', '1.5'], // Custom `text-sm`: 12px with 1.5 line-height
+        md: ['14.5px', '1.5rem'], // Default `md`: 16px with 24px line-height
+        lg: ['16.5px', '1.75rem'], // Default `lg`: 18px with 28px line-height
+        xl: ['18px', '1.75rem'], // Default `xl`: 20px with 28px line-height
+        '2xl': ['21.5px', '2rem'], // Default `2xl`: 24px with 32px line-height
+        '3xl': ['25px', '2.25rem'], // Default `3xl`: 30px with 36px line-height
+      }
+      ,
       colors: {
         "black-100": "#2B2C35",
         "primary-blue": {

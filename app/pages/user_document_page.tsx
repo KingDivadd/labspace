@@ -1,6 +1,6 @@
 'use client'
 import React, {useState, useEffect} from 'react'
-import Modal from '../component/modal'
+import Modal from '../component/modals/modal'
 import { useChat } from '../context/ChatContext'
 
 const User_document_page = () => {
