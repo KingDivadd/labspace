@@ -134,7 +134,7 @@ const Profile_modal = () => {
                             </span>
                         </span>
 
-                        <span className="w-full flex items-center justify-end">
+                        <span className="w-full flex items-center justify-end gap-5">
                             <button className="h-[45px] w-[90px] text-sm rounded-[3px] hover:text-red-600 hover:border hover:border-red-600  " onClick={()=> setShowModal(false)}>Cancel</button>
 
                             <button className="w-[90px] text-sm flex items-center justify-center h-[45px] rounded-[3px] bg-blue-600 hover:bg-blue-700 text-white" onClick={handle_update} disabled={loading}>
