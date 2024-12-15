@@ -308,8 +308,7 @@ const Payment_page = () => {
                                 </div>}
                             </div>
 
-                            <button className="sm:hidden px-5 whitespace-nowrap h-[45px] rounded-[3px] text-white bg-blue-600 hover:bg-blue-700" onClick={handle_add_payment} >Add Task</button>
-                        </span>
+=                        </span>
 
                         <div className="max-sm:w-full flex items-center max-sm:justify-between justify-end gap-5">
 
