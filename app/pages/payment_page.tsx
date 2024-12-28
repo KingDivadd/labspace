@@ -17,7 +17,7 @@ const Payment_page = () => {
     const [payment_box, setPayment_box] = useState<Props | null>(null);
     const [filtered_payment_box, setFiltered_payment_box] = useState<Props | null>(null);
     const [filters, setFilters] = useState({filter_input: '', disposition: ''})
-    const {loggedInUser, modalFor, setModalFor, selectedItem, setSelectedItem, showModal, setShowModal, setModalSource, modalSource, setTask} = useChat()
+    const {loggedInUser, modalFor, setModalFor, selectedItem, setSelectedItem, setSelected_payment, showModal, setShowModal, setModalSource, modalSource, setTask} = useChat()
     const [alert, setAlert] = useState({message: '', type: ''})
     const [loading, setLoading] = useState(true)
     const [isActive, setIsActive] = useState(true);
@@ -116,7 +116,7 @@ const Payment_page = () => {
             <p
                 key={i}
                 className={`text-md font-light h-[27px] w-[30px] rounded-[3px] flex items-center justify-center cursor-pointer ${
-                page_number === i ? 'bg-blue-600 text-white' : ''
+                page_number === i ? 'bg-blue-500 text-white' : ''
                 }`}
                 onClick={() => app_payments_action(i)}
             >
@@ -250,22 +250,19 @@ const Payment_page = () => {
     }
 
     function handle_new_payment() {
-        setShowModal(!showModal)
         setModalFor('create')
         setModalSource('payment')
-        setSelectedItem(null)
     }
 
     function handle_edit(data:any) {
-        setShowModal(!showModal)
         setModalFor('edit')
         setModalSource('payment')
-        setSelectedItem(data)
+        setSelected_payment(data)
     }
 
 
     return (
-        <div className='w-full flex items-start justify-center  px-[20px] md:px-[55px] lg:px-[75px] py-5 relative '  >
+        <div className='relative w-[100%]  flex items-start justify-center p-[10px] pb-0 'style={{height: 'calc(100vh - 60px)'}}  >
             <span className="px-[20px] flex items-center justify-end absolute top-[15px] right-[50px] z-20 h-[50px]  ">
 
                 {alert.message && <Alert message={alert.message} type={alert.type} />} 
@@ -273,26 +270,15 @@ const Payment_page = () => {
 
             <div className="w-full flex flex-col justify-start items-center gap-5">
 
-                {/* section showing metrics */}
-                <div className="w-full flex items-center justify-end">
-                    <button className="px-5 rounded-[2.5px] bg-blue-600 hover:bg-blue-700 text-white text-sm h-[45px]"onClick={handle_new_payment} >
-                        Add Payment
-                    </button>
-                </div>
-
-
                 {/* section four recent payments table */}
-                <div className="w-full flex flex-col items-start justify-start shadow-lg rounded-[3px] border border-slate-100">
-                    <span className="h-[50px] w-full flex items-center justify-start px-[15px] border-b border-slate-200 ">
-                        <p className="text-md font-[600] ">Payment History</p>
-                    </span>
+                <div className="w-full flex flex-col items-start justify-start shadow-lg border border-slate-200 rounded-[3px]  bg-white">
                     
                     <div className="w-full flex flex-wrap items-center justify-between p-[15px] gap-5 pb-0 ">
 
                         <span className="flex items-center max-sm:w-full max-sm:justify-between gap-5">
                             <p className="text-sm max-md:hidden">Showing</p>
-                            <div className="w-[100px] relative flex flex-col items-start justify-start z-10">
-                                <span className="h-[45px] w-full border border-slate-400 rounded-[3px] flex items-center justify-between px-[15px] " onClick={()=> setDrop_list_no(!drop_list_no)} > 
+                            <div className="w-[90px] relative flex flex-col items-start justify-start z-10">
+                                <span className="h-[40px] w-full border border-slate-400 rounded-[3px] flex items-center justify-between px-[15px] " onClick={()=> setDrop_list_no(!drop_list_no)} > 
                                     {list_number == 100000000000000 ? "All": list_number }
                                     <span className="h-[20px] w-[20px] flex items-center justify-center">
                                         {drop_list_no ? <FaCaretUp size={'100%'} /> : <FaCaretDown size={'100%'} /> }
@@ -300,29 +286,32 @@ const Payment_page = () => {
                                 </span>
 
                                 {drop_list_no && <div className="w-full absolute top-[50px] left-0 flex flex-col items-start bg-white shadow-md rounded-[3px]">
-                                    <span className="rounded-t-[3px] h-[45px] w-full text-sm hover:bg-blue-600 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(15)}>15</span>
-                                    <span className="rounded-t-[3px] h-[45px] w-full text-sm hover:bg-blue-600 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(25)}>25</span>
-                                    <span className=" h-[45px] w-full text-sm hover:bg-blue-600 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(50)}>50</span>
-                                    <span className=" h-[45px] w-full text-sm hover:bg-blue-600 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(100)}>100</span>
-                                    <span className="rounded-b-[3px] h-[45px] w-full text-sm hover:bg-blue-600 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no('all')}>All</span>
+                                    <span className="rounded-t-[3px] h-[40px] w-full text-sm hover:bg-blue-500 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(15)}>15</span>
+                                    <span className="rounded-t-[3px] h-[40px] w-full text-sm hover:bg-blue-500 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(25)}>25</span>
+                                    <span className=" h-[40px] w-full text-sm hover:bg-blue-500 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(50)}>50</span>
+                                    <span className=" h-[40px] w-full text-sm hover:bg-blue-500 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(100)}>100</span>
+                                    <span className="rounded-b-[3px] h-[40px] w-full text-sm hover:bg-blue-500 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no('all')}>All</span>
                                 </div>}
                             </div>
 
-=                        </span>
+                        </span>
 
                         <div className="max-sm:w-full flex items-center max-sm:justify-between justify-end gap-5">
 
-
                             <span className="w-[150px] lg:w-[300px] ">
-                                <input type="text" placeholder='Search...' onChange={handle_filter} className='input-type-1 ' />
+                                <input type="text" placeholder='Search...' onChange={handle_filter} className='input-type-2 ' />
                             </span>
+
+                            <button className="px-5 rounded-[40px] bg-blue-500 hover:bg-blue-600 text-white text-sm h-[40px]" onClick={handle_new_payment} >
+                                Add Payment
+                            </button>
                         </div>
 
                     </div>
 
                     <div className="w-full overflow-x-auto">
-                        <div className="min-w-[1350px] p-[15px] flex flex-col items-start justify-start mx-auto ">
-                            <span className="w-full h-[50px] flex items-center justify-between bg-blue-600 text-white rounded-[3px]">
+                        <div className="w-full min-w-[1024px] p-[15px] flex flex-col items-start justify-start mx-auto ">
+                            <span className="w-full h-[45px] flex items-center justify-between bg-blue-500 text-white rounded-[3px]">
                                 <p className="text-sm w-[10%] px-[15px] ">Payment Id</p>
                                 <p className="text-sm w-[8%] px-[15px] ">Task Id</p>
                                 <p className="text-sm w-[13%] px-[15px] ">Task Title</p>
@@ -336,11 +325,11 @@ const Payment_page = () => {
 
                             {loading ? 
                             
-                            <div className="w-full h-[500px] flex items-center justify-center  ">
+                            <div className="w-full h-[367.5px] flex items-center justify-center  ">
                                 <Loading />
                             </div>
                             :
-                            <div className="w-full h-[500px] flex flex-col items-start justify-start overflow-y-auto">
+                            <div className="w-full h-[367.5px] flex flex-col items-start justify-start overflow-y-auto">
                                 <div className="w-full h-full flex flex-col justify-start">
                                     
                                     {filtered_payment_box?.payments.length ? 
@@ -367,7 +356,7 @@ const Payment_page = () => {
                                                 </p>
                                                 <p className="text-sm font-[500] w-[15%] px-[15px] text-slate-600 ">{formatted_time(Number(created_at))}</p>
                                                 <span className="px-[15px] w-[8%] flex items-center ">
-                                                    <button className="h-[30px] rounded-[2.5px] bg-amber-600 hover:bg-amber-700 text-white px-5 text-sm " onClick={()=> handle_edit(data)}>Edit</button>
+                                                    <button className="h-[27.5px] rounded-[2.5px] bg-amber-600 hover:bg-amber-700 text-white px-5 text-sm " onClick={()=> handle_edit(data)}>Edit</button>
                                                 </span>
 
                                                 
@@ -385,7 +374,7 @@ const Payment_page = () => {
                         </div>
                     </div>
 
-                    <span className="w-full h-[50px] flex flex-row items-center justify-between bg-white rounded-b-[3px] border-t border-gray-300 px-[15px] ">
+                    <span className="w-full h-[45px] flex flex-row items-center justify-between bg-white rounded-b-[3px] border-t border-gray-300 px-[15px] ">
                         <span className="flex flex-row items-center justify-start gap-3 h-full">
                             <p className="text-md cursor-pointer" onClick={() => app_payments_action('prev')}>Prev</p>
                             <span className="w-auto h-full flex flex-row items-center justify-start">
@@ -403,12 +392,12 @@ const Payment_page = () => {
                             </p>
                         </span>
                     </span>
-                </div>
+                </div> 
 
 
             </div>
 
-            {showModal && <Modal showModal={showModal} setShowModal={setShowModal} modalFor={modalFor} setModalFor={setModalFor} selectedItem={selectedItem} setSelectedItem={setSelectedItem} modalSource={modalSource} setModalSource={setModalSource} />}
+
         </div>
     )
 }

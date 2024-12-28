@@ -28,11 +28,16 @@ const Drop_down_1 = ({dropArray, setDropArray, selected_item, setSelected_item, 
 
     function handle_list_add() {
         const lowerCaseInput = drop_input.list_add_input.toLowerCase();
-        if (dropArray.some((item) => item.toLowerCase() === lowerCaseInput)) {
-            showAlert(`${drop_input.list_add_input} already exist in the dropdown`, 'warning')
-        } else {
-            setDropArray([...dropArray, drop_input.list_add_input]);
-            setDrop_input({ ...drop_input, list_add_input: '' });
+        if (lowerCaseInput.trim() !== ''){
+
+            if (dropArray.some((item) => item.toLowerCase() === lowerCaseInput)) {
+                showAlert(`${drop_input.list_add_input} already exist in the dropdown`, 'warning')
+            } else {
+                setDropArray([...dropArray, drop_input.list_add_input]);
+                setDrop_input({ ...drop_input, list_add_input: '' });
+            }
+        }else{
+            showAlert('Title field is empty', 'warning')
         }
     }
 
@@ -69,7 +74,7 @@ const Drop_down_1 = ({dropArray, setDropArray, selected_item, setSelected_item, 
             <div className="w-full bg-white min-h-[200px] border border-slate-400 absolute top-[50px] left-0 flex flex-col items-start justify-start p-[10px] rounded-[3px] gap-[10px]">
                     <span className="w-full "> <input type="text" placeholder='search' onChange={handle_filter} className="input-type-2" /> </span>
 
-                <div className="w-full flex flex-col items-start gap-[5px] h-[150px] overflow-y-auto  ">
+                <div className="w-full flex flex-col items-start gap-[5px] h-[140px] overflow-y-auto  ">
                     <div className="w-full flex flex-col gap-[]">
 
                         {
@@ -90,7 +95,7 @@ const Drop_down_1 = ({dropArray, setDropArray, selected_item, setSelected_item, 
 
                 <span className="h-[35px] w-full flex items-center gap-5">
                     <span className="flex-1 "> 
-                        <input type="text" name='list_add_input' value={drop_input.list_add_input} onChange={(e:any)=> setDrop_input({...drop_input, list_add_input: e.target.value})}  placeholder='add item' className="input-type-2" /> 
+                        <input type="text" name='list_add_input' value={drop_input.list_add_input} onChange={(e:any)=> setDrop_input({...drop_input, list_add_input: e.target.value})}  placeholder='add item' className="input-type-3" /> 
                     </span>
                     <button className="h-[35px] rounded-[3px] px-5 bg-blue-600 hover:bg-blue-700 text-white" onClick={handle_list_add}>Add</button>
                 </span>

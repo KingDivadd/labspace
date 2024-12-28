@@ -72,8 +72,12 @@
     @apply h-[45px] w-[100%] outline-none p-[0] px-[10px] border-2 border-red-500 text-sm rounded-[3px] bg-transparent
 }
 
+.input-type-3 {
+    @apply h-[35px] w-[100%] outline-none p-[0] px-[10px] border border-slate-400 text-sm rounded-[3px] bg-transparent
+}
+
 .input-type-2 {
-    @apply h-[35px] w-[100%] outline-none p-[0] px-[10px] border border-slate-400 text-sm rounded-[2.5px] bg-transparent
+    @apply h-[40px] w-[100%] outline-none p-[0] px-[10px] border border-slate-400 text-sm rounded-[3px] bg-transparent
 }
 
 .input-type-1 {
@@ -81,11 +85,15 @@
 }
 
 .input-type-2:focus {
-    @apply border-2 border-blue-600
+    @apply border-2 border-blue-500
+}
+
+.input-type-3:focus {
+    @apply border-2 border-blue-500
 }
 
 .input-type-1:focus {
-    @apply border-2 border-blue-600
+    @apply border-2 border-blue-500
 }
 
 .text-area-input-1 {
@@ -156,21 +164,35 @@
 /* navigation buttons */
 
 .nav-box {
-    @apply px-3 h-[45px] flex items-center justify-center relative whitespace-nowrap min-w-[100px] rounded-[3px] cursor-pointer;
+    @apply px-5 h-[45px] text-[14px] w-full flex items-center justify-start gap-2 relative whitespace-nowrap rounded-[45px] cursor-pointer;
 }
 
-.nav-box:hover::before {
-    content: '';
-    @apply absolute h-[4px] w-full bottom-0 bg-blue-600 cursor-pointer;
+.nav-box:hover {
+    @apply bg-blue-500 text-white;
 }
 
 .active-nav-box {
-    @apply px-3 h-[45px] flex items-center justify-center relative whitespace-nowrap min-w-[100px] rounded-[3px];
+    @apply px-5 h-[45px] text-[14px] w-full flex items-center justify-start gap-2 relative whitespace-nowrap rounded-[45px] bg-blue-500 text-white
 }
 
-.active-nav-box::before {
-    content: '';
-    @apply absolute h-[4px] w-full bottom-0 bg-blue-600
+.prj-nav-btn {
+    @apply h-[40px] text-[13px] px-[20px] flex items-center justify-center gap-2 relative whitespace-nowrap rounded-[45px] cursor-pointer;
+}
+
+.prj-nav-btn:hover {
+    @apply bg-blue-500 text-white;
+}
+
+.active-prj-nav-btn {
+    @apply h-[40px] text-[13px] px-[20px] flex items-center justify-center gap-2 relative whitespace-nowrap rounded-[45px] bg-blue-500 text-white
+}
+
+.logout-box {
+    @apply px-5 h-[45px] text-[14px] w-full flex items-center justify-start gap-2 relative whitespace-nowrap rounded-[45px] cursor-pointer;
+}
+
+.logout-box:hover {
+    @apply bg-red-500 text-white;
 }
 
 .table-body-row-1 {

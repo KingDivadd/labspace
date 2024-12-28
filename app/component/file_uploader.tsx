@@ -107,7 +107,7 @@ export const FileUploaderNew = ({ id, title, url, onFileUpload }: Uploader_props
                 />
                 <button 
                     type="button" 
-                    className="w-full h-[50px] rounded-[3px] text-sm flex items-center justify-center bg-blue-600 text-white hover:bg-blue-700" 
+                    className="w-full h-[50px] rounded-[3px] text-sm flex items-center justify-center bg-blue-500 text-white hover:bg-blue-600" 
                     onClick={() => document.getElementById(`fileInput-${id}`)?.click()}
                 >
                     Select File

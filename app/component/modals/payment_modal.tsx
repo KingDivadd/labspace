@@ -20,11 +20,10 @@ type PaymentBox = {
 interface TaskData {
     task_title: string; task_id: string; task_ind: string; cost: number;
 }
-
 const Payment_modal = () => {
     const router = useRouter()
     const [payment_ind, setPayment_ind] = useState('')
-    const { modalFor, setModalFor, setShowModal, selectedItem, task, setTrigger_notification,trigger_notification} = useChat()
+    const { modalFor, setModalFor, setShowModal, selectedItem, selected_payment, setSelectedItem, setModalSource, showModal, task, setTrigger_notification,trigger_notification, current_task_nav, setCurrent_task_nav} = useChat()
     const [alert, setAlert] = useState({message: '', type: ''})
     const [payment_box, setPayment_box] = useState<PaymentBox>({amount: 0, payer_name: '', task_id:'', payment_receipt: []})
     const [sub_task, setSub_task] = useState({title:'', tag: '', due_date:'2024-12-10', task_id: '', })
@@ -38,7 +37,7 @@ const Payment_modal = () => {
 
         console.log(task)
         if (modalFor != 'create') {
-            const {payment_id, payer_name, task_id, payment_receipt, amount, task } = selectedItem
+            const {payment_id, payer_name, task_id, payment_receipt, amount, task } = selected_payment
 
             const id = payment_id.split('-')
 
@@ -46,12 +45,13 @@ const Payment_modal = () => {
 
             setPayment_ind(new_id)
 
-
-            console.log('selected items \n', selectedItem, )
-
             setTask_list(task)
+
+            console.log('onee ', selected_payment)
             
-            setPayment_box({ ...payment_box, payer_name: payer_name, task_id: task_id, payment_receipt, amount: Number(amount) })
+            setTimeout(() => {
+                setPayment_box({ ...payment_box, payer_name: payer_name, task_id: task_id, payment_receipt, amount: Number(amount) })
+            }, 100);
         }
     }, [])
 
@@ -70,9 +70,12 @@ const Payment_modal = () => {
 
     }
 
-    function handle_cancel_task() {
+    function handle_cancel_payment() {
         setPayment_box({...payment_box, task_id:'', amount: 0, payment_receipt: [], payer_name: ''})
-        setShowModal(false)
+        // now navigate to payment page on project modal
+        setModalFor('view')
+        setModalSource('task-modal')
+        setCurrent_task_nav('payment-history')
     }
 
     
@@ -145,7 +148,7 @@ const Payment_modal = () => {
             setLoading(true); 
             try {
                 
-                const response = await patch_auth_request(`app/edit-payment/${selectedItem.payment_id}`, payment_box)                
+                const response = await patch_auth_request(`app/edit-payment/${selected_payment.payment_id}`, payment_box)                
 
                 if (response.status == 200 || response.status == 201){
 
@@ -174,6 +177,10 @@ const Payment_modal = () => {
         setPayment_box({...payment_box, payment_receipt: files})
     }
 
+    useEffect(() => {
+        select_task_list(selectedItem)
+    }, [])
+
     function select_task_list(data:any) {
         const {task_id, task_title, task_ind, amount} = data
         setPayment_box({...payment_box, task_id})
@@ -193,8 +200,8 @@ const Payment_modal = () => {
 
 
                 {(modalFor == 'create' || modalFor == 'edit') && <div className="max-sm:w-[95vw] mx-auto w-[450px] max-h-[92vh] sm:max-h-[92.5vh] overflow-y-auto">
-                    <span className="w-full px-[25px] h-[60px]  border-b border-slate-200 flex items-center justify-between ">
-                        {modalFor == 'create' ? <p className="text-lg font-[600] text-slate-700 ">New Payment</p> : <p className="text-lg font-[600] text-slate-700 "> {payment_ind}</p>  }
+                    <span className="w-full px-[25px] h-[50px]  border-b border-slate-200 flex items-center justify-between ">
+                        {modalFor == 'create' ? <p className="text-md font-[500] text-slate-700 ">New Payment</p> : <p className="text-lg font-[600] text-slate-700 "> {payment_ind}</p>  }
                         
 
                         {/* <span className="h-[17.5px] w-[17.5px] flex items-center justify-center cursor-pointer" onClick={handle_close_modal}><FaRegCircleXmark size={'100%'}  className='hover:text-red-600' /> </span> */}
@@ -202,9 +209,9 @@ const Payment_modal = () => {
 
                     <div className="w-full flex flex-col items-start justify-start gap-[30px] p-[25px]">
                         <span className="w-full flex flex-col items-start justify-start gap-2">
-                            <p className="text-sm ">Select Task </p>
+                            <p className="text-sm ">Selected Project </p>
                             <span className="w-full flex  items-centeer ">
-                                <div className=" " style={{width: 'calc(100% - 95px)'}} > 
+                                <div className=" w-full"  > 
                                     <div className="w-full flex flex-col items-start justify-start relative ">
                                         <span className="h-[45px] w-full flex items-center justify-start rounded-l-[3px] border border-slate-400 overflow-x-auto px-2  gap-2  ">
                                             { task_list ? <>
@@ -216,43 +223,9 @@ const Payment_modal = () => {
                                             </> : '' }
                                         </span>
 
-                                        {task_drop &&  <ul className="absolute z-10 mt-[53px] h-[245px] w-full bg-white border border-slate-200 rounded-[3px]  bg-white overflow-y-auto " >
-                                            <div className="w-full h-full" >
-                                                {task ?
-                                                <>
-                                                {/* when users is still being fetchined */}
-                                                    { 
-                                                        task.map((data: any, ind:number)=> {
-                                                            const {task_id, task_ind, cost, task_title} = data
-
-                                                            return(
-                                                                    <li key={ind} className="px-[10px] h-[40px] flex items-center justify-between text-sm text-slate-700 hover:bg-blue-500 hover:text-white cursor-pointer" onClick={()=> select_task_list(data)}>
-
-                                                                        <p className="w-[60%] font-[500] overflow-x-auto">
-                                                                            {task_ind} : {task_title} 
-                                                                        </p>
-
-                                                                        <p className="font-[500]">({Number(cost).toLocaleString()})</p>
-                                                    
-                                                                        {task_list?.task_id.includes(task_id) ? <span className="h-[17.5px] w-[17.5px] text-blue-600 float-end "><LuCheck size={'100%'} /> </span>: <span className="h-[17.5px] w-[17.5px] text-blue-600 float-end "> </span>}
-                                                                    </li>
-                                                            )
-                                                        })
-                                                    }
-                                                </>
-
-                                                :
-                                                
-                                                <div className='h-full w-full flex items-center justify-center '>
-                                                    <Loading />
-                                                </div>}
-
-                                            </div>
-                                        </ul>}
                                     </div>
                                 </div>
 
-                                <button className="text-sm h-[45px] rounded-r-[3px] bg-blue-600 hover:bg-blue-700 text-white w-[95px] text-sm" onClick={()=> setTask_drop(!task_drop)} >{task_drop ? "Hide" : "Select"}</button>
                             </span>
                         </span>
 
@@ -278,9 +251,9 @@ const Payment_modal = () => {
                     </div>
 
                     <div className="w-full flex items-center justify-end gap-5 p-[25px] pt-0 ">
-                        <button className="text-sm w-[95px] bg-white text-sm rounded-[3px] hover:text-red-600 border border-white h-[45px] hover:border-red-600 " onClick={handle_cancel_task} > Cancel </button>
+                        <button className="text-sm w-[95px] bg-white text-sm rounded-[3px] hover:text-red-600 border border-white h-[45px] hover:border-red-600 " onClick={handle_cancel_payment} > Cancel </button>
 
-                        {modalFor == 'create'?  <button className="text-sm w-[95px] flex items-center justify-center h-[45px] rounded-[3px] bg-blue-600 hover:bg-blue-700 text-white" onClick={handle_submit} disabled={loading}>
+                        {modalFor == 'create'?  <button className="text-sm w-[95px] flex items-center justify-center h-[45px] rounded-[3px] bg-blue-500 hover:bg-blue-600 text-white" onClick={handle_submit} disabled={loading}>
                             {loading ? (
                             <svg className="w-[25px] h-[25px] animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>

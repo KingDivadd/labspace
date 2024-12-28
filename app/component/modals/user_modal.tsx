@@ -162,6 +162,10 @@ const User_modal = () => {
             }
     }
 
+    function handle_cancel(){
+
+    }
+
     return (
         <div className="w-full">
             <div className=" bg-white max-h-[90vh] w-[450px] rounded-[5px] shadow-md border border-slate-200  overflow-y-auto relative " >
@@ -172,8 +176,8 @@ const User_modal = () => {
 
                 { (modalFor == 'create' || modalFor == 'edit') && <div className="w-full">
 
-                    <span className="w-full px-[25px] h-[60px] border-b border-slate-300 flex items-center justify-between ">
-                        {modalFor == 'create' ? <p className="text-lg font-[500] ">New User</p> :
+                    <span className="w-full px-[25px] h-[50px] border-b border-slate-300 flex items-center justify-between ">
+                        {modalFor == 'create' ? <p className="text-md font-[500] ">New User</p> :
                         <div className="flex justify-start items-center gap-5">
                             <Avatar user={selectedItem} isActive={isActive} toggleActive={toggleActive} />
                             <p className="text-md font-[500] ">{selectedItem.first_name} {selectedItem.last_name}</p>
@@ -219,8 +223,10 @@ const User_modal = () => {
                             </span>
                         </div>
 
-                        <span className="w-full flex items-center justify-end">
-                            {modalFor == 'create' &&  <button className="w-full flex items-center justify-center h-[45px] rounded-[3px] bg-blue-600 hover:bg-blue-700 text-white" onClick={handle_submit} disabled={loading}>
+                        <span className="w-full flex items-center justify-end gap-3">
+                            <button className=" h-[45px] px-5 border border-white hover:border-red-500 hover:text-red-500 text-sm rounded-[3px]  " onClick={handle_cancel}>Cancel</button>
+
+                            {modalFor == 'create' &&  <button className="w-[90px] flex items-center justify-center h-[45px] rounded-[3px] bg-blue-600 hover:bg-blue-700 text-white" onClick={handle_submit} disabled={loading}>
                                 {loading ? (
                                 <svg className="w-[25px] h-[25px] animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
@@ -229,7 +235,7 @@ const User_modal = () => {
                                 ) : 'submit'}
                             </button>}
 
-                            {modalFor == 'edit' &&  <button className="w-full flex items-center justify-center h-[45px] rounded-[3px] bg-amber-600 hover:bg-amber-700 text-white" onClick={handle_update} disabled={loading}>
+                            {modalFor == 'edit' &&  <button className="w-[90px] flex items-center justify-center h-[45px] rounded-[3px] bg-amber-600 hover:bg-amber-700 text-white" onClick={handle_update} disabled={loading}>
                                 {loading ? (
                                 <svg className="w-[25px] h-[25px] animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>

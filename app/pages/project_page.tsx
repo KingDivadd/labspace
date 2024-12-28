@@ -9,7 +9,7 @@ import moment from 'moment'
 import Loading from '../component/loading'
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa6'
 
-const Task_page = () => {
+const Project_page = () => {
     const router = useRouter()
     const [page_number, setPage_number] = useState(1)
     const [list_number, setList_number] = useState(15)
@@ -69,6 +69,8 @@ const Task_page = () => {
 
                     console.log('all tasks \n',tasks)
                                         
+                }else if(response.response.status == 503){
+                    showAlert(response.response.data.err, "error")
                 }else if(response.response.status == 401){
                     router.push('/auth/login')
                 }
@@ -77,7 +79,7 @@ const Task_page = () => {
                 }
             } catch (err:any) {
                 console.error('Network or unexpected error:', err);
-                showAlert('An unexpected error occurred. Please try again later.', 'error');
+                showAlert('Network error, check internet connection.', 'error');
             } 
         
     }
@@ -114,7 +116,7 @@ const Task_page = () => {
             pages.push(
             <p
                 key={i}
-                className={`text-md font-light h-[27px] w-[30px] rounded-[3px] flex items-center justify-center cursor-pointer ${
+                className={`text-md font-light h-[27px] w-[27.5px] rounded-[3px] flex items-center justify-center cursor-pointer ${
                 page_number === i ? 'bg-blue-600 text-white' : ''
                 }`}
                 onClick={() => app_tasks_action(i)}
@@ -139,7 +141,7 @@ const Task_page = () => {
             pages.push(
             <p
                 key={i}
-                className={`text-sm font-light h-[27px] w-[30px] rounded-[3px] flex items-center justify-center cursor-pointer ${
+                className={`text-sm font-light h-[27px] w-[27.5px] rounded-[3px] flex items-center justify-center cursor-pointer ${
                 page_number === i ? 'bg-blue-700 text-white' : ''
                 }`}
                 onClick={() => app_tasks_action(i)}
@@ -267,7 +269,7 @@ const Task_page = () => {
 
 
     return (
-        <div className='w-full flex items-start justify-center  px-[20px] md:px-[55px] lg:px-[75px] py-5 relative '  >
+        <div className='relative w-full  flex items-start justify-center p-[10px] 'style={{height: 'calc(100vh - 60px)'}}  >
             <span className="px-[20px] flex items-center justify-end absolute top-[15px] right-[50px] z-20 h-[50px]  ">
 
                 {alert.message && <Alert message={alert.message} type={alert.type} />} 
@@ -275,43 +277,22 @@ const Task_page = () => {
 
             <div className="w-full flex flex-col justify-start items-center gap-5">
 
-                {/* section showing metrics */}
-
-                {loggedInUser.is_admin && <div className="w-full flex items-center justify-end">
-
-                    {/* <div className="w-full flex  items-center justify-start max-sm:justify-between gap-5">
-
-                        <span className="flex items-center jusitify-center gap-[10px] sm:gap-5 h-[45px] shadow-md border border-gray-100 w-[120px] ">
-
-                            <p className="text-sm md:text-md text-blue-600 text-center">All Tasks</p>
-                            <p className="text-xl md:text-2xl font-[600] text-blue-600"> {loading ? '--': <>{task_box?.total_number_of_tasks}</> } </p>
-
-                        </span>
-                        <span className="flex items-center jusitify-center gap-[10px] sm:gap-5">
-
-                            <p className="text-sm md:text-md text-teal-700 text-center">Assigned Tasks</p>
-                            <p className="text-xl md:text-2xl font-[600] text-teal-700"> {loading ? '--': <>{task_box?.no_of_assigned_task}</> } </p>
-
-                        </span>
-
-                    </div> */}
-
-                    {loggedInUser.is_admin && <button className="text-sm max-sm:hidden px-5 whitespace-nowrap h-[45px] rounded-[3px] text-white bg-blue-600 hover:bg-blue-700" onClick={handle_add_task} >Add Task</button>}
-                </div>}
-
-
                 {/* section four recent transaction table */}
-                <div className="w-full flex flex-col items-start justify-start shadow-lg rounded-[3px] border border-slate-100">
-                    <span className="h-[50px] w-full flex items-center justify-start px-[15px] border-b border-slate-200 ">
-                        <p className="text-md font-[600] ">Tasks</p>
+                <div className="w-full bg-white flex flex-col items-start justify-start shadow-lg rounded-[3px] border border-slate-100">
+                    <span className=" w-full flex items-center justify-between px-[15px] py-[10px]  ">
+                        <p className="text-md font-[500] ">Projects</p>
+
+                        <span className="h-[40px]"></span>
+
+                        {loggedInUser.is_admin && <button className="h-[40px] px-5 bg-blue-500 hover:bg-blue-600 text-white rounded-[45px] text-sm " onClick={handle_add_task}>Add Project</button>}
                     </span>
                     
-                    <div className="w-full flex flex-wrap items-center justify-between p-[15px] gap-5 pb-0 ">
+                    <div className="w-full flex flex-wrap items-center justify-between px-[15px] gap-5 pb-0 ">
 
                         <span className="flex items-center max-sm:w-full max-sm:justify-between gap-5">
                             <p className="text-sm max-md:hidden">Showing</p>
-                            <div className="w-[100px] relative flex flex-col items-start justify-start z-10">
-                                <span className="h-[45px] w-full border border-slate-400 rounded-[3px] flex items-center justify-between px-[15px] " onClick={()=> setDrop_list_no(!drop_list_no)} > 
+                            <div className="w-[85px] relative flex flex-col items-start justify-start z-10">
+                                <span className="h-[40px] w-full border border-slate-400 rounded-[3px] flex items-center justify-between px-[15px] text-sm " onClick={()=> setDrop_list_no(!drop_list_no)} > 
                                     {list_number == 100000000000000 ? "All": list_number }
                                     <span className="h-[20px] w-[20px] flex items-center justify-center">
                                         {drop_list_no ? <FaCaretUp size={'100%'} /> : <FaCaretDown size={'100%'} /> }
@@ -319,11 +300,11 @@ const Task_page = () => {
                                 </span>
 
                                 {drop_list_no && <div className="w-full absolute top-[50px] left-0 flex flex-col items-start bg-white shadow-md rounded-[3px]">
-                                    <span className="rounded-t-[3px] h-[45px] w-full text-sm hover:bg-blue-600 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(15)}>15</span>
-                                    <span className="rounded-t-[3px] h-[45px] w-full text-sm hover:bg-blue-600 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(25)}>25</span>
-                                    <span className=" h-[45px] w-full text-sm hover:bg-blue-600 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(50)}>50</span>
-                                    <span className=" h-[45px] w-full text-sm hover:bg-blue-600 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(100)}>100</span>
-                                    <span className="rounded-b-[3px] h-[45px] w-full text-sm hover:bg-blue-600 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no('all')}>All</span>
+                                    <span className="rounded-t-[3px] h-[40px] w-full text-sm hover:bg-blue-500 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(15)}>15</span>
+                                    <span className="rounded-t-[3px] h-[40px] w-full text-sm hover:bg-blue-500 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(25)}>25</span>
+                                    <span className=" h-[40px] w-full text-sm hover:bg-blue-500 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(50)}>50</span>
+                                    <span className=" h-[40px] w-full text-sm hover:bg-blue-500 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(100)}>100</span>
+                                    <span className="rounded-b-[3px] h-[40px] w-full text-sm hover:bg-blue-500 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no('all')}>All</span>
                                 </div>}
                             </div>
 
@@ -331,25 +312,23 @@ const Task_page = () => {
                         </span>
 
                         <div className="max-sm:w-full flex items-center max-sm:justify-between justify-end gap-5">
-                            {loggedInUser.is_admin && <span className=" w-[150px] lg:w-[300px] h-[45px] ">
+                            {loggedInUser.is_admin && <span className=" w-[150px] lg:w-[300px] h-[40px] ">
                                 <Dropdown options={['All Tasks', 'Assigned Tasks', 'Task Created']} id='task' placeholder='All Tasks' onSelect={handle_selected} />
                             </span>}
 
                             <span className="w-[150px] lg:w-[300px] ">
-                                <input type="text" placeholder='search' onChange={handle_filter} className='input-type-1 ' />
+                                <input type="text" placeholder='search' onChange={handle_filter} className='input-type-2 ' />
                             </span>
                         </div>
 
                     </div>
 
-                    <div className="w-full overflow-x-auto">
-                        <div className="min-w-[1350px] p-[15px] flex flex-col items-start justify-start mx-auto ">
-                            <span className="w-full h-[50px] flex items-center justify-between bg-blue-600 text-white rounded-[3px]">
-                                <p className="text-sm w-[15%] px-[15px] ">Last Updated</p>
-                                <p className="text-sm w-[8%] px-[15px] ">Task Id</p>
-                                <p className="text-sm w-[14.5%] px-[15px] ">Task Title</p>
+                    <div className="w-full overflow-x-auto ">
+                        <div className="min-w-[1024px] px-[15px] py-[10px] flex flex-col items-start justify-start mx-auto ">
+                            <span className="w-full h-[45px] flex items-center justify-between bg-blue-500 text-white rounded-[3px]">
+                                <p className="text-sm w-[18%] px-[15px] ">Last Updated</p>
+                                <p className="text-sm w-[14.5%] px-[15px] ">Project Title</p>
                                 <p className="text-sm w-[10%] px-[15px] ">Project Cost</p>
-                                <p className="text-sm w-[10%] px-[15px] ">Priority</p>
                                 <p className="text-sm w-[15%] px-[15px] ">Assigned To</p>
                                 <p className="text-sm w-[10%] px-[15px] ">Stage</p>
                                 <p className="text-sm w-[10%] px-[15px] ">Assets</p>
@@ -358,11 +337,11 @@ const Task_page = () => {
 
                             {loading ? 
                             
-                            <div className="w-full h-[500px] flex items-center justify-center  ">
+                            <div className="w-full flex items-center justify-center  " style={{ height: 'calc(100vh - 295px)'}}>
                                 <Loading />
                             </div>
                             :
-                            <div className="w-full h-[500px] flex flex-col items-start justify-start overflow-y-auto">
+                            <div className="w-full flex flex-col items-start justify-start overflow-y-auto" style={{ height: 'calc(100vh - 295px)'}}>
                                 <div className="w-full h-full flex flex-col justify-start">
                                     
                                     {filtered_task_box?.tasks.length ? 
@@ -376,11 +355,9 @@ const Task_page = () => {
 
                                         return(
                                             <span key={ind} className=" table-body-row-1  " >
-                                                <p className="text-sm font-[500] w-[15%] px-[15px] text-slate-600 ">{formatted_time(Number(updated_at))}</p>
-                                                <p className="text-sm font-[500] w-[8%] px-[15px] cursor-pointer hover:text-blue-600 hover:underline " onClick={()=> handle_view(data)}>{task_ind}</p>
+                                                <p className="text-sm font-[500] w-[18%] px-[15px] text-slate-600 ">{formatted_time(Number(updated_at))}</p>
                                                 <p className="text-sm font-[500] w-[14.5%] overflow truncate text-ellipsis  px-[15px] text-slate-600 ">{task_title}</p>
                                                 <p className="text-sm font-[500] w-[10%] overflow truncate text-ellipsis  px-[15px] text-slate-600 "> {Number(cost).toLocaleString()}</p>
-                                                <p className={`text-sm font-[500] w-[10%] px-[15px]`}>{priority} </p>
 
                                                 <span className="w-[15%] px-[15px] flex items-center justify-start overflow-visible ">
                                                     {team.slice(0, 5).map((data: any, indd: number) => {
@@ -398,9 +375,9 @@ const Task_page = () => {
                                                 <span className="w-[10%] px-[15px] flex items-center justify-start gap-[5px] "> <AssetCont activities={info.activities} assets={info.assets} sub_tasks={info.sub_task}  /> </span>
 
                                                 <span className=" w-[15%] px-[15px] flex items-center justify-start gap-[10px]" >
-                                                    <button className="text-sm px-[15px] h-[30px] text-sm rounded-[2.5px] text-white bg-sky-500 hover:bg-sky-600" onClick={()=> handle_view(data)} >View</button>
-                                                    {/* <button className="text-sm px-[17.5px] h-[30px] text-sm rounded-[2.5px] text-white bg-amber-600 hover:bg-amber-700" onClick={()=> handle_edit(data)} >edit</button> */}
-                                                    {loggedInUser.is_admin && <button className="text-sm px-[15px] h-[30px] text-sm rounded-[2.5px] text-white bg-red-600 hover:bg-red-700" onClick={()=> handle_delete(data)}>Delete</button>}
+                                                    <button className="text-sm px-[15px] h-[27.5px] text-sm rounded-[2.5px] text-white bg-sky-500 hover:bg-sky-600" onClick={()=> handle_view(data)} >View</button>
+                                                    {/* <button className="text-sm px-[17.5px] h-[27.5px] text-sm rounded-[2.5px] text-white bg-amber-600 hover:bg-amber-700" onClick={()=> handle_edit(data)} >edit</button> */}
+                                                    {loggedInUser.is_admin && <button className="text-sm px-[15px] h-[27.5px] text-sm rounded-[2.5px] text-white bg-red-600 hover:bg-red-700" onClick={()=> handle_delete(data)}>Delete</button>}
                                                 </span>
                                                 
                                             </span>
@@ -409,8 +386,8 @@ const Task_page = () => {
                                     </>
                                     : 
                                     <div className="w-full flex items-center justify-center h-full  ">
-                                        {loggedInUser.is_admin ? <p className="text-md font-[500] ">Click on Add Task to begin creating Task</p>:
-                                        <p className="text-md font-[500] ">No Task has been assigned to you yet.</p>}
+                                        {loggedInUser.is_admin ? <p className="text-md font-[500] ">Click on Add Project to begin creating Project</p>:
+                                        <p className="text-md font-[500] ">No Project has been assigned to you yet.</p>}
                                     </div> }
                                 </div>
                             </div>}
@@ -418,7 +395,7 @@ const Task_page = () => {
                         </div>
                     </div>
 
-                    <span className="w-full h-[50px] flex flex-row items-center justify-between bg-white rounded-b-[3px] border-t border-gray-300 px-[15px] ">
+                    <span className="w-full h-[45px] flex flex-row items-center justify-between bg-white rounded-b-[3px] border-t border-slate-200 px-[15px] ">
                         <span className="flex flex-row items-center justify-start gap-3 h-full">
                             <p className="text-md cursor-pointer" onClick={() => app_tasks_action('prev')}>Prev</p>
                             <span className="w-auto h-full flex flex-row items-center justify-start">
@@ -446,4 +423,4 @@ const Task_page = () => {
     )
 }
 
-export default Task_page
+export default Project_page

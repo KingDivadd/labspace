@@ -41,6 +41,8 @@ interface ChatContextType {
     setShowModal: (showModal:boolean ) => void;
     selectedItem: any;
     setSelectedItem: (selectedItem: any) => void;
+    selected_payment: any;
+    setSelected_payment: (selected_payment: any) => void;
     notification: NotificationProp;
     setNotification: (notification: NotificationProp) => void;
     modalFor: string;
@@ -59,6 +61,8 @@ interface ChatContextType {
     setTask: (task: any) => void;
     admin_dash: AdminDashProps;
     setAdmin_dash: (admin_dash: AdminDashProps)=>void;
+    current_task_nav: string;
+    setCurrent_task_nav: (current_task_nav: string) => void;
 }
 
 
@@ -84,6 +88,8 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [notification, setNotification] = useState({number_of_unread_notification:0, unread_notifications:null})
     const [admin_dash, setAdmin_dash] = useState({recent_notification:null, recent_tasks:null, recent_users:null, recent_payments:null, total_no_of_assigned_tasks:0, total_no_of_completed_tasks:0, total_no_of_tasks:0, total_no_of_tasks_in_progress:0, total_no_of_todo_tasks:0})
     const [task, setTask] = useState(null)
+    const [current_task_nav, setCurrent_task_nav] = useState('project_details')
+    const [selected_payment, setSelected_payment] = useState(null)
 
     return (
         <ChatContext.Provider value={{
@@ -96,7 +102,8 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             showModal, setShowModal, selectedItem, setSelectedItem, modalFor, setModalFor, modalSource, setModalSource,
             profileToggle, setProfileToggle,
             loggedInUser, setLoggedInUser, loadingDot, setLoadingDot, app_users, setApp_users, notification,  setNotification,
-            admin_dash, setAdmin_dash, task, setTask
+            admin_dash, setAdmin_dash, task, setTask, current_task_nav, setCurrent_task_nav,
+            selected_payment, setSelected_payment
             }}>
             {children}
         </ChatContext.Provider>

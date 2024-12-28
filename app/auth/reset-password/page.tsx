@@ -112,14 +112,14 @@ const ResetPassword = () => {
 
 
             <div className=" max-sm:p-[15px] mx-auto flex flex-wrap items-center justify-center gap-[50px] lg:gap-20  "> 
-                <p className=' sm:w-[400px] lg:mb-10 max-sm:text-[35px] max-lg:text-[40px] lg:text-[55px] max-lg:font-[700] lg:font-[800] text-center text-blue-600 cursor-pointer' onClick={()=>router.push('/')}>
+                <p className=' sm:w-[400px] lg:mb-10 max-sm:text-[35px] max-lg:text-[40px] lg:text-[55px] max-lg:font-[700] lg:font-[800] text-center text-blue-500 cursor-pointer' onClick={()=>router.push('/')}>
                     Labpspace
                 </p>
 
                 <form action='' className="w-full sm:w-[400px] flex flex-col items-start justify-start rounded-[5px] p-[20px] bg-white min-h-[200px] py-[30px] gap-[35px] shadow-lg border border-slate-200 ">
 
                     <span className="w-full flex flex-col items-center justify-start gap-[5px]"> 
-                        <p className="text-[27.5px] font-[700] text-blue-600"> Reset Password</p>
+                        <p className="text-[27.5px] font-[700] text-blue-500"> Reset Password</p>
                         <p className="text-sm font-[500] text-slate-700 text-centeer">Create a new password</p>
                     </span>
                     
@@ -127,7 +127,7 @@ const ResetPassword = () => {
                         <span className="w-full relative  ">
                             <input type={showPassword.password ? "text" : "password"} name='password' placeholder='Password' className={inputError.password ? 'input-error-1' : 'input-type-1'} value={auth.password} onChange={handle_change} />
 
-                            <span className='absolute w-[40px] flex items-center justify-center top-[12.5px] right-0 text-blue-600' onClick={()=> setShowPassword({...showPassword, password: !showPassword.password})} >
+                            <span className='absolute w-[40px] flex items-center justify-center top-[12.5px] right-0 text-blue-500' onClick={()=> setShowPassword({...showPassword, password: !showPassword.password})} >
                                 {showPassword ? <IoEye size={20} className='cursor-pointer' /> : <IoMdEyeOff size={20} className='cursor-pointer' />}
                             </span>
                         </span>
@@ -137,13 +137,13 @@ const ResetPassword = () => {
                         <span className="w-full relative  ">
                             <input type={showPassword.confirm_password ? "text" : "password"} name='confirm_password' placeholder='Confirm Password' className={inputError.password ? 'input-error-1' : 'input-type-1'} value={auth.confirm_password} onChange={handle_change} />
 
-                            <span className='absolute w-[40px] flex items-center justify-center top-[12.5px] right-0 text-blue-600' onClick={()=> setShowPassword({...showPassword, confirm_password: !showPassword.confirm_password})} >
+                            <span className='absolute w-[40px] flex items-center justify-center top-[12.5px] right-0 text-blue-500' onClick={()=> setShowPassword({...showPassword, confirm_password: !showPassword.confirm_password})} >
                                 {showPassword ? <IoEye size={20} className='cursor-pointer' /> : <IoMdEyeOff size={20} className='cursor-pointer' />}
                             </span>
                         </span>
                     </span>
 
-                    <button className="w-full flex items-center justify-center h-[45px] rounded-[3px] bg-blue-600 hover:bg-blue-700 text-white" onClick={handle_submit} disabled={loading}>
+                    <button className="w-full flex items-center justify-center h-[45px] rounded-[3px] bg-blue-500 hover:bg-blue-600 text-white" onClick={handle_submit} disabled={loading}>
                         {loading ? (
                         <svg className="w-[25px] h-[25px] animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
@@ -154,7 +154,7 @@ const ResetPassword = () => {
 
                     <span className="w-full flex items-center justify-center gap-[5px]">
                         <p className="text-sm font-[500] text-slate-700  " >Remembered password</p>
-                        <p className="text-sm font-[500] cursor-pointer text-blue-600 hover:underline " onClick={()=> router.push('/auth/login')} >Login</p>
+                        <p className="text-sm font-[500] cursor-pointer text-blue-500 hover:underline " onClick={()=> router.push('/auth/login')} >Login</p>
                     </span>
 
                 </form>

@@ -193,7 +193,7 @@ export const Avatar = ({ user, isActive, toggleActive }: AvatarProp) => {
             {/* Avatar Circle */}
             <div
                 className={`w-[45px] h-[45px] flex items-center justify-center rounded-full ${
-                    avatar ? '' : 'bg-blue-600 text-white font-[400]'
+                    avatar ? '' : 'bg-blue-500 text-white font-[400]'
                 }`}
                 style={{
                     backgroundImage: avatar ? `url(${avatar})` : undefined,
@@ -226,7 +226,7 @@ export const SmallAvatar = ({ user, isActive, toggleActive }: AvatarProp) => {
             {/* Avatar Circle */}
             <div
                 className={`w-[37.5px] h-[37.5px] flex items-center justify-center rounded-full ${
-                    avatar ? '' : 'bg-blue-600 text-white  font-[400]'
+                    avatar ? '' : 'bg-blue-500 text-white  font-[400]'
                 }`}
                 style={{
                     backgroundImage: avatar ? `url(${avatar})` : undefined,
@@ -284,12 +284,12 @@ export const AvatarUserInfo = ({ data }: {
     }, []);
 
     return (
-        <div className="relative inline-block" ref={dropdownRef}>
+        <div className="relative " ref={dropdownRef}>
             {/* Avatar Circle */}
             <div
                 onClick={toggleDropdown}
                 className={`w-[37.5px] h-[37.5px] flex items-center justify-center rounded-full cursor-pointer border border-white ${
-                    avatar ? '' : 'bg-blue-600 text-white font-[400]'
+                    avatar ? '' : 'bg-blue-500 text-white font-[400]'
                 }`}
                 style={{
                     backgroundImage: avatar ? `url(${avatar})` : undefined,
@@ -317,7 +317,7 @@ export const AvatarUserInfo = ({ data }: {
                         <div className="relative">
                             <div
                                 className={`w-[50px] h-[50px] rounded-full ${
-                                    avatar ? '' : 'bg-blue-600 text-white flex items-center justify-center'
+                                    avatar ? '' : 'bg-blue-500 text-white flex items-center justify-center'
                                 }`}
                                 style={{
                                     backgroundImage: avatar ? `url(${avatar})` : undefined,
@@ -381,7 +381,7 @@ export const UserInfo = ({ data }: {
                     <div className="relative">
                         <div
                             className={`w-[40px] h-[40px] rounded-full ${
-                                avatar ? '' : 'bg-blue-600 text-white flex items-center justify-center'
+                                avatar ? '' : 'bg-blue-500 text-white flex items-center justify-center'
                             }`}
                             style={{
                                 backgroundImage: avatar ? `url(${avatar})` : undefined,
@@ -478,6 +478,62 @@ export const Dropdown: React.FC<DropdownProps> = ({ id, options, placeholder = "
     return (
     <div className="relative w-full" ref={dropdownRef}>
         <button
+        className="w-full bg-white border border-slate-400 rounded-[3px] shadow-sm px-[10px] h-[40px] text-left text-sm focus:ring-blue-500"
+        onClick={toggleDropdown}
+        >
+        {selectedOption || placeholder}
+        <span className="float-right h-[20px] w-[20px] text-slate-700">
+            {isOpen ? <FaCaretUp size="100%" /> : <FaCaretDown size="100%" />}
+        </span>
+        </button>
+        {isOpen && (
+        <ul className="absolute z-10 mt-2 w-full bg-white  rounded-[3px] shadow-md bg-white">
+            {options.map((option) => (
+            <li
+                key={option}
+                onClick={() => handleSelect(option)}
+                className="px-[10px] h-[40px] flex items-center text-sm text-slate-700 hover:bg-blue-500 hover:text-white cursor-pointer"
+            >
+                {option}
+            </li>
+            ))}
+        </ul>
+        )}
+    </div>
+    );
+};
+
+export const Dropdownlg: React.FC<DropdownProps> = ({ id, options, placeholder = "Select an option", onSelect }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedOption, setSelectedOption] = useState<string | null>(null);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    const toggleDropdown = () => setIsOpen((prev) => !prev);
+
+    const handleSelect = (option: string) => {
+    setSelectedOption(option);
+    setIsOpen(false);
+    if (onSelect) {
+        onSelect(option, id); // Passes id along with the selected option
+    }
+    };
+
+    const handleClickOutside = (event: MouseEvent) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+    }
+    };
+
+    useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+    };
+    }, []);
+
+    return (
+    <div className="relative w-full" ref={dropdownRef}>
+        <button
         className="w-full bg-white border border-slate-400 rounded-[3px] shadow-sm px-[10px] h-[45px] text-left text-sm focus:ring-blue-500"
         onClick={toggleDropdown}
         >
@@ -492,7 +548,7 @@ export const Dropdown: React.FC<DropdownProps> = ({ id, options, placeholder = "
             <li
                 key={option}
                 onClick={() => handleSelect(option)}
-                className="px-[10px] h-[40px] flex items-center text-sm text-slate-700 hover:bg-blue-600 hover:text-white cursor-pointer"
+                className="px-[10px] h-[40px] flex items-center text-sm text-slate-700 hover:bg-blue-500 hover:text-white cursor-pointer"
             >
                 {option}
             </li>
@@ -598,7 +654,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({ id, maxFiles = 5, onFile
                     </span>
                 )}
             </span>
-            <label className="w-[95px] rounded-r-[3px] h-[45px] bg-blue-600 hover:bg-blue-700 text-white text-sm flex items-center justify-center cursor-pointer">
+            <label className="w-[95px] rounded-r-[3px] h-[45px] bg-blue-500 hover:bg-blue-600 text-white text-sm flex items-center justify-center cursor-pointer">
                 Browse
                 <input
                     type="file"

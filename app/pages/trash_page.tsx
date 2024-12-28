@@ -64,7 +64,7 @@ const Trash_page = () => {
                     setTrash_box(trash)
                     setFiltered_trash_box(trash)
 
-                    console.log('all trash \n',trash)
+                    console.log(trash)
                                         
                 }else if(response.response.status == 401){
                     router.push('/auth/login')
@@ -73,8 +73,7 @@ const Trash_page = () => {
                     showAlert(response.response.data.err, "error")
                 }
             } catch (err:any) {
-                console.error('Network or unexpected error:', err);
-                showAlert('An unexpected error occurred. Please try again later.', 'error');
+                showAlert('Network error, check internet connection.', 'error');
             } 
         
     }
@@ -259,7 +258,7 @@ const Trash_page = () => {
 
 
     return (
-        <div className='w-full flex items-start justify-center  px-[20px] md:px-[55px] lg:px-[75px] py-5 relative '  >
+        <div className='relative w-full  flex items-start justify-center p-[10px] 'style={{height: 'calc(100vh - 60px)'}}  >
             <span className="px-[20px] flex items-center justify-end absolute top-[15px] right-[50px] z-20 h-[50px]  ">
 
                 {alert.message && <Alert message={alert.message} type={alert.type} />} 
@@ -277,14 +276,14 @@ const Trash_page = () => {
 
 
                 {/* section four recent transaction table */}
-                <div className="w-full flex flex-col items-start justify-start shadow-lg rounded-[3px] border border-slate-100">
-                    <span className="h-[50px] w-full flex items-center justify-start px-[15px] border-b border-slate-200 ">
-                        <p className="text-md font-[600] ">Trash</p>
+                <div className="bg-white w-full flex flex-col items-start justify-start shadow-lg rounded-[3px] border border-slate-100">
+                    <span className="h-[45px] w-full flex items-center justify-start px-[15px]  ">
+                        <p className="text-md font-[500] ">Trash</p>
                     </span>
                     
                     <div className="w-full overflow-x-auto">
-                        <div className="min-w-[1350px] p-[15px] flex flex-col items-start justify-start mx-auto ">
-                            <span className="w-full h-[50px] flex items-center justify-between bg-blue-600 text-white rounded-[3px]">
+                        <div className="min-w-[1024px] px-[15px] py-[10] flex flex-col items-start justify-start mx-auto ">
+                            <span className="w-full h-[45px] flex items-center justify-between bg-blue-500 text-white rounded-[3px]">
                                 <p className="text-sm w-[17.5%] px-[15px] ">Delete on</p>
                                 <p className="text-sm w-[15%] px-[15px] ">Deleted By</p>
                                 <p className="text-sm w-[50%] px-[15px] ">File Deleted</p>
@@ -293,11 +292,11 @@ const Trash_page = () => {
 
                             {loading ? 
                             
-                            <div className="w-full h-[500px] flex items-center justify-center  ">
+                            <div className="w-full h-[500px] flex items-center justify-center  " style={{ height: 'calc(100vh - 217.5px)'}}>
                                 <Loading />
                             </div>
                             :
-                            <div className="w-full h-[500px] flex flex-col items-start justify-start overflow-y-auto">
+                            <div className="w-full h-[500px] flex flex-col items-start justify-start overflow-y-auto" style={{ height: 'calc(100vh - 217.5px)'}}>
                                 <div className="w-full h-full flex flex-col justify-start">
                                     
                                     {filtered_trash_box?.trash.length ? 
@@ -313,9 +312,9 @@ const Trash_page = () => {
                                                 <p className="text-sm font-[500] w-[15%] px-[15px] text-slate-600 overflow-x-auto">{deleted_by ? `${deleted_by.first_name} ${deleted_by.last_name}` : '--'}</p>
                                                 <p className="text-sm font-[500] w-[50%] px-[15px] cursor-pointer text-slate-600 hover:underline ">{deleted_file}</p>
                                                 <span className="w-[17.5%] px-[15px] flex items-center gap-5">
-                                                    <button className="h-[30px] rounded-[2.5px] bg-blue-600 hover:bg-blue-700 text-white px-5 text-sm" onClick={()=> handle_restore(data)}> Restore</button>
+                                                    <button className="h-[27.5px] rounded-[2.5px] bg-blue-500 hover:bg-blue-600 text-white px-5 text-sm" onClick={()=> handle_restore(data)}> Restore</button>
 
-                                                    <button className="h-[30px] rounded-[2.5px] bg-red-600 hover:bg-red-700 text-white px-5 text-sm" onClick={()=> handle_delete(data)}> Delete</button>
+                                                    <button className="h-[27.5px] rounded-[2.5px] bg-red-600 hover:bg-red-700 text-white px-5 text-sm" onClick={()=> handle_delete(data)}> Delete</button>
                                                 </span>
                                                 
                                                 
@@ -333,7 +332,7 @@ const Trash_page = () => {
                         </div>
                     </div>
 
-                    <span className="w-full h-[50px] flex flex-row items-center justify-between bg-white rounded-b-[3px] border-t border-gray-300 px-[15px] ">
+                    <span className="w-full h-[45px] flex flex-row items-center justify-between bg-white rounded-b-[3px] border-t border-gray-300 px-[15px] ">
                         <span className="flex flex-row items-center justify-start gap-3 h-full">
                             <p className="text-md cursor-pointer" onClick={() => app_trash_action('prev')}>Prev</p>
                             <span className="w-auto h-full flex flex-row items-center justify-start">

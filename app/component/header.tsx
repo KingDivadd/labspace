@@ -30,32 +30,31 @@ const Header = () => {
     }
 
     return (
-        <div className="w-full flex flex-col items-center justify-start bg-blue-600 ">
+        <div className="w-full flex flex-col items-center justify-start bg-blue-500 ">
             <nav className="w-[92.5%] mx-auto h-[120px] flex items-center justify-between ">
                 {/* left nav */}
                 <div className=" flex h-full items-center justify-start gap-5">
                     <span className="flex items-center mr-5 cursor-pointer" onClick={()=> setHeader_nav('home') }>
-                        <p className="text-xl font-semibold text-white">Labp</p>
+                        <p className="text-xl font-semibold text-white">Lab</p>
                         <p className="text-xl font-semibold text-sky-400">space</p>
                     </span>
-
                     
                 </div>
                 {/* right nav */}
 
                 <div className=" flex h-full items-center justify-end gap-5">
                     
-                    <button className="h-[50px] font-[500] text-lg px-5 flex items-center text-slate-300 border-2 border-slate-300 hover:text-sky-400 hover:border-sky-400  "  onClick={()=> router.push('/auth/login')}>
+                    <button className="sm:h-[50px] h-[40px] font-[500] text-lg px-5 flex items-center text-slate-300 border-2 border-slate-300 hover:text-sky-400 hover:border-sky-400  "  onClick={()=> router.push('/auth/login')}>
                         Sign in
                     </button>
                 </div>
             </nav>
 
             {(header_nav == 'home' || header_nav == 'features' ) && 
-            <div className="w-[70%] mx-auto flex flex-col items-start justify-start gap-5 mb-20">
-                <p className="xl:text-[65px] font-bold text-white">LABPSPACE</p>
-                <p className="xl:text-lg w-[550px] text-start font-[400] text-white">Get a high-level view of all your task, manage, assign and track progress.</p>
-                <button className="h-[60px] text-xl font-[400] bg-sky-400  px-5 flex items-center text-white hover:bg-sky-500 mt-5">
+            <div className="w-[70%] max-sm:w-[90%] mx-auto flex flex-col items-start max-sm:items-end justify-start gap-5 mb-20 ">
+                <p className="xl:text-[65px] font-bold text-white w-full text-start">LABSPACE</p>
+                <p className="xl:text-lg w-full text-start font-[400] text-white">Get a high-level view of all your task, manage, assign and track progress.</p>
+                <button className="h-[60px] max-sm:h-[45px] text-xl font-[400] bg-sky-400  px-5 flex items-center text-white hover:bg-sky-500 mt-5">
                     Proceed
                 </button>
 
