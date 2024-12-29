@@ -24,7 +24,7 @@ const Task_modal = () => {
     const router = useRouter()
     const { modalFor, setModalFor, setShowModal, selectedItem, app_users, setTrigger_notification,trigger_notification, current_task_nav, setCurrent_task_nav} = useChat()
     const [alert, setAlert] = useState({message: '', type: ''})
-    const [task_box, setTask_box] = useState<TaskBox>({task_title: "", priority: '', cost: 0, stage: 'todo', team: [], assets: []})
+    const [task_box, setTask_box] = useState<TaskBox>({task_title: "", priority: 'normal', cost: 0, stage: 'todo', team: [], assets: []})
     const [sub_task, setSub_task] = useState({title:'', tag: '', date:'2024-12-10', due_date: 0  })
     const [activity, setActivity] = useState({description: '', activity_type: 'commented'})
     const [team_members, setTeam_members] = useState([])
