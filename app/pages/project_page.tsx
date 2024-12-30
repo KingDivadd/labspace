@@ -13,10 +13,10 @@ const Project_page = () => {
     const router = useRouter()
     const [page_number, setPage_number] = useState(1)
     const [list_number, setList_number] = useState(15)
-    const [task_box, setLead_box] = useState<Props | null>(null);
+    const [task_box, setTask_box] = useState<Props | null>(null);
     const [filtered_task_box, setFiltered_task_box] = useState<Props | null>(null);
     const [filters, setFilters] = useState({filter_input: '', disposition: ''})
-    const {loggedInUser, modalFor, setModalFor, selectedItem, setSelectedItem, showModal, setShowModal, setModalSource, modalSource, setApp_users} = useChat()
+    const {loggedInUser, modalFor, setModalFor, selectedItem, setSelectedItem, showModal, setShowModal, setModalSource, modalSource, app_users, setApp_users} = useChat()
     const [alert, setAlert] = useState({message: '', type: ''})
     const [loading, setLoading] = useState(true)
     const [isActive, setIsActive] = useState(true);
@@ -63,7 +63,7 @@ const Project_page = () => {
 
                     const tasks = response.data
                     setLoading(false);
-                    setLead_box(tasks)
+                    setTask_box(tasks)
                     setFiltered_task_box(tasks)
                     setApp_users(tasks?.users)
 
@@ -165,12 +165,14 @@ const Project_page = () => {
 
                     const task_ind = data.task_ind?.toLowerCase() || '';
                     const task_title = data.task_title?.toLowerCase() || ''
+                    const gapless_task_title = data.task_title?.replace(/ /g, '').toLowerCase() || ''
                     const priority = data.priority?.toLowerCase() || ''
                     const stage = data.stage?.toLowerCase() || ''
                     
                     return (
                         task_ind.includes(value) ||
                         task_title.includes(value) ||
+                        gapless_task_title.includes(value) ||
                         priority.includes(value) ||
                         stage.includes(value) 
 
@@ -179,7 +181,7 @@ const Project_page = () => {
                 
                 console.log(filtered_tasks)
 
-                // setFiltered_task_box({...filtered_task_box, tasks: filtered_tasks})
+                setFiltered_task_box({...filtered_task_box, users:app_users, tasks: filtered_tasks})
     
             } else {
                 setFiltered_task_box(task_box); // Reset to the original list

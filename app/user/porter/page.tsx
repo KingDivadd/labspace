@@ -8,6 +8,8 @@ import { useRouter } from 'next/navigation'
 import { useChat } from '@/app/context/ChatContext'
 import { post_auth_request } from '@/app/api'
 
+const vapid_public_key = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
+
 const Dashboard = () => {
     const router = useRouter()
     const {user_role, setUser_role, setLoggedInUser, loggedInUser, setLoadingDot} = useChat()
@@ -17,10 +19,60 @@ const Dashboard = () => {
         const x_id_key = localStorage.getItem('x-id-key')
         if (x_id_key) {
             handle_persist_login()
+            handle_save_subscription()
         }else{
             router.push('/auth/login')
         }
     }, [])
+
+    const urlBase64ToUint8Array = (base64String:string) => {
+        const padding = '='.repeat((4 - base64String.length % 4) % 4);
+        const base64 = (base64String + padding)
+            .replace(/-/g, '+')
+            .replace(/_/g, '/');
+    
+        const rawData = window.atob(base64);
+        const outputArray = new Uint8Array(rawData.length);
+    
+        for (let i = 0; i < rawData.length; ++i) {
+            outputArray[i] = rawData.charCodeAt(i);
+        }
+        return outputArray;
+    };
+
+    const subscribeUser = async() => {
+        try {
+            const permission = await Notification.requestPermission();
+            if (permission !== 'granted') {
+                throw new Error('Permission not granted for Notification');
+            }
+
+            const registration = await navigator.serviceWorker.register('/worker.js');
+            // console.log('Service Worker registered successfully:', registration);
+
+            const subscription = await registration.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: urlBase64ToUint8Array(vapid_public_key || '')
+            });
+
+            return JSON.stringify(subscription)
+        } catch (error) {
+            console.error('Error during subscription:', error);
+        }
+    };
+
+    async function handle_save_subscription() {
+        try {
+            const sub = await subscribeUser()
+            const response = await post_auth_request(`app/save-subscription`, { subscription: sub })
+            if (response.status == 200 || response.status == 201){
+                
+            }
+
+        } catch (err:any) {
+            
+        }
+    }
 
     async function handle_persist_login() {
             try {
