@@ -13,7 +13,7 @@ import { LiaMoneyBillWaveSolid } from 'react-icons/lia'
 
 const Admin_dashboard = () => {
     const router = useRouter()
-    const {admin_dash, setAdmin_dash, setShowModal, showModal, setModalFor, modalFor, setSelectedItem, selectedItem, setModalSource, modalSource} = useChat()
+    const {admin_dash, setAdmin_dash, setShowModal, showModal, setModalFor, modalFor, setSelectedItem, selectedItem, setModalSource, modalSource, loggedInUser} = useChat()
     const [page_number, setPage_number] = useState(1)
     const [alert, setAlert] = useState({message: '', type: ''})
 
@@ -106,7 +106,7 @@ const Admin_dashboard = () => {
                 {/* section one metrics card */}
                     <div className="w-full flex flex-col items-start justif-start gap-5 p-[10px] py-5 bg-blue-500">
 
-                        <p className="text-2xl text-white font-[500]">Welcome David</p>
+                        <p className="text-2xl text-white font-[500]">Welcome {loggedInUser.first_name}</p>
 
                             <div className="w-full flex justify-between gap-[10px] sm:gap-10 ">
                             
