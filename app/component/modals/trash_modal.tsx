@@ -122,10 +122,10 @@ const Trash_modal = () => {
                             </div>
                             :
                             <div className="w-full flex flex-col items-center justify-center text-center gap-3 ">
-                                <p className="text-md font-[500]">Are your sure you want to permanently delete user with name </p>
+                                <p className="text-md font-[500]">Are your sure you want to permanently delete </p>
                                 <span className="w-full flex items-center justify-center gap-2">
                                     <p className="text-md font-[600] ">{selectedItem.deleted_user.first_name} {selectedItem.deleted_user.last_name}</p> 
-                                    <p className="text-md font-[500]">and title</p> 
+                                    <p className="text-md font-[500]">who is a</p> 
                                     <p className="text-md font-[600] ">{selectedItem.deleted_user.title}</p> 
                                 </span>
                                 <span className="flex items-center gap-3">
