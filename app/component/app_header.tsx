@@ -35,7 +35,6 @@ const App_header = () => {
                 if (response.status == 200 || response.status == 201){
 
                     
-                    // console.log('notification ', response.data)
                     setNotification(response.data)
 
                 }else if(response.response.status == 401){
@@ -114,7 +113,6 @@ const App_header = () => {
     }, [])
 
     function handle_logout() {
-        console.log('logout')
         localStorage.clear()
         sessionStorage.clear()
         router.push('/auth/login')

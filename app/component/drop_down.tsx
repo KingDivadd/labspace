@@ -54,7 +54,6 @@ const Drop_down_1 = ({dropArray, setDropArray, selected_item, setSelected_item, 
         } else {
             const new_array = dropArray.filter((data) => data.toLowerCase().includes(value));
             setDropArrayClone(new_array);
-            console.log(new_array);
         }
     }
 

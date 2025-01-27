@@ -39,11 +39,9 @@ const Admin_dashboard = () => {
             try {
                 
                 const response = await get_auth_request('app/admin-dashboard')     
-                console.log(response)           
 
                 if (response.status == 200 || response.status == 201){
                     
-                    console.log('admin_dashboard ', response.data)
                     setAdmin_dash(response.data)
                 }else if(response.response.status == 401){
                     router.push('/auth/login')
@@ -200,7 +198,7 @@ const Admin_dashboard = () => {
 
                                                 <span className={`w-[10%] px-[15px] flex items-center justify-start gap-[5px] text-sm `}> {formated_stage} </span>
 
-                                                <span className="w-[10%] px-[15px] flex items-center justify-start gap-[5px] "> <AssetCont activities={info.activities} assets={info.assets} sub_tasks={info.sub_task}  /> </span>
+                                                <span className="w-[10%] px-[15px] flex items-center justify-start gap-[5px] "> <AssetCont activities={info.activities} assets={info.assets} tasks={info.sub_task}  /> </span>
 
                                                 <span className=" w-[15%] px-[15px] flex items-center justify-start gap-[10px]" >
                                                     <ProjectActionBtn data={data} />

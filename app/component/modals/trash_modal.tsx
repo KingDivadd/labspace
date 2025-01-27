@@ -47,7 +47,6 @@ const Trash_modal = () => {
 
                 if (response.status == 200 || response.status == 201){
 
-                    console.log(response)
                     showAlert(response.data.msg, "success")
                     setLoading(false)
                     setShowModal(false)
@@ -76,7 +75,7 @@ const Trash_modal = () => {
 
                 if (response.status == 200 || response.status == 201){
 
-                    console.log(response)
+                    (response)
                     showAlert(response.data.msg, "success")
                     setLoading(false)
                     setShowModal(false)

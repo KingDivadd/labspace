@@ -34,13 +34,8 @@ const Single_User_porter = () => {
                 </span>:
                 <>
                     { route_nav == 'dashboard' && <Admin_dashboard /> }
-                    { route_nav == 'task' && <Task_page /> }
-                    {/* { route_nav == 'profile' && <User_profile_page /> }
-                    { route_nav == 'team' && <Teams_page /> }
-                    { route_nav == 'todo' && <Todo_page /> }
-                    { route_nav == 'payments' && <Payment_page /> }
-                    { route_nav == 'notification' && <NotificationPage /> }
-                    { route_nav == 'trash' && <Trash_page /> } */}
+                    { route_nav == 'project' && <Task_page /> }
+                    
                 </>  }
 
             </div>

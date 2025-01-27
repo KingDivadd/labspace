@@ -13,8 +13,8 @@ const Project_page = () => {
     const router = useRouter()
     const [page_number, setPage_number] = useState(1)
     const [list_number, setList_number] = useState(15)
-    const [task_box, setTask_box] = useState<Props | null>(null);
-    const [filtered_task_box, setFiltered_task_box] = useState<Props | null>(null);
+    const [project_box, setTask_box] = useState<Props | null>(null);
+    const [filtered_project_box, setFiltered_project_box] = useState<Props | null>(null);
     const [filters, setFilters] = useState({filter_input: '', disposition: ''})
     const {loggedInUser, modalFor, setModalFor, selectedItem, setSelectedItem, showModal, setShowModal, setModalSource, modalSource, app_users, setApp_users, } = useChat()
     const [alert, setAlert] = useState({message: '', type: ''})
@@ -26,12 +26,12 @@ const Project_page = () => {
 
     interface Props {
         forEach?(arg0: (data: any, ind: number) => void): unknown;
-        filter?(arg0: (task: any) => any): unknown;
+        filter?(arg0: (project: any) => any): unknown;
         map?(arg0: (data: any) => void): unknown;
         total_number_of_pages?: number; // Now optional and can be undefined
-        total_number_of_tasks?: number; // Now optional can be undefined
-        no_of_assigned_task?: number;
-        tasks: any[];
+        total_number_of_projects?: number; // Now optional can be undefined
+        no_of_assigned_project?: number;
+        projects: any[];
         users: any
     } 
 
@@ -59,13 +59,12 @@ const Project_page = () => {
 
                 if (response.status == 200 || response.status == 201){
 
-                    const tasks = response.data
+                    const projects = response.data
                     setLoading(false);
-                    setTask_box(tasks)
-                    setFiltered_task_box(tasks)
-                    setApp_users(tasks?.users)
+                    setTask_box(projects)
+                    setFiltered_project_box(projects)
+                    setApp_users(projects?.users)
 
-                    console.log('all tasks \n',tasks)
                                         
                 }else if(response.response.status == 503){
                     showAlert(response.response.data.err, "error")
@@ -83,9 +82,9 @@ const Project_page = () => {
     }
 
 
-    async function app_tasks_action(item: any) {
+    async function app_projects_action(item: any) {
         let new_page_number = page_number;
-        let max_page_number = task_box?.total_number_of_pages
+        let max_page_number = project_box?.total_number_of_pages
 
         if (item === 'prev') {
         if (page_number > 1) {
@@ -106,7 +105,7 @@ const Project_page = () => {
 
     const render_page_numbers = () => {
         const pages = [];
-        const max_page_number = task_box?.total_number_of_pages || 1;
+        const max_page_number = project_box?.total_number_of_pages || 1;
         const max_displayed_pages = 3;
 
         if (max_page_number <= max_displayed_pages) {
@@ -117,7 +116,7 @@ const Project_page = () => {
                 className={`text-md font-light h-[27px] w-[27.5px] rounded-[3px] flex items-center justify-center cursor-pointer ${
                 page_number === i ? 'bg-blue-600 text-white' : ''
                 }`}
-                onClick={() => app_tasks_action(i)}
+                onClick={() => app_projects_action(i)}
             >
                 {i}
             </p>
@@ -142,7 +141,7 @@ const Project_page = () => {
                 className={`text-sm font-light h-[27px] w-[27.5px] rounded-[3px] flex items-center justify-center cursor-pointer ${
                 page_number === i ? 'bg-blue-700 text-white' : ''
                 }`}
-                onClick={() => app_tasks_action(i)}
+                onClick={() => app_projects_action(i)}
             >
                 {i}
             </p>
@@ -157,18 +156,18 @@ const Project_page = () => {
         const value = e.target.value.toLowerCase();
         setFilters({ ...filters, filter_input: value });
     
-        if (task_box && task_box.tasks) {
+        if (project_box && project_box.projects) {
             if (value.trim() !== '') {
-                const filtered_tasks:any = task_box.tasks.filter((data: any) => {
+                const filtered_projects:any = project_box.projects.filter((data: any) => {
 
-                    const task_ind = data.task_ind?.toLowerCase() || '';
+                    const project_ind = data.project_ind?.toLowerCase() || '';
                     const project_title = data.project_title?.toLowerCase() || ''
                     const gapless_project_title = data.project_title?.replace(/ /g, '').toLowerCase() || ''
                     const priority = data.priority?.toLowerCase() || ''
                     const stage = data.stage?.toLowerCase() || ''
                     
                     return (
-                        task_ind.includes(value) ||
+                        project_ind.includes(value) ||
                         project_title.includes(value) ||
                         gapless_project_title.includes(value) ||
                         priority.includes(value) ||
@@ -177,18 +176,17 @@ const Project_page = () => {
                     );
                 });
                 
-                console.log(filtered_tasks)
 
-                setFiltered_task_box({...filtered_task_box, users:app_users, tasks: filtered_tasks})
+                setFiltered_project_box({...filtered_project_box, users:app_users, projects: filtered_projects})
     
             } else {
-                setFiltered_task_box(task_box); // Reset to the original list
+                setFiltered_project_box(project_box); // Reset to the original list
             }
         }
     }
 
 
-    function handle_add_task() {
+    function handle_add_project() {
         setShowModal(!showModal)
         setModalFor('create')
         setModalSource('project-modal')
@@ -221,42 +219,39 @@ const Project_page = () => {
     }
 
     function handle_selected(selected: string, id?:string){
-        console.log(id, selected)
-        if (selected === 'All Tasks'){
-            if (filtered_task_box?.tasks && task_box?.tasks) {
+        if (selected === 'All Projects'){
+            if (filtered_project_box?.projects && project_box?.projects) {
                 
-                setFiltered_task_box({...filtered_task_box, tasks:task_box?.tasks})
+                setFiltered_project_box({...filtered_project_box, projects:project_box?.projects})
             }
 
 
-        }else if(selected === 'Assigned Tasks' ){
-            if (filtered_task_box?.tasks) {
-                console.log('Logging filtered_task_box: ', filtered_task_box);
+        }else if(selected === 'Assigned Projects' ){
+            if (filtered_project_box?.projects) {
         
-                const tasks = filtered_task_box?.tasks;
+                const projects = filtered_project_box?.projects;
         
-                // Filter tasks assigned to the logged-in user
-                const new_tasks = tasks.filter((task: any) => {
-                    return task.team.some((member: any) => {
-                        console.log('Logged-in user:', loggedInUser.user_id, '\n', 'User ID:', member.user.user_id);
+                // Filter projects assigned to the logged-in user
+                const new_projects = projects.filter((project: any) => {
+                    return project.team.some((member: any) => {
                         return member.user.user_id === loggedInUser.user_id;
                     });
                 });
             
-                setFiltered_task_box({...filtered_task_box, tasks:new_tasks})
+                setFiltered_project_box({...filtered_project_box, projects:new_projects})
             }
 
-        }else if (selected === 'Task Created'){
+        }else if (selected === 'Project Created'){
 
-            if(filtered_task_box?.tasks){
+            if(filtered_project_box?.projects){
         
-                    const tasks = filtered_task_box?.tasks
+                    const projects = filtered_project_box?.projects
         
-                    const new_tasks =  tasks.filter((task:any)=>{
-                        return task.task_creator_id == loggedInUser.user_id
+                    const new_projects =  projects.filter((project:any)=>{
+                        return project.project_creator_id == loggedInUser.user_id
                     })
         
-                    setFiltered_task_box({...filtered_task_box, tasks:new_tasks})            
+                    setFiltered_project_box({...filtered_project_box, projects:new_projects})            
             }
 
         }
@@ -279,7 +274,7 @@ const Project_page = () => {
 
                         <span className="h-[40px]"></span>
 
-                        {loggedInUser.is_admin && <button className="h-[40px] px-5 bg-blue-500 hover:bg-blue-600 text-white rounded-[45px] text-sm " onClick={handle_add_task}>Add Project</button>}
+                        {loggedInUser.is_admin && <button className="h-[40px] px-5 bg-blue-500 hover:bg-blue-600 text-white rounded-[45px] text-sm " onClick={handle_add_project}>Add Project</button>}
                     </span>
                     
                     <div className="w-full flex flex-wrap items-center justify-between px-[15px] gap-5 pb-0 ">
@@ -303,12 +298,12 @@ const Project_page = () => {
                                 </div>}
                             </div>
 
-                            <button className="text-sm sm:hidden px-5 whitespace-nowrap h-[45px] rounded-[3px] text-white bg-blue-600 hover:bg-blue-700" onClick={handle_add_task} >Add Task</button>
+                            <button className="text-sm sm:hidden px-5 whitespace-nowrap h-[45px] rounded-[3px] text-white bg-blue-600 hover:bg-blue-700" onClick={handle_add_project} >Add Task</button>
                         </span>
 
                         <div className="max-sm:w-full flex items-center max-sm:justify-between justify-end gap-5">
                             {loggedInUser.is_admin && <span className=" w-[150px] lg:w-[300px] h-[40px] ">
-                                <Dropdown options={['All Tasks', 'Assigned Tasks', 'Task Created']} id='task' placeholder='All Tasks' onSelect={handle_selected} />
+                                <Dropdown options={['All Projects', 'Assigned Project', 'Project Created']} id='project' placeholder='All Project' onSelect={handle_selected} />
                             </span>}
 
                             <span className="w-[150px] lg:w-[300px] ">
@@ -339,14 +334,14 @@ const Project_page = () => {
                             <div className="w-full flex flex-col items-start justify-start overflow-y-auto" style={{ height: 'calc(100vh - 295px)'}}>
                                 <div className="w-full h-full flex flex-col justify-start">
                                     
-                                    {filtered_task_box?.tasks.length ? 
+                                    {filtered_project_box?.projects.length ? 
                                     <>
-                                    {filtered_task_box?.tasks.map((data: any, ind: number)=>{
-                                        const {task_id, updated_at, project_title, task_ind, priority, stage, team, activities, assets, tasks, cost } = data                                        
+                                    {filtered_project_box?.projects.map((data: any, ind: number)=>{
+                                        const {project_id, updated_at, project_title, project_ind, priority, stage, team, activities, assets, tasks, cost } = data                                        
 
                                         const formated_stage = stage == 'todo' ? 'Todo' : stage == 'in_progress' ? 'In Progress' : stage == 'completed' ? 'Completed': ''
 
-                                        const info = {activities: activities.length, assets: assets.length, sub_task: tasks.length}
+                                        const info = {activities: activities.length, assets: assets.length, task: tasks.length}
 
                                         return(
                                             <span key={ind} className=" table-body-row-1  " >
@@ -367,7 +362,7 @@ const Project_page = () => {
 
                                                 <span className={`w-[10%] px-[15px] flex items-center justify-start gap-[5px] text-sm `}> {formated_stage} </span>
 
-                                                <span className="w-[10%] px-[15px] flex items-center justify-start gap-[5px] "> <AssetCont activities={info.activities} assets={info.assets} sub_tasks={info.sub_task}  /> </span>
+                                                <span className="w-[10%] px-[15px] flex items-center justify-start gap-[5px] "> <AssetCont activities={info.activities} assets={info.assets} tasks={info.task}  /> </span>
 
                                                 <span className=" w-[15%] px-[15px] flex items-center justify-start gap-[10px]" >
                                                     <ProjectActionBtn data={data} />
@@ -390,18 +385,18 @@ const Project_page = () => {
 
                     <span className="w-full h-[45px] flex flex-row items-center justify-between bg-white rounded-b-[3px] border-t border-slate-200 px-[15px] ">
                         <span className="flex flex-row items-center justify-start gap-3 h-full">
-                            <p className="text-md cursor-pointer" onClick={() => app_tasks_action('prev')}>Prev</p>
+                            <p className="text-md cursor-pointer" onClick={() => app_projects_action('prev')}>Prev</p>
                             <span className="w-auto h-full flex flex-row items-center justify-start">
                             {render_page_numbers()}
                             </span>
-                            <p className="text-md cursor-pointer" onClick={() => app_tasks_action('next')}>Next</p>
+                            <p className="text-md cursor-pointer" onClick={() => app_projects_action('next')}>Next</p>
                         </span>
                         <span className="flex flex-row items-center justify-end gap-3 h-full">
                             <p className="text-md"> 
                                 {
                                     list_number != 100000000000000 ? 
-                                    <> Showing 1-{ list_number} of {(filtered_task_box && filtered_task_box.tasks.length)  || 0} </>:
-                                    <> Showing All of {(filtered_task_box && filtered_task_box.tasks.length) || 0}</>
+                                    <> Showing 1-{ list_number} of {(filtered_project_box && filtered_project_box.projects.length)  || 0} </>:
+                                    <> Showing All of {(filtered_project_box && filtered_project_box.projects.length) || 0}</>
                                 }
                             </p>
                         </span>

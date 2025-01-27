@@ -68,7 +68,6 @@ const Payment_page = () => {
                     setFiltered_payment_box(payments)
                     setProject(payments?.project_list)
 
-                    console.log('all payments \n',payments)
                                         
                 }else if(response.response.status == 401){
                     router.push('/auth/login')
@@ -208,7 +207,6 @@ const Payment_page = () => {
     }
 
     function handle_selected(selected: string, id?:string){
-        console.log(id, selected)
         if (selected === 'All payments'){
             if (filtered_payment_box?.payments && payment_box?.payments) {
                 
@@ -218,14 +216,12 @@ const Payment_page = () => {
 
         }else if(selected === 'Assigned payments' ){
             if (filtered_payment_box?.payments) {
-                console.log('Logging filtered_payment_box: ', filtered_payment_box);
         
                 const payments = filtered_payment_box?.payments;
         
                 // Filter payments assigned to the logged-in user
                 const new_payments = payments.filter((payment: any) => {
                     return payment.team.some((member: any) => {
-                        console.log('Logged-in user:', loggedInUser.user_id, '\n', 'User ID:', member.user.user_id);
                         return member.user.user_id === loggedInUser.user_id;
                     });
                 });

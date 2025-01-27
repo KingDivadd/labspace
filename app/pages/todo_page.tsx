@@ -67,7 +67,6 @@ const Todo_page = () => {
                     setFiltered_task_box(tasks)
                     setApp_users(tasks?.users)
 
-                    console.log('all tasks \n',tasks)
                                         
                 }else if(response.response.status == 401){
                     router.push('/auth/login')
@@ -177,7 +176,6 @@ const Todo_page = () => {
                     );
                 });
                 
-                console.log(filtered_tasks)
                 setFiltered_task_box({...filtered_task_box, tasks: filtered_tasks})
     
             } else {
@@ -226,7 +224,6 @@ const Todo_page = () => {
     }
 
     function handle_selected(selected: string, id?:string){
-        console.log(id, selected)
         if (selected === 'All Tasks'){
             if (filtered_task_box?.tasks && task_box?.tasks) {
                 
@@ -236,14 +233,12 @@ const Todo_page = () => {
 
         }else if(selected === 'Assigned Tasks' ){
             if (filtered_task_box?.tasks) {
-                console.log('Logging filtered_task_box: ', filtered_task_box);
         
                 const tasks = filtered_task_box?.tasks;
         
                 // Filter tasks assigned to the logged-in user
                 const new_tasks = tasks.filter((task: any) => {
                     return task.team.some((member: any) => {
-                        console.log('Logged-in user:', loggedInUser.user_id, '\n', 'User ID:', member.user.user_id);
                         return member.user.user_id === loggedInUser.user_id;
                     });
                 });
@@ -373,7 +368,7 @@ const Todo_page = () => {
 
                                                 <span className={`w-[10%] px-[15px] flex items-center justify-start gap-[5px] text-sm `}> {formated_stage} </span>
 
-                                                <span className="w-[10%] px-[15px] flex items-center justify-start gap-[5px] "> <AssetCont activities={info.activities} assets={info.assets} sub_tasks={info.sub_task}  /> </span>
+                                                <span className="w-[10%] px-[15px] flex items-center justify-start gap-[5px] "> <AssetCont activities={info.activities} assets={info.assets} tasks={info.sub_task}  /> </span>
 
                                                 <span className=" w-[15%] px-[15px] flex items-center justify-start gap-[10px]" >
                                                     <button className="text-sm px-[15px] h-[30px] text-sm rounded-[2.5px] text-white bg-sky-500 hover:bg-sky-600" onClick={()=> handle_view(data)} >View</button>

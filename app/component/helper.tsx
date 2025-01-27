@@ -420,10 +420,10 @@ export const UserInfo = ({ data }: {
 interface AssetContProps {
     activities?: number;
     assets?: number;
-    sub_tasks?: number;
+    tasks?: number;
 }
 
-export const AssetCont  = ({activities, assets, sub_tasks}:AssetContProps) => {
+export const AssetCont  = ({activities, assets, tasks}:AssetContProps) => {
 
     return(
         <div className="flex items-center  justify-start gap-[10px] ">
@@ -850,11 +850,8 @@ export const TaskActionBtn:React.FC<ProjectActBtnInt> = ({data})=> {
         try {
                 
             const response = await patch_auth_request(`app/complete-task/${data.task_id}/${data.project_id}`, {})                
-            console.log(response)
             if (response.status == 200 || response.status == 201){
-                console.log(response.data)
                 setDropList(!dropList)
-
             }
             else{
             }
@@ -873,7 +870,6 @@ export const TaskActionBtn:React.FC<ProjectActBtnInt> = ({data})=> {
             setSelectedItem(data)
         }
         else if (type == 'completed'){
-            console.log(data)
             handle_complete_task(data)
         }
         

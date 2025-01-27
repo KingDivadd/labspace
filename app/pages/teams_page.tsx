@@ -61,7 +61,6 @@ const Teams_page = () => {
 
                     const users = response.data
 
-                    console.log('usrs ',users)
 
                     setLead_box(users)
                     setFiltered_user_box(users)

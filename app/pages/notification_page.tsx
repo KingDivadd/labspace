@@ -62,7 +62,6 @@ const NotificationPage = () => {
                     setNotification_box(notifications)
                     setFiltered_notification_box(notifications)
     
-                    console.log(response)
                     
                 }else if(response.response.status == 401){
                     router.push('/auth/login')

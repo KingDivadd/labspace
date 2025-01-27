@@ -48,7 +48,6 @@ const Dashboard = () => {
             }
 
             const registration = await navigator.serviceWorker.register('/worker.js');
-            // console.log('Service Worker registered successfully:', registration);
 
             const subscription = await registration.pushManager.subscribe({
                 userVisibleOnly: true,

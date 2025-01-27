@@ -50,7 +50,7 @@ const Side_bar = () => {
                         <p className=" text-center"> Dashboard </p>
                     </span>
 
-                    <span className={route_nav === 'task' ? 'active-nav-box' : 'nav-box'} onClick={() => {select_nav('task') }}>
+                    <span className={route_nav === 'project' ? 'active-nav-box' : 'nav-box'} onClick={() => {select_nav('project') }}>
                         <FaTasks />
                         <p className="text-sm text-center">Projects</p>
                     </span>

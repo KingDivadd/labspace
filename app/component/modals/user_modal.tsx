@@ -105,7 +105,6 @@ const User_modal = () => {
         } else {
             setLoading(true); 
             try {
-                console.log(auth)
                 const response = await patch_auth_request(`app/edit-member/${selectedItem.user_id}`, auth)                
                 
                 if (response.status == 200 || response.status == 201){
@@ -144,7 +143,6 @@ const User_modal = () => {
                 if (response.status == 200 || response.status == 201){
 
 
-                    console.log(response)
                     showAlert(response.data.msg, "success")
                     setLoading(false)
                     setShowModal(false)

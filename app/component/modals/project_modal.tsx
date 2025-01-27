@@ -280,7 +280,6 @@ const Project_modal = () => {
                 if (response.status == 200 || response.status == 201){
 
 
-                    console.log(response)
                     showAlert(response.data.msg, "success")
                     setLoading(false)
                     setShowModal(false)
@@ -684,7 +683,9 @@ const Project_modal = () => {
                                             }
                                         </div>
                                         :
-                                        <p className="text-sm font-[500]">No Task Created Yet</p>
+                                        <div className="w-full h-full flex items-center justify-center">
+                                            <p className="text-sm font-[500]">No Task Created Yet</p>
+                                        </div>
                                     }
                                 </div>
 
@@ -792,7 +793,7 @@ const Project_modal = () => {
 
                                             <span className="w-full flex items-center justify-end gap-[15px] ">
 
-                                                <button className="text-sm h-[45px] px-5 rounded-[2.5px] hover:border hover:border-red-600 hover:text-red-600 ">Cancel </button>
+                                                <button className="text-sm h-[45px] px-5 rounded-[2.5px] hover:border hover:border-red-600 hover:text-red-600 " onClick={()=> setShowModal(false)}>Cancel </button>
 
                                                 <button className="text-sm w-[95px] flex items-center justify-center h-[45px] rounded-[3px] bg-blue-500 hover:bg-blue-600 text-white" onClick={handle_create_activity} disabled={loading}>
                                                     {loading ? (

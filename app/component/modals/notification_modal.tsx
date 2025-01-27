@@ -24,7 +24,7 @@ const Notification_modal = () => {
 
     useEffect(() => {
         if (modalFor == 'view') {   
-            console.log('selected notifications ',selectedItem)
+            ('selected notifications ',selectedItem)
             const {created_at, is_read, updated_at, notificationAssignment_id, notification_id, user_id, notification,   } = selectedItem
             const {status, notification_sub_type, notification_type, task,  team} = notification
 

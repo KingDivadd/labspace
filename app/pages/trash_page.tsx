@@ -64,7 +64,6 @@ const Trash_page = () => {
                     setTrash_box(trash)
                     setFiltered_trash_box(trash)
 
-                    console.log(trash)
                                         
                 }else if(response.response.status == 401){
                     router.push('/auth/login')
@@ -171,7 +170,6 @@ const Trash_page = () => {
                     );
                 });
                 
-                console.log(filtered_trash)
 
                 // setFiltered_trash_box({...filtered_trash_box, trash: filtered_trash})
     
@@ -215,7 +213,6 @@ const Trash_page = () => {
     }
 
     function handle_selected(selected: string, id?:string){
-        console.log(id, selected)
         if (selected === 'All trash'){
             if (filtered_trash_box?.trash && trash_box?.trash) {
                 
@@ -225,14 +222,12 @@ const Trash_page = () => {
 
         }else if(selected === 'Assigned trash' ){
             if (filtered_trash_box?.trash) {
-                console.log('Logging filtered_trash_box: ', filtered_trash_box);
         
                 const trash = filtered_trash_box?.trash;
         
                 // Filter trash assigned to the logged-in user
                 const new_trash = trash.filter((trash: any) => {
                     return trash.team.some((member: any) => {
-                        console.log('Logged-in user:', loggedInUser.user_id, '\n', 'User ID:', member.user.user_id);
                         return member.user.user_id === loggedInUser.user_id;
                     });
                 });

@@ -35,7 +35,6 @@ const Payment_modal = () => {
 
     useEffect(() => {
 
-        console.log(project)
         if (modalFor != 'create') {
             const {payment_id, payer_name, project_id, payment_receipt, amount, project } = selected_payment
 
@@ -47,7 +46,6 @@ const Payment_modal = () => {
 
             setProject_list(project)
 
-            console.log('onee ', selected_payment)
             
             setTimeout(() => {
                 setPayment_box({ ...payment_box, payer_name: payer_name, project_id: project_id, payment_receipt, amount: Number(amount) })
@@ -58,7 +56,6 @@ const Payment_modal = () => {
     function handle_change(e:any){
         const name = e.target.name;
         const value = e.target.value;
-        console.log('selected project amount due ', project_list?.amount_due )
         if(name == 'amount'){
             if ((project_list?.amount_due && value.replace(/,/g, '') > project_list?.amount_due) || project_list?.amount_due == 0) {
                 showAlert(`Amount due is ${project_list.amount_due.toLocaleString()}`, 'warning')

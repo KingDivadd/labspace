@@ -32,7 +32,7 @@ const Admin_User_porter = () => {
                 </span>:
                 <>
                     { route_nav == 'dashboard' && <Admin_dashboard /> }
-                    { route_nav == 'task' && <Project_page /> }
+                    { route_nav == 'project' && <Project_page /> }
                     { route_nav == 'team' && <Teams_page /> }
                     { route_nav == 'trash' && <Trash_page /> } 
 

@@ -43,7 +43,6 @@ const User_profile_page = () => {
 
     
     async function handle_image_change(file:any) {
-        console.log('file ',file)
     
                 try {
                     
@@ -51,7 +50,6 @@ const User_profile_page = () => {
     
                     if (response.status == 200 || response.status == 201){
     
-                        console.log(response, response.data)
                         showAlert(response.data.msg, "success")
                         setLoggedInUser({...loggedInUser, avatar: response.data.user.avatar})
                     }

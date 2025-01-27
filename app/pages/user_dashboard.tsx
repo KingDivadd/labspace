@@ -35,12 +35,10 @@ const User_dashboard = () => {
             try {
                 
                 const response = await get_auth_request('app/admin-dashboard')     
-                console.log(response)           
 
                 if (response.status == 200 || response.status == 201){
 
                     
-                    // console.log('admin_dashboard ', response.data)
                     setAdmin_dash(response.data)
                 }else if(response.response.status == 401){
                     router.push('/auth/login')
@@ -154,7 +152,7 @@ const User_dashboard = () => {
                                                 </span>
 
                                                 <span className={`w-[10%] px-[15px] flex items-center justify-start gap-[5px] ${stage == 'todo'?'text-blue-600' : stage == 'in_progress' ? 'text-amber-600' : stage  == 'completed' ? 'text-teal-700' :'' } `}> {formated_stage} </span>
-                                                <span className="w-[15%] px-[15px] flex items-center justify-start gap-[5px] "> <AssetCont activities={info.activities} assets={info.assets} sub_tasks={info.sub_task}  /> </span>
+                                                <span className="w-[15%] px-[15px] flex items-center justify-start gap-[5px] "> <AssetCont activities={info.activities} assets={info.assets} tasks={info.sub_task}  /> </span>
 
                                                 <span className=" w-[15%] px-[15px] flex items-center justify-start gap-[10px]" >
                                                     <button className="px-[17.5px] h-[30px] text-sm rounded-[2.5px] text-white bg-sky-500 hover:bg-sky-600" onClick={()=> handle_view(data)} >View</button>
