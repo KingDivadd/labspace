@@ -1,5 +1,5 @@
 'use client'
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import { useChat } from '../../context/ChatContext'
 import Alert, {Avatar, Dropdownlg, FileDisplay, FileUpload, TaskActionBtn, UserInfo, convert_to_unix, formatted_time, readable_date, readable_date_time} from '../helper'
 import { FaTimes } from 'react-icons/fa'
@@ -31,6 +31,7 @@ const Project_modal = () => {
     const [team_members, setTeam_members] = useState([])
     const [loading, setLoading] = useState(false)
     const [user_drop, setUser_drop] = useState(false)
+    const dropdownRef = useRef<HTMLDivElement>(null);
 
     
 
@@ -355,6 +356,22 @@ const Project_modal = () => {
         setCurrent_project_nav('project_details')
     }
 
+    useEffect(() => {
+        const handleOutsideClick = (event: MouseEvent) => {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target as Node)
+            ) {
+                setUser_drop(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, []);
+
 
     return (
         <div className="w-full ">
@@ -404,7 +421,7 @@ const Project_modal = () => {
                             <input type="text" name='project_title' placeholder='Title' value={project_box.project_title} onChange={handle_change} className='input-type-1' />
                         </span>
 
-                        <span className="w-full flex flex-col items-start justify-start gap-2">
+                        <span className="w-full flex flex-col items-start justify-start gap-2"  ref={dropdownRef}>
                             <p className="text-sm ">Assign Project to</p>
                             <span className="w-full flex  items-centeer ">
                                 <div className=" " style={{width: 'calc(100% - 95px)'}} > 
