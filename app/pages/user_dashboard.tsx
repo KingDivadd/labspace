@@ -94,33 +94,7 @@ const User_dashboard = () => {
             <div className="w-full flex flex-col justify-start items-center gap-5 ">
 
                 {/* section one metrics card */}
-                <div className="w-full flex flex-wrap justify-between gap-[20px] sm:gap-10">
-                    <div className="w-[45%] md:w-[250px] lg:w-[220px] h-[175px] rounded-[5px]  p-[25px] shadow-md flex flex-col items-center justify-center gap-5 border border-slate-200">
-                            <p className="text-xl sm:text-2xl font-[600] text-blue-600">{admin_dash.total_no_of_tasks || '0'}</p>
-                            <p className="text-md sm:text-lg font-[500] text-center text-blue-600 ">Total Tasks </p>
-                    </div>
-
-                    <div className="w-[45%] md:w-[250px] lg:w-[220px] h-[175px] rounded-[5px]  p-[25px] shadow-md flex flex-col items-center justify-center gap-5 border border-slate-200">
-                            <p className="text-xl sm:text-2xl font-[600] text-amber-600">{admin_dash.total_no_of_todo_tasks || '0' }</p>
-                            <p className="text-md sm:text-lg font-[500] text-center text-center text-amber-600 ">Todo Tasks </p>
-                    </div>
-                    
-                    <div className="w-[45%] md:w-[250px] lg:w-[220px] h-[175px] rounded-[5px]  p-[25px] shadow-md flex flex-col items-center justify-center gap-5 border border-slate-200">
-                            <p className="text-xl sm:text-2xl font-[600] text-blue-600">{admin_dash.total_no_of_assigned_tasks || '0'}</p>
-                            <p className="text-md sm:text-lg font-[500] text-center text-blue-600 ">Assigned Tasks </p>
-                    </div>
-                    
-                    <div className="w-[45%] md:w-[250px] lg:w-[220px] h-[175px] rounded-[5px]  p-[25px] shadow-md flex flex-col items-center justify-center gap-5 border border-slate-200">
-                            <p className="text-xl sm:text-2xl font-[600] text-amber-600">{admin_dash.total_no_of_tasks_in_progress || '0' }</p>
-                            <p className="text-md sm:text-lg font-[500] text-center text-center text-amber-600 ">Task In Progress</p>
-                    </div>
-                    
-                    <div className="w-[45%] md:w-[250px] lg:w-[220px] h-[175px] rounded-[5px]  p-[25px] shadow-md flex flex-col items-center justify-center gap-5 border border-slate-200">
-                            <p className="text-xl sm:text-2xl font-[600] text-teal-700">{admin_dash.total_no_of_completed_tasks || '0'}</p>
-                            <p className="text-md sm:text-lg font-[500] text-center text-center text-teal-700 ">Completed Task</p>
-                    </div>
-                    
-                </div>
+                3
 
 
                 {/* recent tasks table */}
@@ -143,7 +117,7 @@ const User_dashboard = () => {
                                 <p className="text-sm w-[15%] px-[15px] ">Action</p>
                             </span>
 
-                            {admin_dash.recent_tasks == null ? 
+                            {admin_dash.recent_projects == null ? 
                             
                             <div className="w-full h-[500px] flex items-center justify-center  ">
                                 <Loading />
@@ -152,9 +126,9 @@ const User_dashboard = () => {
                             <div className="w-full h-[500px] flex flex-col items-start justify-start overflow-y-auto">
                                 <div className="w-full h-full flex flex-col justify-start">
                                     
-                                    {admin_dash?.recent_tasks?.length ? 
+                                    {admin_dash?.recent_projects?.length ? 
                                     <>
-                                    {admin_dash?.recent_tasks.map((data: any, ind: number)=>{
+                                    {admin_dash?.recent_projects.map((data: any, ind: number)=>{
                                         const {task_id, updated_at, task_title, task_ind, priority, stage, team, activities, assets, sub_tasks } = data                                        
 
                                         const formated_stage = stage == 'todo' ? 'Todo' : stage == 'in_progress' ? 'In Progress' : stage == 'completed' ? 'Completed': ''
@@ -212,7 +186,7 @@ const User_dashboard = () => {
                         </span>
                         <span className="flex flex-row items-center justify-end gap-3 h-full">
                             <p className="text-md"> 
-                                Showing 1-15 of {admin_dash.recent_tasks ? <>{admin_dash.recent_tasks.length} </>:'0'}
+                                Showing 1-15 of {admin_dash.recent_projects ? <>{admin_dash.recent_projects.length} </>:'0'}
                             </p>
                         </span>
                     </span>
