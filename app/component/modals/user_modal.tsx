@@ -161,7 +161,8 @@ const User_modal = () => {
     }
 
     function handle_cancel(){
-
+        setAuth({first_name: '', last_name: '', email: '', title: '', is_admin: false, is_active: true})
+        setShowModal(false)
     }
 
     return (

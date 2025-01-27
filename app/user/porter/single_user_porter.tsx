@@ -29,7 +29,7 @@ const Single_User_porter = () => {
                 <App_header />
 
                 {loadingDot ? 
-                <span className="h-[400px] w-full flex items-center justify-center">
+                <span className=" w-full flex items-center justify-center" style={{height: 'calc( 100vh - 60px )'}}>
                     <Loading />
                 </span>:
                 <>
