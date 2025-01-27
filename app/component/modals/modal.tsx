@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import Alert from "../helper"
 import User_modal from "../modals/user_modal"
-import Task_modal from "../modals/task_modal"
+import Project_modal from "./project_modal"
 import Trash_modal from "../modals/trash_modal"
 import Notification_modal from "../modals/notification_modal"
 import Payment_modal from "../modals/payment_modal"
@@ -46,7 +46,7 @@ const Modal = ({ showModal, setShowModal, selectedItem, setSelectedItem, modalFo
 
                                 {modalSource  == 'user-modal' && <User_modal />}
                                 {modalSource  == 'profile-modal' && <Profile_modal />}
-                                {modalSource  == 'task-modal' && <Task_modal />}    
+                                {modalSource  == 'project-modal' && <Project_modal />}    
                                 {modalSource  == 'notification' && <Notification_modal />}    
                                 {modalSource  == 'trash-modal' && <Trash_modal />}    
                                 {modalSource  == 'payment' && <Payment_modal />}    

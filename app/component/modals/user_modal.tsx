@@ -105,7 +105,7 @@ const User_modal = () => {
         } else {
             setLoading(true); 
             try {
-                
+                console.log(auth)
                 const response = await patch_auth_request(`app/edit-member/${selectedItem.user_id}`, auth)                
                 
                 if (response.status == 200 || response.status == 201){
@@ -208,7 +208,7 @@ const User_modal = () => {
 
                         <span className="w-full flex flex-col items-start justify-start gap-2">
                             <p className="text-sm ">Email</p>
-                            <input type="email" name='email' disabled={modalFor == 'edit'} placeholder='john.doe@gmail.com' value={auth.email} onChange={handle_change} className='input-type-1' />
+                            <input type="email" name='email' placeholder='john.doe@gmail.com' value={auth.email} onChange={handle_change} className='input-type-1' />
                         </span>
 
                         <div className="w-full flex items-center justify-between">
@@ -258,10 +258,7 @@ const User_modal = () => {
                                 <p className="text-md font-[500]">and title</p> 
                                 <p className="text-md font-[600] ">{selectedItem.title}</p> 
                             </span>
-                            <span className="flex items-center gap-3">
-                                <span className="h-[20px] w-[20px] text-red-600"><IoWarningOutline size={'100%'} /></span>
-                                <p className="text-md font-[400]"> Please note, this action is not reversible</p>
-                            </span>
+                            
                         </div>
 
                         <button className="w-[95px] flex items-center justify-center h-[45px] rounded-[3px] bg-red-600 hover:bg-red-700 text-white" onClick={handle_delete} disabled={loading}>

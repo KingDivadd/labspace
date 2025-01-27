@@ -302,9 +302,9 @@ const Trash_page = () => {
                                     {filtered_trash_box?.trash.length ? 
                                     <>
                                     {filtered_trash_box?.trash.map((data: any, ind: number)=>{
-                                        const {trash_id, updated_at, deleted_by, deleted_task, deleted_user} = data                                        
+                                        const {trash_id, updated_at, deleted_by, deleted_project, deleted_user} = data                                        
 
-                                        const deleted_file = deleted_task ? `Task with and Id of  ${deleted_task.task_ind} and title ${deleted_task.task_title} assigned to ${deleted_task.team.length} members` : deleted_user ? `Lab User with the name of ${deleted_user.first_name} ${deleted_user.last_name} and title of ${deleted_user.title}`: ''
+                                        const deleted_file = deleted_project ? `Project with title ${deleted_project.project_title} assigned to ${deleted_project.team.length} member(s)` : deleted_user ? `Lab User with the name of ${deleted_user.first_name} ${deleted_user.last_name} and title of ${deleted_user.title}`: ''
 
                                         return(
                                             <span key={ind} className=" table-body-row-1  " >

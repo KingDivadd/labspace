@@ -13,31 +13,31 @@ import { IoWarningOutline } from 'react-icons/io5'
 type PaymentBox = {
     payer_name: string;
     amount: number;
-    task_id: string;
+    project_id: string;
     payment_receipt: any[];
 };
 
-interface TaskData {
-    task_title: string; task_id: string; task_ind: string; cost: number;
+interface ProjectData {
+    project_title: string; project_id: string; project_ind: string; cost: number; amount_due: number;
 }
 const Payment_modal = () => {
     const router = useRouter()
     const [payment_ind, setPayment_ind] = useState('')
-    const { modalFor, setModalFor, setShowModal, selectedItem, selected_payment, setSelectedItem, setModalSource, showModal, task, setTrigger_notification,trigger_notification, current_task_nav, setCurrent_task_nav} = useChat()
+    const { modalFor, setModalFor, setShowModal, selectedItem, selected_payment, setSelectedItem, setModalSource, showModal, project, setTrigger_notification,trigger_notification, current_project_nav, setCurrent_project_nav} = useChat()
     const [alert, setAlert] = useState({message: '', type: ''})
-    const [payment_box, setPayment_box] = useState<PaymentBox>({amount: 0, payer_name: '', task_id:'', payment_receipt: []})
-    const [sub_task, setSub_task] = useState({title:'', tag: '', due_date:'2024-12-10', task_id: '', })
-    const [task_list, setTask_list] = useState<TaskData | null>(null)
+    const [payment_box, setPayment_box] = useState<PaymentBox>({amount: 0, payer_name: '', project_id:'', payment_receipt: []})
+    const [sub_project, setSub_project] = useState({title:'', tag: '', due_date:'2024-12-10', project_id: '', })
+    const [project_list, setProject_list] = useState<ProjectData | null>(null)
     const [loading, setLoading] = useState(false)
-    const [task_drop, setTask_drop] = useState(false)
+    const [project_drop, setProject_drop] = useState(false)
 
     
 
     useEffect(() => {
 
-        console.log(task)
+        console.log(project)
         if (modalFor != 'create') {
-            const {payment_id, payer_name, task_id, payment_receipt, amount, task } = selected_payment
+            const {payment_id, payer_name, project_id, payment_receipt, amount, project } = selected_payment
 
             const id = payment_id.split('-')
 
@@ -45,12 +45,12 @@ const Payment_modal = () => {
 
             setPayment_ind(new_id)
 
-            setTask_list(task)
+            setProject_list(project)
 
             console.log('onee ', selected_payment)
             
             setTimeout(() => {
-                setPayment_box({ ...payment_box, payer_name: payer_name, task_id: task_id, payment_receipt, amount: Number(amount) })
+                setPayment_box({ ...payment_box, payer_name: payer_name, project_id: project_id, payment_receipt, amount: Number(amount) })
             }, 100);
         }
     }, [])
@@ -58,24 +58,29 @@ const Payment_modal = () => {
     function handle_change(e:any){
         const name = e.target.name;
         const value = e.target.value;
+        console.log('selected project amount due ', project_list?.amount_due )
         if(name == 'amount'){
-            setPayment_box({...payment_box, [name]: Number(value.replace(/,/g,''))})
+            if ((project_list?.amount_due && value.replace(/,/g, '') > project_list?.amount_due) || project_list?.amount_due == 0) {
+                showAlert(`Amount due is ${project_list.amount_due.toLocaleString()}`, 'warning')
+            }else{
+                setPayment_box({...payment_box, [name]: Number(value.replace(/,/g,''))})
             
-            setSub_task({...sub_task, [name]: Number(value.replace(/,/g,''))})
+                setSub_project({...sub_project, [name]: Number(value.replace(/,/g,''))})
+            }
         }else{
             setPayment_box({...payment_box, [name]: value})
             
-            setSub_task({...sub_task, [name]: value})
+            setSub_project({...sub_project, [name]: value})
         }
 
     }
 
     function handle_cancel_payment() {
-        setPayment_box({...payment_box, task_id:'', amount: 0, payment_receipt: [], payer_name: ''})
+        setPayment_box({...payment_box, project_id:'', amount: 0, payment_receipt: [], payer_name: ''})
         // now navigate to payment page on project modal
         setModalFor('view')
-        setModalSource('task-modal')
-        setCurrent_task_nav('payment-history')
+        setModalSource('project-modal')
+        setCurrent_project_nav('payment-history')
     }
 
     
@@ -89,14 +94,13 @@ const Payment_modal = () => {
 
     async function handle_submit(e: any) {
         e.preventDefault();        
-        console.log(payment_box)
 
-        if (!payment_box.amount || !payment_box.payer_name || !payment_box.task_id) {
+        if (!payment_box.amount || !payment_box.payer_name || !payment_box.project_id) {
             if (!payment_box.payer_name){showAlert('Please enter the payer\'s name', 'warning')}
-            if (!payment_box.task_id){showAlert('Please select a task! ', 'warning')}
+            if (!payment_box.project_id){showAlert('Please select a project! ', 'warning')}
 
-            if ( !payment_box.amount && !payment_box.payer_name && !payment_box.task_id){
-                showAlert('Please provide all task required information', 'warning')
+            if ( !payment_box.amount && !payment_box.payer_name && !payment_box.project_id){
+                showAlert('Please provide all project required information', 'warning')
             }
 
             return;
@@ -110,7 +114,7 @@ const Payment_modal = () => {
                 if (response.status == 200 || response.status == 201){
 
 
-                    setPayment_box({ payer_name: '', task_id: '', payment_receipt: [], amount: 0})
+                    setPayment_box({ payer_name: '', project_id: '', payment_receipt: [], amount: 0})
                     showAlert(response.data.msg, "success")
                     setLoading(false)
                     setTimeout(() => {
@@ -135,12 +139,12 @@ const Payment_modal = () => {
     async function handle_edit(e: any) {
         e.preventDefault();        
 
-        if (!payment_box.amount || !payment_box.payer_name || !payment_box.task_id) {
+        if (!payment_box.amount || !payment_box.payer_name || !payment_box.project_id) {
             if (!payment_box.payer_name){showAlert('Please enter the payer\'s name', 'warning')}
-            if (!payment_box.task_id.length){showAlert('Please select a task! ', 'warning')}
+            if (!payment_box.project_id.length){showAlert('Please select a project! ', 'warning')}
 
-            if ( !payment_box.amount && !payment_box.payer_name && !payment_box.task_id){
-                showAlert('Please provide all task required information', 'warning')
+            if ( !payment_box.amount && !payment_box.payer_name && !payment_box.project_id){
+                showAlert('Please provide all project required information', 'warning')
             }
 
             return;
@@ -178,15 +182,15 @@ const Payment_modal = () => {
     }
 
     useEffect(() => {
-        select_task_list(selectedItem)
+        select_project_list(selectedItem)
     }, [])
 
-    function select_task_list(data:any) {
-        const {task_id, task_title, task_ind, amount} = data
-        setPayment_box({...payment_box, task_id})
-        setTask_list(data)
+    function select_project_list(data:any) {
+        const {project_id, project_title, project_ind, amount} = data
+        setPayment_box({...payment_box, project_id})
+        setProject_list(data)
 
-        setTask_drop(!task_drop)
+        setProject_drop(!project_drop)
     }
 
 
@@ -214,9 +218,9 @@ const Payment_modal = () => {
                                 <div className=" w-full"  > 
                                     <div className="w-full flex flex-col items-start justify-start relative ">
                                         <span className="h-[45px] w-full flex items-center justify-start rounded-l-[3px] border border-slate-400 overflow-x-auto px-2  gap-2  ">
-                                            { task_list ? <>
+                                            { project_list ? <>
                                                     <span className="flex items-center gap-3 rounded-[3px] px-2 py-1 text-xs text-slate-700 whitespace-nowrap font-[500]"  >
-                                                        {task_list?.task_ind} {task_list?.task_title}  ({Number(task_list?.cost).toLocaleString()})
+                                                        {project_list?.project_ind} {project_list?.project_title}  ({Number(project_list?.cost).toLocaleString()})
                                                         
                                                     </span>
                                                 

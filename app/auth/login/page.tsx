@@ -52,12 +52,9 @@ const Login = () => {
                     }, 1500);
                 }
                 else{
-                    showAlert(response.response.data.err, "error")
                     setLoading(false)
                 }
             } catch (err:any) {
-                console.error('Network or unexpected error:', err);
-                showAlert('An unexpected error occurred. Please try again later.', 'error');
             } finally {
                 setLoading(false); 
             }

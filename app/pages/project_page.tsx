@@ -4,7 +4,7 @@ import Modal from '../component/modals/modal'
 import { useChat } from '../context/ChatContext'
 import { useRouter } from 'next/navigation'
 import { get_auth_request } from '../api'
-import Alert, {AssetCont, AvatarUserInfo, Dropdown, SmallAvatar, formatted_time} from '../component/helper'
+import Alert, {AssetCont, AvatarUserInfo, Dropdown, ProjectActionBtn, formatted_time} from '../component/helper'
 import moment from 'moment'
 import Loading from '../component/loading'
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa6'
@@ -16,14 +16,12 @@ const Project_page = () => {
     const [task_box, setTask_box] = useState<Props | null>(null);
     const [filtered_task_box, setFiltered_task_box] = useState<Props | null>(null);
     const [filters, setFilters] = useState({filter_input: '', disposition: ''})
-    const {loggedInUser, modalFor, setModalFor, selectedItem, setSelectedItem, showModal, setShowModal, setModalSource, modalSource, app_users, setApp_users} = useChat()
+    const {loggedInUser, modalFor, setModalFor, selectedItem, setSelectedItem, showModal, setShowModal, setModalSource, modalSource, app_users, setApp_users, } = useChat()
     const [alert, setAlert] = useState({message: '', type: ''})
     const [loading, setLoading] = useState(true)
     const [isActive, setIsActive] = useState(true);
     const toggleActive = () => setIsActive(!isActive);
     const [drop_list_no, setDrop_list_no] = useState(false)
-    const [filter_task, setFilter_task] = useState('all')
-
 
 
     interface Props {
@@ -40,7 +38,7 @@ const Project_page = () => {
     useEffect(() => {
         const x_id_key = localStorage.getItem('x-id-key')
         if (x_id_key) {
-            handle_fetch_tasks(list_number, page_number)
+            handle_fetch_projects(list_number, page_number)
         }else{
             router.push('/auth/login')
         }
@@ -54,10 +52,10 @@ const Project_page = () => {
     }
     
 
-    async function handle_fetch_tasks(list_num: number, page_num: number) {
+    async function handle_fetch_projects(list_num: number, page_num: number) {
 
             try {
-                const response = await get_auth_request(`app/all-paginated-tasks/${list_num}/${page_num}`)  
+                const response = await get_auth_request(`app/all-paginated-projects/${list_num}/${page_num}`)  
 
                 if (response.status == 200 || response.status == 201){
 
@@ -101,7 +99,7 @@ const Project_page = () => {
         new_page_number = item;
         }
 
-        handle_fetch_tasks(list_number, new_page_number)
+        handle_fetch_projects(list_number, new_page_number)
         setPage_number(new_page_number);
         
     }
@@ -164,15 +162,15 @@ const Project_page = () => {
                 const filtered_tasks:any = task_box.tasks.filter((data: any) => {
 
                     const task_ind = data.task_ind?.toLowerCase() || '';
-                    const task_title = data.task_title?.toLowerCase() || ''
-                    const gapless_task_title = data.task_title?.replace(/ /g, '').toLowerCase() || ''
+                    const project_title = data.project_title?.toLowerCase() || ''
+                    const gapless_project_title = data.project_title?.replace(/ /g, '').toLowerCase() || ''
                     const priority = data.priority?.toLowerCase() || ''
                     const stage = data.stage?.toLowerCase() || ''
                     
                     return (
                         task_ind.includes(value) ||
-                        task_title.includes(value) ||
-                        gapless_task_title.includes(value) ||
+                        project_title.includes(value) ||
+                        gapless_project_title.includes(value) ||
                         priority.includes(value) ||
                         stage.includes(value) 
 
@@ -193,30 +191,25 @@ const Project_page = () => {
     function handle_add_task() {
         setShowModal(!showModal)
         setModalFor('create')
-        setModalSource('task-modal')
+        setModalSource('project-modal')
         
     }
 
     function handle_edit(data:any) {
         setShowModal(!showModal)
         setModalFor('edit')
-        setModalSource('task-modal')
+        setModalSource('project-modal')
         setSelectedItem(data)
     }
 
     function handle_view(data:any) {
         setShowModal(!showModal)
         setModalFor('view')
-        setModalSource('task-modal')
+        setModalSource('project-modal')
         setSelectedItem(data)
     }
 
-    function handle_delete(data:any) {
-        setShowModal(!showModal)
-        setModalFor('delete')
-        setModalSource('task-modal')
-        setSelectedItem(data)
-    }
+
 
     function handle_list_no(data:any) {
         if (data == 'all') {
@@ -334,7 +327,7 @@ const Project_page = () => {
                                 <p className="text-sm w-[15%] px-[15px] ">Assigned To</p>
                                 <p className="text-sm w-[10%] px-[15px] ">Stage</p>
                                 <p className="text-sm w-[10%] px-[15px] ">Assets</p>
-                                <p className="text-sm w-[15%] px-[15px] ">Action</p>
+                                <p className="text-sm w-[15%] px-[15px] "></p>
                             </span>
 
                             {loading ? 
@@ -349,16 +342,16 @@ const Project_page = () => {
                                     {filtered_task_box?.tasks.length ? 
                                     <>
                                     {filtered_task_box?.tasks.map((data: any, ind: number)=>{
-                                        const {task_id, updated_at, task_title, task_ind, priority, stage, team, activities, assets, sub_tasks,cost } = data                                        
+                                        const {task_id, updated_at, project_title, task_ind, priority, stage, team, activities, assets, tasks, cost } = data                                        
 
                                         const formated_stage = stage == 'todo' ? 'Todo' : stage == 'in_progress' ? 'In Progress' : stage == 'completed' ? 'Completed': ''
 
-                                        const info = {activities: activities.length, assets: assets.length, sub_task: sub_tasks.length}
+                                        const info = {activities: activities.length, assets: assets.length, sub_task: tasks.length}
 
                                         return(
                                             <span key={ind} className=" table-body-row-1  " >
                                                 <p className="text-sm font-[500] w-[18%] px-[15px] text-slate-600 ">{formatted_time(Number(updated_at))}</p>
-                                                <p className="text-sm font-[500] w-[14.5%] overflow truncate text-ellipsis  px-[15px] text-slate-600 ">{task_title}</p>
+                                                <p className="text-sm font-[500] w-[14.5%] overflow truncate text-ellipsis  px-[15px] text-slate-600 ">{project_title}</p>
                                                 <p className="text-sm font-[500] w-[10%] overflow truncate text-ellipsis  px-[15px] text-slate-600 "> {Number(cost).toLocaleString()}</p>
 
                                                 <span className="w-[15%] px-[15px] flex items-center justify-start overflow-visible ">
@@ -377,9 +370,7 @@ const Project_page = () => {
                                                 <span className="w-[10%] px-[15px] flex items-center justify-start gap-[5px] "> <AssetCont activities={info.activities} assets={info.assets} sub_tasks={info.sub_task}  /> </span>
 
                                                 <span className=" w-[15%] px-[15px] flex items-center justify-start gap-[10px]" >
-                                                    <button className="text-sm px-[15px] h-[27.5px] text-sm rounded-[2.5px] text-white bg-sky-500 hover:bg-sky-600" onClick={()=> handle_view(data)} >View</button>
-                                                    {/* <button className="text-sm px-[17.5px] h-[27.5px] text-sm rounded-[2.5px] text-white bg-amber-600 hover:bg-amber-700" onClick={()=> handle_edit(data)} >edit</button> */}
-                                                    {loggedInUser.is_admin && <button className="text-sm px-[15px] h-[27.5px] text-sm rounded-[2.5px] text-white bg-red-600 hover:bg-red-700" onClick={()=> handle_delete(data)}>Delete</button>}
+                                                    <ProjectActionBtn data={data} />
                                                 </span>
                                                 
                                             </span>

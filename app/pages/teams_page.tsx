@@ -61,6 +61,8 @@ const Teams_page = () => {
 
                     const users = response.data
 
+                    console.log('usrs ',users)
+
                     setLead_box(users)
                     setFiltered_user_box(users)
                     setLoading(false)
@@ -76,7 +78,7 @@ const Teams_page = () => {
                 }
             } catch (err:any) {
                 console.error('Network or unexpected error:', err);
-                showAlert('Network error, check internet connection.', 'error');
+                // showAlert('Network error, check internet connection.', 'error');
             } 
         
     }
@@ -263,13 +265,13 @@ const Teams_page = () => {
                     <div className="w-full overflow-x-auto">
 
                         <div className="min-w-[1024px] px-[15px] py-[10px] flex flex-col items-start justify-start mx-auto ">
-                            <span className="w-full h-[45px] flex items-center justify-between bg-blue-500 text-white rounded-[3px]">
-                                <p className="text-sm font-[500] w-[15%] px-[15px] ">Last Updated</p>
-                                <p className="text-sm font-[500] w-[18.5%] px-[15px] ">Full Name</p>
-                                <p className="text-sm font-[500] w-[21.5%] px-[15px] ">Email</p>
-                                <p className="text-sm font-[500] w-[17.5%] px-[15px] ">Title</p>
-                                <p className="text-sm font-[500] w-[10%] px-[15px] ">Status</p>
-                                <p className="text-sm font-[500] w-[17.5%] px-[15px] ">Action</p>
+                            <span className="w-full h-[45px] flex items-center justify-between rounded-[3px] bg-blue-500 text-white">
+                                <p className="text-sm w-[15%] px-[15px]  ">Last Updated</p>
+                                <p className="text-sm w-[18.5%] px-[15px]  ">Full Name</p>
+                                <p className="text-sm w-[21.5%] px-[15px]  ">Email</p>
+                                <p className="text-sm w-[17.5%] px-[15px]  ">Title</p>
+                                <p className="text-sm w-[10%] px-[15px]  ">Status</p>
+                                <p className="text-sm w-[17.5%] px-[15px]  ">Action</p>
                             </span>
 
                             {loading ? 

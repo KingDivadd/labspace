@@ -1,7 +1,7 @@
 'use client'
 import React, {useState, useEffect} from 'react'
 import { useChat } from '../../context/ChatContext'
-import Alert, {Avatar, Dropdownlg, FileDisplay, FileUpload, UserInfo, convert_to_unix, formatted_time, readable_date, readable_date_time} from '../helper'
+import Alert, {Avatar, Dropdownlg, FileDisplay, FileUpload, TaskActionBtn, UserInfo, convert_to_unix, formatted_time, readable_date, readable_date_time} from '../helper'
 import { FaTimes } from 'react-icons/fa'
 import { LuCheck } from 'react-icons/lu'
 import Loading from '../loading'
@@ -10,9 +10,10 @@ import { useRouter } from 'next/navigation'
 import moment from 'moment'
 import { IoWarningOutline } from 'react-icons/io5'
 import Payment_page from '../../pages/payment_page'
+import { HiOutlineDotsVertical } from 'react-icons/hi'
 
-type TaskBox = {
-    task_title: string;
+type ProjectBox = {
+    project_title: string;
     priority: string;
     stage: string;
     cost: number;
@@ -20,12 +21,12 @@ type TaskBox = {
     assets: any[];
 };
 
-const Task_modal = () => {
+const Project_modal = () => {
     const router = useRouter()
-    const { modalFor, setModalFor, setShowModal, selectedItem, app_users, setTrigger_notification,trigger_notification, current_task_nav, setCurrent_task_nav} = useChat()
+    const { modalFor, setModalFor, setShowModal, selectedItem, app_users, setTrigger_notification,trigger_notification, current_project_nav, setCurrent_project_nav} = useChat()
     const [alert, setAlert] = useState({message: '', type: ''})
-    const [task_box, setTask_box] = useState<TaskBox>({task_title: "", priority: 'normal', cost: 0, stage: 'todo', team: [], assets: []})
-    const [sub_task, setSub_task] = useState({title:'', tag: '', date:'2024-12-10', due_date: 0  })
+    const [project_box, setProject_box] = useState<ProjectBox>({project_title: "", priority: 'normal', cost: 0, stage: 'todo', team: [], assets: []})
+    const [tasks, setTasks] = useState({title:'', is_completed: false, date:'2024-12-10', due_date: 0  })
     const [activity, setActivity] = useState({description: '', activity_type: 'commented'})
     const [team_members, setTeam_members] = useState([])
     const [loading, setLoading] = useState(false)
@@ -34,19 +35,19 @@ const Task_modal = () => {
     
 
     useEffect(() => {
-        // setSub_task({...sub_task, due_date: convert_to_unix()})
+        // setTasks({...tasks, due_date: convert_to_unix()})
         if (modalFor != 'create') {
 
-            const { task_title, priority, stage, team, assets, cost } = selectedItem
+            const { project_title, priority, stage, team, assets, cost } = selectedItem
 
-            if (current_task_nav == 'edit-project') {
+            if (current_project_nav == 'edit-project') {
                 setModalFor('edit')
-            }else if (current_task_nav == 'create-task') {
-                setModalFor('create-task')
+            }else if (current_project_nav == 'create-project') {
+                setModalFor('create-project')
             }
 
-            // const task_stage = stage == 'todo' ? 'Todo' : stage == 'completed' ? 'Completed' : stage == 'in_progress' ? "In Progress" :  ""
-            // const task_priority = priority == 'high' ? 'High' : priority == 'low' ? 'Low' : priority == 'normal' ? 'Normal': ''                    
+            // const project_stage = stage == 'todo' ? 'Todo' : stage == 'completed' ? 'Completed' : stage == 'in_progress' ? "In Progress" :  ""
+            // const project_priority = priority == 'high' ? 'High' : priority == 'low' ? 'Low' : priority == 'normal' ? 'Normal': ''                    
 
             const user_ids = team.map((data: any) => data.user.user_id)
 
@@ -58,7 +59,7 @@ const Task_modal = () => {
 
             setTeam_members(team_members_info)
             
-            setTask_box({ ...task_box, task_title, priority: priority, stage: stage, team: user_ids, assets, cost: Number(cost) })
+            setProject_box({ ...project_box, project_title, priority: priority, stage: stage, team: user_ids, assets, cost: Number(cost) })
         }
     }, [])
 
@@ -73,19 +74,19 @@ const Task_modal = () => {
         const name = e.target.name;
         const value = e.target.value;
         if(name == 'cost'){
-            setTask_box({...task_box, [name]: Number(value.replace(/,/g,''))})
+            setProject_box({...project_box, [name]: Number(value.replace(/,/g,''))})
             
-            setSub_task({...sub_task, [name]: Number(value.replace(/,/g,''))})
+            setTasks({...tasks, [name]: Number(value.replace(/,/g,''))})
         }else{
-            setTask_box({...task_box, [name]: value})
+            setProject_box({...project_box, [name]: value})
             
-            setSub_task({...sub_task, [name]: value})
+            setTasks({...tasks, [name]: value})
         }
 
     }
 
-    function handle_cancel_task() {
-        setTask_box({...task_box, task_title: '', priority: '', stage: ''})
+    function handle_cancel_project() {
+        setProject_box({...project_box, project_title: '', priority: '', stage: ''})
         setShowModal(false)
     }
 
@@ -116,7 +117,7 @@ const Task_modal = () => {
             setLoading(true); 
             try {
                 
-                const response = await post_auth_request(`app/add-activity/${selectedItem.task_id}`, activity)                
+                const response = await post_auth_request(`app/add-activity/${selectedItem.project_id}`, activity)                
 
                 if (response.status == 200 || response.status == 201){
 
@@ -140,25 +141,19 @@ const Task_modal = () => {
         }
     }
 
-    async function handle_create_subtask(e: any) {
+    async function handle_create_task(e: any) {
         e.preventDefault();        
 
-        if (!sub_task.title || !sub_task.tag || !sub_task.date) {
-            if (!sub_task.title){showAlert('Please enter the sub task title', 'warning')}
-            if (!sub_task.tag){showAlert('Please enter the sub task tag', 'warning')}
-            if (!sub_task.date){showAlert('Please select due date', 'warning')}
-
-            if (!sub_task.title || !sub_task.tag || !sub_task.due_date) {
-                showAlert('Please fill all fields', 'warning')
-            }
+        if (!tasks.title ) {
+            if (!tasks.title){showAlert('Please enter task title', 'warning')}
 
             return;
         } else {
             setLoading(true); 
             try {
                 
-                const box = {title: sub_task.title, tag: sub_task.tag, due_date: convert_to_unix(sub_task.date) * 1000}
-                const response = await post_auth_request(`app/create-subtask/${selectedItem.task_id}`, box)                
+                const box = {title: tasks.title, due_date: convert_to_unix(tasks.date) * 1000}
+                const response = await post_auth_request(`app/create-task/${selectedItem.project_id}`, box)                
 
                 if (response.status == 200 || response.status == 201){
 
@@ -169,6 +164,7 @@ const Task_modal = () => {
 
                     setTimeout(() => {
                         setModalFor('view')
+                        setCurrent_project_nav('project_details')
                     }, 1500);
 
                 }
@@ -188,14 +184,14 @@ const Task_modal = () => {
     async function handle_submit(e: any) {
         e.preventDefault();        
 
-        if (!task_box.task_title || !task_box.priority || !task_box.stage || !task_box.team.length) {
-            if (!task_box.task_title){showAlert('Please provide the task title ', 'warning')}
-            if (!task_box.priority){showAlert('Please select the task priority ', 'warning')}
-            if (!task_box.stage){showAlert('Please select the task stage', 'warning')}
-            if (!task_box.team.length){showAlert('Task not assiged to anyone yet! ', 'warning')}
+        if (!project_box.project_title || !project_box.priority || !project_box.stage || !project_box.team.length) {
+            if (!project_box.project_title){showAlert('Please provide the project title ', 'warning')}
+            if (!project_box.priority){showAlert('Please select the project priority ', 'warning')}
+            if (!project_box.stage){showAlert('Please select the project stage', 'warning')}
+            if (!project_box.team.length){showAlert('Project not assiged to anyone yet! ', 'warning')}
 
-            if (!task_box.task_title && !task_box.priority && !task_box.stage && !task_box.team.length){
-                showAlert('Please provide all task required information', 'warning')
+            if (!project_box.project_title && !project_box.priority && !project_box.stage && !project_box.team.length){
+                showAlert('Please provide all project required information', 'warning')
             }
 
             return;
@@ -203,12 +199,12 @@ const Task_modal = () => {
             setLoading(true); 
             try {
                 
-                const response = await post_auth_request('app/create-task', task_box)                
+                const response = await post_auth_request('app/create-project', project_box)                
 
                 if (response.status == 200 || response.status == 201){
 
 
-                    setTask_box({task_title: "", priority: '', stage: '', team: [], assets: [], cost: 0})
+                    setProject_box({project_title: "", priority: '', stage: '', team: [], assets: [], cost: 0})
                     setTeam_members([])
                     showAlert(response.data.msg, "success")
                     setLoading(false)
@@ -232,14 +228,14 @@ const Task_modal = () => {
     async function handle_edit(e: any) {
         e.preventDefault();        
 
-        if (!task_box.task_title || !task_box.priority || !task_box.stage || !task_box.team.length) {
-            if (!task_box.task_title){showAlert('Please provide the task title ', 'warning')}
-            if (!task_box.priority){showAlert('Please select the task priority ', 'warning')}
-            if (!task_box.stage){showAlert('Please select the task stage', 'warning')}
-            if (!task_box.team.length){showAlert('Task not assiged to anyone yet! ', 'warning')}
+        if (!project_box.project_title || !project_box.priority || !project_box.stage || !project_box.team.length) {
+            if (!project_box.project_title){showAlert('Please provide the project title ', 'warning')}
+            if (!project_box.priority){showAlert('Please select the project priority ', 'warning')}
+            if (!project_box.stage){showAlert('Please select the project stage', 'warning')}
+            if (!project_box.team.length){showAlert('Project not assiged to anyone yet! ', 'warning')}
 
-            if (!task_box.task_title && !task_box.priority && !task_box.stage && !task_box.team.length){
-                showAlert('Please provide all task required information', 'warning')
+            if (!project_box.project_title && !project_box.priority && !project_box.stage && !project_box.team.length){
+                showAlert('Please provide all project required information', 'warning')
             }
 
             return;
@@ -247,12 +243,12 @@ const Task_modal = () => {
             setLoading(true); 
             try {
                 
-                const response = await patch_auth_request(`app/edit-task/${selectedItem.task_id}`, task_box)                
+                const response = await patch_auth_request(`app/edit-project/${selectedItem.project_id}`, project_box)                
 
                 if (response.status == 200 || response.status == 201){
 
 
-                    // setTask_box({task_title: "", priority: '', stage: '', team: [], assets: []})
+                    // setProject_box({project_title: "", priority: '', stage: '', team: [], assets: []})
                     setTeam_members([])
                     showAlert(response.data.msg, "success")
                     setLoading(false)
@@ -279,7 +275,7 @@ const Task_modal = () => {
             setLoading(true); 
             try {
                 
-                const response = await delete_auth_request(`app/delete-task/${selectedItem.task_id}`)                
+                const response = await delete_auth_request(`app/delete-project/${selectedItem.project_id}`)                
 
                 if (response.status == 200 || response.status == 201){
 
@@ -306,25 +302,25 @@ const Task_modal = () => {
     const handleSelect = (selected: string, id?: string) => {
         const value = selected.replace(/ /g, '_').toLowerCase()
         if (id === 'stage'){
-            setTask_box({...task_box, stage: value})
+            setProject_box({...project_box, stage: value})
         }else if (id === 'priority'){
-            setTask_box({...task_box, priority: value})
+            setProject_box({...project_box, priority: value})
         }
     };
 
     function handle_file_change(files:any[], id: string) {
-        setTask_box({...task_box, assets: files})
+        setProject_box({...project_box, assets: files})
     }
 
     function select_team_member(data:any) {
         const {user_id, first_name, last_name} = data
 
-        const box:string[] = task_box.team
+        const box:string[] = project_box.team
         const team_member_box:any = team_members || []
 
         if (!box.includes(user_id)){    
             box.push(user_id)
-            setTask_box({...task_box, team: box })
+            setProject_box({...project_box, team: box })
 
             team_member_box.push(data)
             setTeam_members(team_member_box)
@@ -337,15 +333,15 @@ const Task_modal = () => {
     function remove_member(data:any) {
         const {user_id} = data
 
-        if (task_box.team.includes(user_id)) {
-            const array = task_box.team;
+        if (project_box.team.includes(user_id)) {
+            const array = project_box.team;
 
             const updatedArray = array.filter(item => item !== user_id);
 
             const updatedUsers = team_members.filter((user:any) => user.user_id !== user_id);
 
             setTeam_members(updatedUsers)
-            setTask_box({...task_box, team: updatedArray})
+            setProject_box({...project_box, team: updatedArray})
 
         }
     }
@@ -357,7 +353,7 @@ const Task_modal = () => {
 
     function handle_edit_cancel(){
         setModalFor('view')
-        setCurrent_task_nav('project_details')
+        setCurrent_project_nav('project_details')
     }
 
 
@@ -373,16 +369,13 @@ const Task_modal = () => {
                 <div className="max-sm:w-[95vw] mx-auto w-[450px] ">
                     <div className="w-full p-[25px] border-b border-slate-200 flex flex-col items-center justify-center gap-5">
                         <div className="w-full flex flex-col items-center justify-center text-center gap-3 ">
-                            <p className="text-md font-[500]">Are your sure you want to delete task with Id of</p>
+                            <p className="text-md font-[500]">Are your sure you want to delete project with Id of</p>
                             <span className="w-full flex items-center justify-center gap-2">
-                                <p className="text-md font-[600] ">{selectedItem.task_ind}</p> 
+                                <p className="text-md font-[600] ">{selectedItem.project_ind}</p> 
                                 <p className="text-md font-[500]">and title</p> 
-                                <p className="text-md font-[600] ">{selectedItem.task_title}</p> 
+                                <p className="text-md font-[600] ">{selectedItem.project_title}</p> 
                             </span>
-                            <span className="flex items-center gap-3">
-                                <span className="h-[20px] w-[20px] text-red-600"><IoWarningOutline size={'100%'} /></span>
-                                <p className="text-md font-[400]"> Please note, this action is not reversible</p>
-                            </span>
+                            
                         </div>
 
                         <button className="text-sm w-[95px] flex items-center justify-center h-[45px] rounded-[3px] bg-red-600 hover:bg-red-700 text-white" onClick={handle_delete} disabled={loading}>
@@ -400,7 +393,7 @@ const Task_modal = () => {
 
                 {(modalFor == 'create' || modalFor == 'edit') && <div className="max-sm:w-[95vw] mx-auto w-[450px] max-h-[92vh] sm:max-h-[92.5vh] overflow-y-auto">
                     <span className="w-full px-[25px] h-[50px]  border-b border-slate-200 flex items-center justify-between ">
-                        {modalFor == 'create' ? <p className="text-md font-[500]  ">New Project</p> : <p className="text-md font-[500]  "> {selectedItem.task_ind}</p>  }
+                        {modalFor == 'create' ? <p className="text-md font-[500]  ">New Project</p> : <p className="text-md font-[500]  "> {selectedItem.project_ind}</p>  }
                         
 
                         {/* <span className="h-[15px] w-[15px] flex items-center justify-center cursor-pointer" onClick={handle_close_modal}><FaRegCircleXmark size={'100%'}  className='hover:text-red-600' /> </span> */}
@@ -409,7 +402,7 @@ const Task_modal = () => {
                     <div className="w-full flex flex-col items-start justify-start gap-[30px] p-[25px]">
                         <span className="w-full flex flex-col items-start justify-start gap-2">
                             <p className="text-sm ">Project Title</p>
-                            <input type="text" name='task_title' placeholder='Title' value={task_box.task_title} onChange={handle_change} className='input-type-1' />
+                            <input type="text" name='project_title' placeholder='Title' value={project_box.project_title} onChange={handle_change} className='input-type-1' />
                         </span>
 
                         <span className="w-full flex flex-col items-start justify-start gap-2">
@@ -444,7 +437,7 @@ const Task_modal = () => {
                                                                     <li key={ind} className="px-[10px] h-[40px] flex items-center justify-between text-sm  hover:bg-blue-500 hover:text-white cursor-pointer" onClick={()=> select_team_member(data)}>
                                                                         {first_name} {last_name}
                                                     
-                                                                        {task_box.team.includes(user_id) && <span className="h-[15px] w-[15px] text-blue-600 float-end "><LuCheck size={'100%'} /> </span>}
+                                                                        {project_box.team.includes(user_id) && <span className="h-[15px] w-[15px] text-blue-600 float-end "><LuCheck size={'100%'} /> </span>}
                                                                     </li>
                                                             )
                                                         })
@@ -469,31 +462,31 @@ const Task_modal = () => {
                         <span className="w-full flex flex-col items-start justify-start gap-2">
                             <p className="text-sm ">Cost </p>
 
-                            <input type="text" name='cost' placeholder='00,000.00' value={task_box.cost == 0 ? '': Number(task_box.cost).toLocaleString()} onChange={handle_change} className='input-type-1' />
+                            <input type="text" name='cost' placeholder='00,000.00' value={project_box.cost == 0 ? '': Number(project_box.cost).toLocaleString()} onChange={handle_change} className='input-type-1' />
                         </span>
 
 
                             <span className="w-full flex flex-col items-start justify-start gap-2">
-                                <p className="text-sm ">Task Stage</p>
-                                <span className="w-full h-[45px] "><Dropdownlg id='stage' placeholder={task_box.stage == 'todo' ? 'Todo' : task_box.stage } options={['Todo', 'Completed', 'In Progress']} onSelect={handleSelect} /> </span>
+                                <p className="text-sm ">Project Stage</p>
+                                <span className="w-full h-[45px] "><Dropdownlg id='stage' placeholder={project_box.stage == 'todo' ? 'Todo' : project_box.stage } options={['Todo', 'Completed', 'In Progress']} onSelect={handleSelect} /> </span>
                             </span>
 
                             {/* <span className="w-full flex flex-col items-start justify-start gap-2">
                                 <p className="text-sm ">Priority Level</p>
-                                <span className="w-full h-[45px] "><Dropdownlg id='priority' placeholder={task_box.priority || 'Select Priority level'} options={['Low', 'Normal', 'High']} onSelect={handleSelect} /> </span>
+                                <span className="w-full h-[45px] "><Dropdownlg id='priority' placeholder={project_box.priority || 'Select Priority level'} options={['Low', 'Normal', 'High']} onSelect={handleSelect} /> </span>
                             </span> */}
 
                         <span className="w-full flex flex-col items-start justify-start gap-2">
                             <p className="text-sm ">Add Asset</p>
                             <div className="w-full flex items-center justify-end">
-                                <FileUpload id='assets' maxFiles={5} onFileChange={handle_file_change} initialFiles={task_box.assets} />
+                                <FileUpload id='assets' maxFiles={5} onFileChange={handle_file_change} initialFiles={project_box.assets} />
                             </div>
                         </span>
 
                     </div>
 
                     <div className="w-full flex items-center justify-end gap-5 p-[25px] pt-0 ">
-                        <button className="text-sm w-[95px] bg-white text-sm rounded-[3px] hover:text-red-600 border border-white h-[45px] hover:border-red-600 " onClick={modalFor == 'edit' ?  handle_edit_cancel : handle_cancel_task } > Cancel </button>
+                        <button className="text-sm w-[95px] bg-white text-sm rounded-[3px] hover:text-red-600 border border-white h-[45px] hover:border-red-600 " onClick={modalFor == 'edit' ?  handle_edit_cancel : handle_cancel_project } > Cancel </button>
 
                         {modalFor == 'create'?  <button className="text-sm w-[95px] flex items-center justify-center h-[45px] rounded-[3px] bg-blue-500 hover:bg-blue-600 text-white" onClick={handle_submit} disabled={loading}>
                             {loading ? (
@@ -515,7 +508,7 @@ const Task_modal = () => {
 
                 </div>}
 
-                {(modalFor == 'create-task' || modalFor == 'edit-subtask') && <div className="sm:w-[450px] w-[400px]">
+                {(modalFor == 'create-task' || modalFor == 'edit-subproject') && <div className="sm:w-[450px] w-[400px]">
                     <span className="w-full px-[25px] h-[50px]  border-b border-slate-200 flex items-center justify-between ">
                         <p className="text-md font-[500]  ">New Task</p> 
                         
@@ -524,25 +517,20 @@ const Task_modal = () => {
                     <div className="w-full flex flex-col items-start justify-start gap-[30px] p-[25px]">
                         <span className="w-full flex flex-col items-start justify-start gap-2">
                             <p className="text-sm ">Title</p>
-                            <input type="text" name='title' placeholder='Title' value={sub_task.title} onChange={handle_change} className='input-type-1' />
+                            <input type="text" name='title' placeholder='Title' value={tasks.title} onChange={handle_change} className='input-type-1' />
                         </span>
 
-                        <span className="w-full flex flex-col items-start justify-start gap-2">
-                            <p className="text-sm ">Tag</p>
-                            <input type="text" name='tag' placeholder='Title' value={sub_task.tag} onChange={handle_change} className='input-type-1' />
-                        </span>
-
-                        <span className="w-full flex flex-col items-start justify-start gap-2">
+                        <span className="hidden w-full flex flex-col items-start justify-start gap-2">
                             <p className="text-sm ">Due Date</p>
-                            <input type="date" name='date' placeholder='' value={sub_task.date} onChange={handle_change} className='input-type-1' />
+                            <input type="date" name='date' placeholder='' value={tasks.date} onChange={handle_change} className='input-type-1' />
                         </span>
 
                     </div>
 
-                    <div className="w-full flex items-center justify-end gap-5 p-[25px] pt-0 ">
+                    <div className="mt-10 w-full flex items-center justify-end gap-5 p-[25px] pt-0 ">
                         <button className="text-sm w-[95px] bg-white text-sm rounded-[3px] hover:text-red-600 border border-white h-[45px] hover:border-red-600 " onClick={handle_edit_cancel} > Cancel </button>
 
-                        <button className="text-sm w-[95px] flex items-center justify-center h-[45px] rounded-[3px] bg-blue-500 hover:bg-blue-600 text-white" onClick={handle_create_subtask} disabled={loading}>
+                        <button className="text-sm w-[95px] flex items-center justify-center h-[45px] rounded-[3px] bg-blue-500 hover:bg-blue-600 text-white" onClick={handle_create_task} disabled={loading}>
                             {loading ? (
                             <svg className="w-[25px] h-[25px] animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
@@ -561,8 +549,8 @@ const Task_modal = () => {
                     <div className="w-[90vw] flex flex-col items-start gap-2 mx-auto">
                         <span className=" w-full px-[15px] h-[50px] flex items-center justify-between ">
                             <span className="flex items-center justify-start gap-5">
-                                <p className="text-md font-[500] "> {selectedItem.task_ind}</p> 
-                                <p className="text-md font-[500] ">{task_box.task_title}</p>
+                                <p className="text-md font-[500] "> {selectedItem.project_ind}</p> 
+                                <p className="text-md font-[500] ">{project_box.project_title}</p>
                             </span>
 
                             <button className="text-sm h-[35px] text-sm rounded-[35px] hover:text-white hover:bg-red-500 px-5  " onClick={()=> setShowModal(false)}  >Close</button>
@@ -572,28 +560,28 @@ const Task_modal = () => {
 
                             {/* nav section */}
                             <div className="w-full flex items-center justify-start gap-2 px-[15px] bg-white">
-                                <button className={ current_task_nav == 'project_details' ? `active-prj-nav-btn` : `prj-nav-btn`} onClick={()=> setCurrent_task_nav('project_details')}>
+                                <button className={ current_project_nav == 'project_details' ? `active-prj-nav-btn` : `prj-nav-btn`} onClick={()=> setCurrent_project_nav('project_details')}>
                                     Project Details
                                 </button>
                                 
-                                <button className={ current_task_nav == 'activities' ? `active-prj-nav-btn` : `prj-nav-btn`} onClick={()=> setCurrent_task_nav('activities')}>
+                                <button className={ current_project_nav == 'activities' ? `active-prj-nav-btn` : `prj-nav-btn`} onClick={()=> setCurrent_project_nav('activities')}>
                                     Activities / Timeline
                                 </button>
                                 
-                                <button className={ current_task_nav == 'payment-history' ? `active-prj-nav-btn` : `prj-nav-btn`} onClick={()=> setCurrent_task_nav('payment-history')}>
+                                <button className={ current_project_nav == 'payment-history' ? `active-prj-nav-btn` : `prj-nav-btn`} onClick={()=> setCurrent_project_nav('payment-history')}>
                                     Payment History
                                 </button>
                                 
-                                <button className={ current_task_nav == 'edit-project' ? `active-prj-nav-btn` : `prj-nav-btn`} onClick={()=> {setCurrent_task_nav('edit-project'); handle_edit_projet()}}>
+                                <button className={ current_project_nav == 'edit-project' ? `active-prj-nav-btn` : `prj-nav-btn`} onClick={()=> {setCurrent_project_nav('edit-project'); handle_edit_projet()}}>
                                     Edit Project
                                 </button>
                                 
-                                <button className={ current_task_nav == 'create-task' ? `active-prj-nav-btn` : `prj-nav-btn`} onClick={()=> {setCurrent_task_nav('create-task'); setModalFor('create-task')}}>
+                                <button className={ current_project_nav == 'create-task' ? `active-prj-nav-btn` : `prj-nav-btn`} onClick={()=> {setCurrent_project_nav('create-task'); setModalFor('create-task')}}>
                                     Create Task
                                 </button>
                             </div>
 
-                            {current_task_nav == 'project_details' && 
+                            {current_project_nav == 'project_details' && 
                             <div className="w-full px-[15px]  h-[535px] mb-[15px] flex flex-wrap items-start justify-between bg-white  gap-[25px] overflow-y-auto ">
                                 <div className="w-[430px] max-sm:w-full h-[530px] overflow-y-auto  rounded-[5px] border border-slate-200  p-[15px] ">
                                     <div className='w-full flex flex-col items-start justify-start gap-5 '>
@@ -647,15 +635,15 @@ const Task_modal = () => {
                                                 <p className="text-md font-[500]">{selectedItem.assets.length}</p>
                                             </span>
                                             <span className="h-[40px] my-auto flex items-center justify-start gap-[15px]">
-                                                <p className="text-md font-[500]">Sub-Tasks:</p>
-                                                <p className="text-md font-[500]">{selectedItem.sub_tasks.length}</p>
+                                                <p className="text-md font-[500]">Tasks:</p>
+                                                <p className="text-md font-[500]">{selectedItem.tasks.length}</p>
                                             </span>
 
                                         </span>
 
-                                        {/* task teams */}
+                                        {/* project teams */}
                                         <div className="w-full flex flex-col items-start justify-start">
-                                            <p className="text-md  font-[500] h-[40px]">Task Team</p>
+                                            <p className="text-md  font-[500] h-[40px]">Project Team</p>
                                             <div className="w-full flex flex-col items-start justify-start gap-2">
                                                 {selectedItem.team.map((data:any,ind:number)=>{
                                                     return(
@@ -667,35 +655,36 @@ const Task_modal = () => {
                                     </div>
                                 </div>
 
-                                <div className="w-[430px] max-sm:w-full h-[530px] flex items-center justify-center  rounded-[5px] border border-slate-200  p-[15px] overflow-y-auto">
-                                    {selectedItem.sub_tasks.length ?
-                                        <div className="w-full h-full flex flex-col items-start justify-start gap-3">
+                                <div className="w-[430px] max-sm:w-full h-[530px] flex items-start justify-center  rounded-[5px] border border-slate-200  p-[15px] overflow-y-auto">
+                                    {selectedItem.tasks.length ?
+                                        <div className="w-full  flex flex-wrap items-start justify-between gap-3">
                                             {
-                                                selectedItem.sub_tasks.map((data:any, ind: number)=>{
-                                                    const {title, tag, due_date, created_at} = data
+                                                selectedItem.tasks.map((data:any, ind: number)=>{
+                                                    const {title, is_completed, due_date, created_at, task_id} = data
+
                                                     return(
-                                                        <span key={ind} className="w-full h-[100px] shadow-md border border-gray-100 rounded-[3px] p-[10px] flex flex-col gap-3">
+                                                        <span key={ind} className="min-w-[190px] min-h-[100px]  border border-slate-200 rounded-[3px] p-[10px] flex flex-col gap-3">
+                                                            <span className="flex items-start justify-between gap-3">
+                                                                <p className={`text-sm font-[500] whitespace-nowrap ${is_completed ? 'text-teal-500': 'text-amber-600'}`}> {is_completed ? "Completed":"Not Completed"} </p>
+
+                                                                <TaskActionBtn data={data} />
+                                                            </span>
                                                             <span className="flex items-start justify-start gap-3">
-                                                                <p className="text-sm w-[90px]"> Sub Task Title </p>
                                                                 <p className="text-sm font-[500]"> {title} </p>
                                                             </span>
 
-                                                            <span className="flex items-start justify-start gap-3">
-                                                                <p className="text-sm w-[90px]"> Sub Task Tag </p>
-                                                                <p className="text-sm font-[500]"> {tag} </p>
-                                                            </span>
 
                                                             <span className="flex items-start justify-start gap-3">
-                                                                <p className="text-sm w-[90px]"> Created  </p>
-                                                                <p className="text-sm font-[500]"> {formatted_time(Number(created_at))} </p>
+                                                                <p className="text-[11px] font-[400]"> {formatted_time(Number(created_at))} </p>
                                                             </span>
+
                                                         </span>
                                                     )
                                                 })
                                             }
                                         </div>
                                         :
-                                        <p className="text-sm font-medium">No Subtask Created Yet</p>
+                                        <p className="text-sm font-[500]">No Task Created Yet</p>
                                     }
                                 </div>
 
@@ -710,7 +699,7 @@ const Task_modal = () => {
                                         })}
                                     </>:
                                     <div className="w-full h-full flex items-center justify-center">
-                                        <p className="text-sm font-semibold">No Assets Uploaded Yet</p>
+                                        <p className="text-sm font-[500]">No Assets Uploaded Yet</p>
                                     </div>
                                     }
 
@@ -719,7 +708,7 @@ const Task_modal = () => {
                             </div>}
 
                             {
-                                current_task_nav == 'activities' && 
+                                ( current_project_nav == 'activities') && 
                                 
                                 <div className="mx-auto h-[535px] max-sm:h-[70vh] max-lg:h-[600px]  mb-[15px] flex flex-wrap items-start justify-between bg-white  gap-[25px] overflow-y-auto">
                                     <div className="w-[775px] max-lg:w-[450px] max-xl:w-[500px] max-md:w-full h-[530px] max-lg:h-[375px] flex flex-col items-start gap-[25px] ">
@@ -820,8 +809,8 @@ const Task_modal = () => {
                             }
 
                             {
-                                current_task_nav == 'payment-history' &&
-                                <div className=" w-[100%] h-[550px] max-sm:h-[70vh] max-lg:h-[600px]  mb-[15px] flex flex-wrap items-start justify-between bg-white  gap-[25px]  ">
+                                current_project_nav == 'payment-history' &&
+                                <div className=" w-[100%] h-[535px] max-sm:h-[70vh] max-lg:h-[600px]  mb-[15px] flex flex-wrap items-start justify-between bg-white  gap-[25px]  overflow-y-auto">
                                     <Payment_page />
                                 </div>
                             }
@@ -836,5 +825,5 @@ const Task_modal = () => {
     )
 }
 
-export default Task_modal
+export default Project_modal
 

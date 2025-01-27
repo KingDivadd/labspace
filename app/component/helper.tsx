@@ -8,6 +8,8 @@ import { FaCamera, FaTimes, FaTrashAlt } from "react-icons/fa";
 import axios from 'axios';
 import Loading from './loading';
 import moment from 'moment';
+import { HiOutlineDotsVertical } from 'react-icons/hi';
+import { patch_auth_request } from '../api';
 
 
 export const formatted_time = (time:number)=>{
@@ -830,3 +832,165 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({ id, onImageChange, ini
         </div>
     );
 };
+
+
+// Project dropdown action section
+
+interface ProjectActBtnInt {
+    data: any;
+    
+}
+
+export const TaskActionBtn:React.FC<ProjectActBtnInt> = ({data})=> {
+    const [dropList, setDropList] = useState(false);
+    const {setModalFor, setModalSource, setSelectedItem, setShowModal, showModal, setCurrent_project_nav, selectedItem} = useChat()
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    async function handle_complete_task(data:any){
+        try {
+                
+            const response = await patch_auth_request(`app/complete-task/${data.task_id}/${data.project_id}`, {})                
+            console.log(response)
+            if (response.status == 200 || response.status == 201){
+                console.log(response.data)
+                setDropList(!dropList)
+
+            }
+            else{
+            }
+        } catch (err:any) {
+            console.error('Network or unexpected error:', err);
+            // showAlert('An unexpected error occurred. Please try again later.', 'error');
+        }
+    }
+
+    function handle_action(type: string){
+        setDropList(false)
+        if (type == 'edit'){
+            setShowModal(!showModal)
+            setModalFor('view')
+            setModalSource('project-modal')
+            setSelectedItem(data)
+        }
+        else if (type == 'completed'){
+            console.log(data)
+            handle_complete_task(data)
+        }
+        
+    }
+
+    useEffect(() => {
+        const handleOutsideClick = (event: MouseEvent) => {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target as Node)
+            ) {
+                setDropList(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, []);
+
+    return (
+        <div className=" w-full relative flex item-center justify-end " ref={dropdownRef}>
+            <span className="h-[17px] w-[17px] cursor-pointer text-slate-500 flex justify-end items-center " onClick={()=> setDropList(!dropList)}>
+                <HiOutlineDotsVertical size={'100%'} />
+            </span>
+
+            {dropList && <div className="absolute right-[0px] top-[20px] z-10 bg-white w-[145px] h-auto rounded-[3px] shadow-md border border-slate-100 p-[10px] flex flex-col items-start gap-3 ">
+                <p className="projct-action-list" onClick={()=> handle_action('edit')} >Edit</p>
+                <p className="projct-action-list" onClick={()=> handle_action('completed')} >Completedd</p>
+                <p className="projct-action-list" onClick={()=> handle_action('delete')} >Delete</p>
+            </div>}
+        </div>
+    )
+}
+
+interface ProjectActBtnInt {
+    data: any;
+    
+}
+
+export const ProjectActionBtn:React.FC<ProjectActBtnInt> = ({data})=> {
+    const [dropList, setDropList] = useState(false);
+    const {setModalFor, setModalSource, setSelectedItem, setShowModal, showModal, setCurrent_project_nav} = useChat()
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+
+    function handle_action(type: string){
+        setDropList(false)
+        if (type == 'view'){
+            setShowModal(!showModal)
+            setModalFor('view')
+            setModalSource('project-modal')
+            setSelectedItem(data)
+        }
+        else if (type == 'edit'){
+            setShowModal(!showModal)
+            setModalFor('edit')
+            setModalSource('project-modal')
+            setSelectedItem(data)
+        }
+        else if (type == 'tasks'){
+            setShowModal(!showModal)
+            setModalFor('create-task')
+            setModalSource('project-modal')
+            setSelectedItem(data)
+        }
+        else if (type == 'activities'){
+            setShowModal(!showModal)
+            setModalFor('view')
+            setCurrent_project_nav('activities')
+            setModalSource('project-modal')
+            setSelectedItem(data)
+        }
+        else if (type == 'payment-history'){
+            setShowModal(!showModal)
+            setModalFor('view')
+            setCurrent_project_nav('payment-history')
+            setModalSource('project-modal')
+            setSelectedItem(data)
+        }
+        else if (type == 'delete'){
+            setShowModal(!showModal)
+            setModalFor('delete')
+            setModalSource('project-modal')
+            setSelectedItem(data)
+        }
+    }
+
+    useEffect(() => {
+        const handleOutsideClick = (event: MouseEvent) => {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target as Node)
+            ) {
+                setDropList(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, []);
+
+    return (
+        <div className=" w-full relative flex item-center justify-end " ref={dropdownRef}>
+            <button className="h-[30px] mx-auto px-5 bg-blue-500 hover:bg-blue-600 text-white rounded-[3px] text-sm " onClick={()=> setDropList(!dropList)}>action</button>
+
+            {dropList && <div className="absolute right-0 top-[35px] z-10 bg-white w-[175px] h-auto rounded-[3px] shadow-md border border-slate-100 p-[10px] flex flex-col items-start gap-3 ">
+                <p className="projct-action-list" onClick={()=> handle_action('view')} >View</p>
+                <p className="projct-action-list" onClick={()=> handle_action('edit')} >Edit</p>
+                <p className="projct-action-list" onClick={()=> handle_action('tasks')} >Add Tasks</p>
+                <p className="projct-action-list" onClick={()=> handle_action('activities')} >Activities / Timeline</p>
+                <p className="projct-action-list" onClick={()=> handle_action('payment-history')} >Payment History</p>
+                <p className="projct-action-list" onClick={()=> handle_action('delete')} >Delete</p>
+            </div>}
+        </div>
+    )
+}

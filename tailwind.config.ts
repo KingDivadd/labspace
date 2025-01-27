@@ -18,7 +18,15 @@ module.exports = {
         xl: ['18px', '1.75rem'], // Default `xl`: 20px with 28px line-height
         '2xl': ['21.5px', '2rem'], // Default `2xl`: 24px with 32px line-height
         '3xl': ['25px', '2.25rem'], // Default `3xl`: 30px with 36px line-height
-      }
+      },
+      screens: {
+        xs: "480px", // Custom `xs` breakpoint
+        sm: "640px", // Default `sm` breakpoint
+        md: "768px", // Default `md` breakpoint
+        lg: "1024px", // Default `lg` breakpoint
+        xl: "1280px", // Default `xl` breakpoint
+        "2xl": "1536px", // Default `2xl` breakpoint
+      }  
       ,
       colors: {
         "black-100": "#2B2C35",

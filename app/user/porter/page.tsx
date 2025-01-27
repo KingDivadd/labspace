@@ -105,7 +105,7 @@ const Dashboard = () => {
 
 
     return (
-        <div className="">
+        <div className="bg-slate-100">
             
             {loggedInUser.is_admin ?  <Admin_User_porter /> : <Single_User_porter />  }
 

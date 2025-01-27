@@ -11,7 +11,7 @@ import moment from 'moment'
 import { IoWarningOutline } from 'react-icons/io5'
 
 type TaskBox = {
-    task_title: string;
+    project_title: string;
     priority: string;
     stage: string;
     team: string[];
@@ -22,12 +22,12 @@ const Trash_modal = () => {
     const router = useRouter()
     const { modalFor, setModalFor, setShowModal, selectedItem, app_users, setTrigger_notification,trigger_notification} = useChat()
     const [alert, setAlert] = useState({message: '', type: ''})
-    const [task_box, setTask_box] = useState<TaskBox>({task_title: "", priority: '', stage: '', team: [], assets: []})
-    const [sub_task, setSub_task] = useState({title:'', tag: '', due_date:'2024-12-10', task_id: '', })
+    const [project_box, setTask_box] = useState<TaskBox>({project_title: "", priority: '', stage: '', team: [], assets: []})
+    const [sub_project, setSub_project] = useState({title:'', tag: '', due_date:'2024-12-10', project_id: '', })
     const [team_members, setTeam_members] = useState([])
     const [loading, setLoading] = useState(false)
     const [user_drop, setUser_drop] = useState(false)
-    const [current_task_nav, setCurrent_task_nav] = useState('task_details')
+    const [current_project_nav, setCurrent_project_nav] = useState('project_details')
 
     
     function showAlert(message: string, type: string){
@@ -107,13 +107,13 @@ const Trash_modal = () => {
                 {modalFor == 'delete' && 
                 <div className="max-sm:w-[95vw] mx-auto w-[450px] ">
                     <div className="w-full p-[30px] border-b border-slate-200 flex flex-col items-center justify-center gap-5">
-                        {selectedItem.deleted_task ? 
+                        {selectedItem.deleted_project ? 
                             <div className="w-full flex flex-col items-center justify-center text-center gap-3 ">
-                                <p className="text-md font-[500]">Are your sure you want to permanently delete task with Id of</p>
+                                <p className="text-md font-[500]">Are your sure you want to permanently delete Project with Id of</p>
                                 <span className="w-full flex items-center justify-center gap-2">
-                                    <p className="text-md font-[600] ">{selectedItem.deleted_task.task_ind}</p> 
+                                    <p className="text-md font-[600] ">{selectedItem.deleted_project.project_ind}</p> 
                                     <p className="text-md font-[500]">and title</p> 
-                                    <p className="text-md font-[600] ">{selectedItem.deleted_task.task_title}</p> 
+                                    <p className="text-md font-[600] ">{selectedItem.deleted_project.project_title}</p> 
                                 </span>
                                 <span className="flex items-center gap-3">
                                     <span className="h-[20px] w-[20px] text-red-600"><IoWarningOutline size={'100%'} /></span>
@@ -152,13 +152,13 @@ const Trash_modal = () => {
                 {modalFor == 'restore' && 
                 <div className="max-sm:w-[95vw] mx-auto w-[450px] ">
                     <div className="w-full p-[30px] border-b border-slate-200 flex flex-col items-center justify-center gap-5">
-                        {selectedItem.deleted_task ? 
+                        {selectedItem.deleted_project ? 
                             <div className="w-full flex flex-col items-center justify-center text-center gap-3 ">
-                                <p className="text-md font-[500]">Are your sure you want to restore task with Id of</p>
+                                <p className="text-md font-[500]">Are your sure you want to restore project with Id of</p>
                                 <span className="w-full flex items-center justify-center gap-2">
-                                    <p className="text-md font-[600] ">{selectedItem.deleted_task.task_ind}</p> 
+                                    <p className="text-md font-[600] ">{selectedItem.deleted_project.project_ind}</p> 
                                     <p className="text-md font-[500]">and title</p> 
-                                    <p className="text-md font-[600] ">{selectedItem.deleted_task.task_title}</p> 
+                                    <p className="text-md font-[600] ">{selectedItem.deleted_project.project_title}</p> 
                                 </span>
                             </div>
                             :

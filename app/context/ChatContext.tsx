@@ -17,9 +17,9 @@ interface NotificationProp {
 }
 
 interface AdminDashProps {
-    recent_notification:any, recent_tasks:any, recent_users:any, recent_payments:any,
-    total_no_of_todo_tasks:number, total_no_of_tasks_in_progress:number, total_no_of_tasks:number, 
-    total_no_of_completed_tasks:number, total_no_of_assigned_tasks:number                     
+    recent_notification:any, recent_projects:any, recent_users:any, recent_payments:any,
+    total_no_of_projects:number, total_project_cost:number,
+    total_no_of_completed_projects:number, total_no_of_assigned_projects:number                     
 }
 
 interface ChatContextType {
@@ -57,12 +57,12 @@ interface ChatContextType {
     setLoadingDot: (loadingDot: boolean) => void;
     app_users: any;
     setApp_users: (app_users: any) => void;
-    task: any;
-    setTask: (task: any) => void;
+    project: any;
+    setProject: (project: any) => void;
     admin_dash: AdminDashProps;
     setAdmin_dash: (admin_dash: AdminDashProps)=>void;
-    current_task_nav: string;
-    setCurrent_task_nav: (current_task_nav: string) => void;
+    current_project_nav: string;
+    setCurrent_project_nav: (current_project_nav: string) => void;
 }
 
 
@@ -86,10 +86,11 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [loadingDot, setLoadingDot] = useState(true)
     const [app_users, setApp_users] = useState(null)
     const [notification, setNotification] = useState({number_of_unread_notification:0, unread_notifications:null})
-    const [admin_dash, setAdmin_dash] = useState({recent_notification:null, recent_tasks:null, recent_users:null, recent_payments:null, total_no_of_assigned_tasks:0, total_no_of_completed_tasks:0, total_no_of_tasks:0, total_no_of_tasks_in_progress:0, total_no_of_todo_tasks:0})
-    const [task, setTask] = useState(null)
-    const [current_task_nav, setCurrent_task_nav] = useState('project_details')
+    const [admin_dash, setAdmin_dash] = useState({recent_notification:null, recent_projects:null, recent_users:null, recent_payments:null, total_no_of_assigned_projects:0, total_no_of_completed_projects:0, total_no_of_projects:0, total_project_cost:0})
+    const [project, setProject] = useState(null)
+    const [current_project_nav, setCurrent_project_nav] = useState('project_details')
     const [selected_payment, setSelected_payment] = useState(null)
+
 
     return (
         <ChatContext.Provider value={{
@@ -102,8 +103,8 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             showModal, setShowModal, selectedItem, setSelectedItem, modalFor, setModalFor, modalSource, setModalSource,
             profileToggle, setProfileToggle,
             loggedInUser, setLoggedInUser, loadingDot, setLoadingDot, app_users, setApp_users, notification,  setNotification,
-            admin_dash, setAdmin_dash, task, setTask, current_task_nav, setCurrent_task_nav,
-            selected_payment, setSelected_payment
+            admin_dash, setAdmin_dash, project, setProject, current_project_nav, setCurrent_project_nav,
+            selected_payment, setSelected_payment, 
             }}>
             {children}
         </ChatContext.Provider>

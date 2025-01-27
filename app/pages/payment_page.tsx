@@ -17,7 +17,7 @@ const Payment_page = () => {
     const [payment_box, setPayment_box] = useState<Props | null>(null);
     const [filtered_payment_box, setFiltered_payment_box] = useState<Props | null>(null);
     const [filters, setFilters] = useState({filter_input: '', disposition: ''})
-    const {loggedInUser, modalFor, setModalFor, selectedItem, setSelectedItem, setSelected_payment, showModal, setShowModal, setModalSource, modalSource, setTask} = useChat()
+    const {loggedInUser, modalFor, setModalFor, selectedItem, setSelectedItem, setSelected_payment, showModal, setShowModal, setModalSource, modalSource, setProject} = useChat()
     const [alert, setAlert] = useState({message: '', type: ''})
     const [loading, setLoading] = useState(true)
     const [isActive, setIsActive] = useState(true);
@@ -34,7 +34,7 @@ const Payment_page = () => {
         total_number_of_pages?: number; // Now optional and can be undefined
         total_number_of_payments?: number; // Now optional can be undefined
         payments: any[];
-        task_list?: any[];
+        project_list?: any[];
 
     } 
 
@@ -58,7 +58,7 @@ const Payment_page = () => {
     async function handle_fetch_payments(list_num: number, page_num: number) {
 
             try {
-                const response = await get_auth_request(`app/all-paginated-payments/${list_num}/${page_num}`)  
+                const response = await get_auth_request(`app/all-paginated-payments/${selectedItem.project_id}/${list_num}/${page_num}`)  
 
                 if (response.status == 200 || response.status == 201){
 
@@ -66,7 +66,7 @@ const Payment_page = () => {
                     setLoading(false);
                     setPayment_box(payments)
                     setFiltered_payment_box(payments)
-                    setTask(payments?.task_list)
+                    setProject(payments?.project_list)
 
                     console.log('all payments \n',payments)
                                         
@@ -167,15 +167,15 @@ const Payment_page = () => {
                     const payment_ind = `PY${split_id[0]}`
 
                     const payment_id = payment_ind?.toLowerCase() || '';
-                    const task_id = data.task.task_ind?.toLowerCase() || ''
+                    const project_id = data.project.project_ind?.toLowerCase() || ''
                     const added_by_fn = data.added_by?.first_name.toLowerCase() || ''
                     const added_by_ln = data.added_by?.last_name.toLowerCase() || ''
-                    const task_title = data.task.task_title?.toLowerCase() || ''
+                    const project_title = data.project.project_title?.toLowerCase() || ''
                     const amount = String(data.amount) || ''                    
                     return (
                         payment_id.includes(value) ||
-                        task_id.includes(value) ||
-                        task_title.includes(value) ||
+                        project_id.includes(value) ||
+                        project_title.includes(value) ||
                         added_by_fn.includes(value) ||
                         added_by_ln.includes(value) ||
                         amount.includes(value) 
@@ -233,7 +233,7 @@ const Payment_page = () => {
                 setFiltered_payment_box({...filtered_payment_box, payments:new_payments})
             }
 
-        }else if (selected === 'Task Created'){
+        }else if (selected === 'Project Created'){
 
             if(filtered_payment_box?.payments){
         
@@ -262,13 +262,13 @@ const Payment_page = () => {
 
 
     return (
-        <div className='relative w-[100%]  flex items-start justify-center p-[10px] pb-0 'style={{height: 'calc(100vh - 60px)'}}  >
+        <div className='relative w-[100%]  flex items-start justify-center p-[10px] pb-[15px] '   >
             <span className="px-[20px] flex items-center justify-end absolute top-[15px] right-[50px] z-20 h-[50px]  ">
 
                 {alert.message && <Alert message={alert.message} type={alert.type} />} 
             </span>
 
-            <div className="w-full flex flex-col justify-start items-center gap-5">
+            <div className="w-full flex flex-col justify-start items-center gap-5 ">
 
                 {/* section four recent payments table */}
                 <div className="w-full flex flex-col items-start justify-start shadow-lg border border-slate-200 rounded-[3px]  bg-white">
@@ -313,8 +313,8 @@ const Payment_page = () => {
                         <div className="w-full min-w-[1024px] p-[15px] flex flex-col items-start justify-start mx-auto ">
                             <span className="w-full h-[45px] flex items-center justify-between bg-blue-500 text-white rounded-[3px]">
                                 <p className="text-sm w-[10%] px-[15px] ">Payment Id</p>
-                                <p className="text-sm w-[8%] px-[15px] ">Task Id</p>
-                                <p className="text-sm w-[13%] px-[15px] ">Task Title</p>
+                                <p className="text-sm w-[8%] px-[15px] ">Project Id</p>
+                                <p className="text-sm w-[13%] px-[15px] ">Project Title</p>
                                 <p className="text-sm w-[13%] px-[15px] ">Payer Name</p>
                                 <p className="text-sm w-[8%] px-[15px] ">Amount</p>
                                 <p className="text-sm w-[10%] px-[15px] ">Added By</p>
@@ -325,17 +325,17 @@ const Payment_page = () => {
 
                             {loading ? 
                             
-                            <div className="w-full h-[367.5px] flex items-center justify-center  ">
+                            <div className="w-full h-[340px] flex items-center justify-center  ">
                                 <Loading />
                             </div>
                             :
-                            <div className="w-full h-[367.5px] flex flex-col items-start justify-start overflow-y-auto">
+                            <div className="w-full h-[340px] flex flex-col items-start justify-start overflow-y-auto">
                                 <div className="w-full h-full flex flex-col justify-start">
                                     
                                     {filtered_payment_box?.payments.length ? 
                                     <>
                                     {filtered_payment_box?.payments.map((data: any, ind: number)=>{
-                                        const {payment_id, task, payer_name, amount, added_by, stage, payment_receipt, created_at } = data    
+                                        const {payment_id, project, payer_name, amount, added_by, stage, payment_receipt, created_at } = data    
                                         
                                         const id = payment_id.split('-')
 
@@ -346,8 +346,8 @@ const Payment_page = () => {
                                         return(
                                             <span key={ind} className=" table-body-row-1  " >
                                                 <p className="text-sm font-[500] w-[10%] px-[15px] text-slate-600 ">{formatted_payment_id}</p>
-                                                <p className="text-sm font-[500] w-[8%] px-[15px] text-slate-600 ">{task.task_ind}</p>
-                                                <p className="text-sm font-[500] w-[13%] px-[15px] text-slate-600 ">{task.task_title}</p>
+                                                <p className="text-sm font-[500] w-[8%] px-[15px] text-slate-600 ">{project.project_ind}</p>
+                                                <p className="text-sm font-[500] w-[13%] px-[15px] text-slate-600 ">{project.project_title}</p>
                                                 <p className="text-sm font-[500] w-[13%] px-[15px] text-slate-600 ">{payer_name}</p>
                                                 <p className="text-sm font-[500] w-[8%] px-[15px] text-slate-600 ">{Number(amount).toLocaleString()}</p>
                                                 <p className="text-sm font-[500] w-[10%] px-[15px] text-slate-600 ">{added_by.first_name} {added_by.last_name}</p>
@@ -366,7 +366,7 @@ const Payment_page = () => {
                                     </>
                                     : 
                                     <div className="w-full flex items-center justify-center h-full  ">
-                                        <p className="text-md font-[500] ">No payment has been made yet.</p>
+                                        <p className="text-sm font-[500] ">No payment has been made yet.</p>
                                     </div> }
                                 </div>
                             </div>}
