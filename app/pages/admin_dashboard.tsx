@@ -218,7 +218,7 @@ const Admin_dashboard = () => {
                             </div>
                         </div>
 
-                        <span className="w-full h-[45px] flex flex-row items-center justify-between bg-white rounded-b-[3px] border-t border-gray-300 px-[10px] sm:px-[15px] ">
+                        <span className="w-full h-[45px] flex flex-row items-center justify-between bg-white rounded-b-[3px] border-t border-slate-200 px-[10px] sm:px-[15px] ">
                             <span className="flex flex-row items-center justify-start gap-3 h-full">
                                 <p className="text-md cursor-pointer">Prev</p>
                                 <span className="w-[30px] h-[27.5px] flex items-center justify-center border border-slate-400 rounded-[2px]">
