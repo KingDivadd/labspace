@@ -227,7 +227,7 @@ export const SmallAvatar = ({ user, isActive, toggleActive }: AvatarProp) => {
         <div className="relative inline-block">
             {/* Avatar Circle */}
             <div
-                className={`w-[37.5px] h-[37.5px] flex items-center justify-center rounded-full ${
+                className={`max-sm:w-[34.5px] max-sm:h-[34.5px] w-[37.5px] h-[37.5px] flex items-center justify-center rounded-full ${
                     avatar ? '' : 'bg-blue-500 text-white  font-[400]'
                 }`}
                 style={{
@@ -241,7 +241,7 @@ export const SmallAvatar = ({ user, isActive, toggleActive }: AvatarProp) => {
 
             {/* Green Dot */}
             <span
-                className={`absolute top-0 right-0 w-[10.5px] h-[10.5px] rounded-full border-2 border-white ${
+                className={`absolute top-0 max-sm:right-[2px] right-0 max-sm:w-[8px] w-[10.5px] max-sm:h-[8px] h-[10.5px] rounded-full border-2 border-white ${
                     isActive ? 'bg-green-500' : 'bg-gray-300'
                 } cursor-pointer`}
                 title={isActive ? 'Active' : 'Suspended'}
@@ -290,7 +290,7 @@ export const AvatarUserInfo = ({ data }: {
             {/* Avatar Circle */}
             <div
                 onClick={toggleDropdown}
-                className={`w-[37.5px] h-[37.5px] flex items-center justify-center rounded-full cursor-pointer border border-white ${
+                className={`max-sm:w-[34.5px] max-sm:h-[34.5px] w-[37.5px] h-[37.5px] flex items-center justify-center rounded-full cursor-pointer border border-white ${
                     avatar ? '' : 'bg-blue-500 text-white font-[400]'
                 }`}
                 style={{
@@ -302,7 +302,7 @@ export const AvatarUserInfo = ({ data }: {
                 {!avatar && <span className="text-sm font-semibold">{initials}</span>}
                 {/* Green Dot on Avatar */}
                 {/* <span
-                    className={`absolute top-0 right-0 w-[10.5px] h-[10.5px] rounded-full border-2 border-white ${
+                    className={`absolute top-0 right-0 max-sm:w-[8px] w-[10.5px] max-sm:h-[8px] h-[10.5px] rounded-full border-2 border-white ${
                         is_active ? 'bg-green-500' : 'bg-gray-300'
                     }`}
                     title={is_active ? 'Active' : 'Suspended'}
@@ -331,7 +331,7 @@ export const AvatarUserInfo = ({ data }: {
                             </div>
                             {/* Green Dot on Dropdown Avatar */}
                             <span
-                                className={`absolute top-0 right-[2.5px] w-[10.5px] h-[10.5px] rounded-full border-2 border-white ${
+                                className={`absolute top-0 right-[2.5px] max-sm:w-[8px] w-[10.5px] max-sm:h-[8px] h-[10.5px] rounded-full border-2 border-white ${
                                     is_active ? 'bg-green-500' : 'bg-gray-300'
                                 }`}
                                 title={is_active ? 'Active' : 'Suspended'}
@@ -395,7 +395,7 @@ export const UserInfo = ({ data }: {
                         </div>
                         {/* Green Dot on Dropdown Avatar */}
                         <span
-                            className={`absolute top-0 right-[2.5px] w-[10.5px] h-[10.5px] rounded-full border-2 border-white ${
+                            className={`absolute top-0 right-[2.5px] max-sm:w-[8px] w-[10.5px] max-sm:h-[8px] h-[10.5px] rounded-full border-2 border-white ${
                                 is_active ? 'bg-green-500' : 'bg-gray-300'
                             }`}
                             title={is_active ? 'Active' : 'Suspended'}
@@ -478,15 +478,13 @@ export const Dropdown: React.FC<DropdownProps> = ({ id, options, placeholder = "
     }, []);
 
     return (
-    <div className="relative w-full" ref={dropdownRef}>
-        <button
-        className="w-full bg-white border border-slate-400 rounded-[3px] shadow-sm px-[10px] h-[40px] text-left text-sm focus:ring-blue-500"
-        onClick={toggleDropdown}
-        >
-        {selectedOption || placeholder}
-        <span className="float-right h-[20px] w-[20px] text-slate-700">
-            {isOpen ? <FaCaretUp size="100%" /> : <FaCaretDown size="100%" />}
-        </span>
+    <div className="relative w-full h-full " ref={dropdownRef}>
+        <button className="w-full bg-white border border-slate-400 rounded-[3px] shadow-sm px-[10px]  h-[35px] text-left text-sm focus:ring-blue-500 "
+        onClick={toggleDropdown}>
+            {selectedOption || placeholder}
+            <span className="float-right h-[20px] w-[20px] text-slate-700">
+                {isOpen ? <FaCaretUp size="100%" /> : <FaCaretDown size="100%" />}
+            </span>
         </button>
         {isOpen && (
         <ul className="absolute z-10 mt-2 w-full bg-white  rounded-[3px] shadow-md bg-white">
@@ -494,7 +492,7 @@ export const Dropdown: React.FC<DropdownProps> = ({ id, options, placeholder = "
             <li
                 key={option}
                 onClick={() => handleSelect(option)}
-                className="px-[10px] h-[40px] flex items-center text-sm text-slate-700 hover:bg-blue-500 hover:text-white cursor-pointer"
+                className="px-[10px] max-xl:h-[35px] h-[40px] flex items-center text-sm text-slate-700 hover:bg-blue-500 hover:text-white cursor-pointer"
             >
                 {option}
             </li>
@@ -977,7 +975,7 @@ export const ProjectActionBtn:React.FC<ProjectActBtnInt> = ({data})=> {
 
     return (
         <div className=" w-full relative flex item-center justify-end " ref={dropdownRef}>
-            <button className="h-[30px] mx-auto px-5 bg-blue-500 hover:bg-blue-600 text-white rounded-[3px] text-sm " onClick={()=> setDropList(!dropList)}>action</button>
+            <button className="max-sm:h-[27.5px] h-[30px] mx-auto px-5 bg-blue-500 hover:bg-blue-600 text-white rounded-[3px] text-sm " onClick={()=> setDropList(!dropList)}>action</button>
 
             {dropList && <div className="absolute right-0 top-[35px] z-10 bg-white w-[175px] h-auto rounded-[3px] shadow-md border border-slate-100 p-[10px] flex flex-col items-start gap-3 ">
                 <p className="projct-action-list" onClick={()=> handle_action('view')} >View</p>
@@ -985,6 +983,148 @@ export const ProjectActionBtn:React.FC<ProjectActBtnInt> = ({data})=> {
                 <p className="projct-action-list" onClick={()=> handle_action('tasks')} >Add Tasks</p>
                 <p className="projct-action-list" onClick={()=> handle_action('activities')} >Activities / Timeline</p>
                 <p className="projct-action-list" onClick={()=> handle_action('payment-history')} >Payment History</p>
+                <p className="projct-action-list" onClick={()=> handle_action('delete')} >Delete</p>
+            </div>}
+        </div>
+    )
+}
+
+// Team Action Btn
+
+interface TeamActBtnInt {
+    data: any;
+    
+}
+
+export const TeamActionBtn:React.FC<TeamActBtnInt> = ({data})=> {
+    const [dropList, setDropList] = useState(false);
+    const {setModalFor, setModalSource, setSelectedItem, setShowModal, showModal, setCurrent_project_nav, selectedItem} = useChat()
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    async function handle_complete_task(data:any){
+        try {
+                
+            const response = await patch_auth_request(`app/complete-task/${data.task_id}/${data.project_id}`, {})                
+            if (response.status == 200 || response.status == 201){
+                setDropList(!dropList)
+            }
+            else{
+            }
+        } catch (err:any) {
+            console.error('Network or unexpected error:', err);
+            // showAlert('An unexpected error occurred. Please try again later.', 'error');
+        }
+    }
+
+    function handle_action(type: string){
+        setDropList(false)
+        if (type == 'edit'){
+            setShowModal(!showModal)
+            setModalFor('edit')
+            setModalSource('user-modal')
+            setSelectedItem(data)
+        }
+        else if (type == 'delete'){
+            setShowModal(!showModal)
+            setModalFor('delete')
+            setModalSource('user-modal')
+            setSelectedItem(data)
+        }
+        
+    }
+
+    useEffect(() => {
+        const handleOutsideClick = (event: MouseEvent) => {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target as Node)
+            ) {
+                setDropList(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, []);
+
+    return (
+        <div className=" w-full relative flex item-center justify-end " ref={dropdownRef}>
+            <button className="max-sm:h-[27.5px] h-[30px] mx-auto px-5 bg-blue-500 hover:bg-blue-600 text-white rounded-[3px] text-sm " onClick={()=> setDropList(!dropList)}>action</button>
+
+            {dropList && <div className="absolute right-[0px] top-[20px] z-10 bg-white w-[145px] h-auto rounded-[3px] shadow-md border border-slate-100 p-[10px] flex flex-col items-start gap-3 ">
+                <p className="projct-action-list" onClick={()=> handle_action('edit')} >Edit</p>
+                <p className="projct-action-list" onClick={()=> handle_action('delete')} >Delete</p>
+            </div>}
+        </div>
+    )
+}
+
+interface TrashActBtnInt {
+    data: any;
+    
+}
+
+export const TrashActionBtn:React.FC<TeamActBtnInt> = ({data})=> {
+    const [dropList, setDropList] = useState(false);
+    const {setModalFor, setModalSource, setSelectedItem, setShowModal, showModal, setCurrent_project_nav, selectedItem} = useChat()
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    async function handle_complete_task(data:any){
+        try {
+                
+            const response = await patch_auth_request(`app/complete-task/${data.task_id}/${data.project_id}`, {})                
+            if (response.status == 200 || response.status == 201){
+                setDropList(!dropList)
+            }
+            else{
+            }
+        } catch (err:any) {
+            console.error('Network or unexpected error:', err);
+            // showAlert('An unexpected error occurred. Please try again later.', 'error');
+        }
+    }
+
+    function handle_action(type: string){
+        setDropList(false)
+        if (type == 'restore'){
+            setShowModal(!showModal)
+            setModalFor('restore')
+            setModalSource('trash-modal')
+            setSelectedItem(data)
+        }
+        else if (type == 'delete'){
+            setShowModal(!showModal)
+            setModalFor('delete')
+            setModalSource('trash-modal')
+            setSelectedItem(data)
+        }
+        
+    }
+
+    useEffect(() => {
+        const handleOutsideClick = (event: MouseEvent) => {
+            if (
+                dropdownRef.current &&
+                !dropdownRef.current.contains(event.target as Node)
+            ) {
+                setDropList(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+        };
+    }, []);
+
+    return (
+        <div className=" w-full relative flex item-center justify-end " ref={dropdownRef}>
+            <button className="max-sm:h-[27.5px] h-[30px] mx-auto px-5 bg-blue-500 hover:bg-blue-600 text-white rounded-[3px] text-sm " onClick={()=> setDropList(!dropList)}>action</button>
+
+            {dropList && <div className="absolute right-[0px] top-[20px] z-10 bg-white w-[145px] h-auto rounded-[3px] shadow-md border border-slate-100 p-[10px] flex flex-col items-start gap-3 ">
+                <p className="projct-action-list" onClick={()=> handle_action('restore')} >Restore</p>
                 <p className="projct-action-list" onClick={()=> handle_action('delete')} >Delete</p>
             </div>}
         </div>

@@ -4,7 +4,7 @@ import Modal from '../component/modals/modal'
 import { useChat } from '../context/ChatContext'
 import { useRouter } from 'next/navigation'
 import { get_auth_request } from '../api'
-import Alert, {AssetCont, AvatarUserInfo, Dropdown, SmallAvatar, formatted_time, readable_date} from '../component/helper'
+import Alert, {AssetCont, AvatarUserInfo, Dropdown, SmallAvatar, TrashActionBtn, formatted_time, readable_date} from '../component/helper'
 import moment from 'moment'
 import Loading from '../component/loading'
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa6'
@@ -266,23 +266,23 @@ const Trash_page = () => {
                 {/* <div className="w-full flex items-center justify-end">
 
 
-                    <button className="max-sm:hidden px-5 whitespace-nowrap h-[45px] rounded-[3px] text-white bg-blue-600 hover:bg-blue-700" onClick={handle_restore_all} >Restore All</button>
+                    <button className="max-sm:hidden px-5 whitespace-nowrap max-xl:h-[40px] h-[45px] rounded-[3px] text-white bg-blue-600 hover:bg-blue-700" onClick={handle_restore_all} >Restore All</button>
                 </div> */}
 
 
                 {/* section four recent transaction table */}
                 <div className="bg-white w-full flex flex-col items-start justify-start shadow-lg rounded-[3px] border border-slate-100">
-                    <span className="h-[45px] w-full flex items-center justify-start px-[15px]  ">
+                    <span className="max-xl:h-[40px] h-[45px] w-full flex items-center justify-start px-[15px]  ">
                         <p className="text-md font-[500] ">Trash</p>
                     </span>
                     
-                    <div className="w-full overflow-x-auto">
-                        <div className="min-w-[1024px] px-[15px] py-[10] flex flex-col items-start justify-start mx-auto ">
-                            <span className="w-full h-[45px] flex items-center justify-between bg-blue-500 text-white rounded-[3px]">
+                    <div className="table-cont overflow-x-auto">
+                        <div className="min-w-[950px] px-[15px] py-[10] flex flex-col items-start justify-start mx-auto ">
+                            <span className="w-full max-xl:h-[40px] h-[45px] flex items-center justify-between bg-blue-500 text-white rounded-[3px]">
                                 <p className="text-sm w-[17.5%] px-[15px] ">Delete on</p>
                                 <p className="text-sm w-[15%] px-[15px] ">Deleted By</p>
-                                <p className="text-sm w-[50%] px-[15px] ">File Deleted</p>
-                                <p className="text-sm w-[17.5%] px-[15px] ">Action</p>
+                                <p className="text-sm w-[52.5%] px-[15px] ">File Deleted</p>
+                                <p className="text-sm w-[15%] px-[15px] "></p>
                             </span>
 
                             {loading ? 
@@ -305,11 +305,9 @@ const Trash_page = () => {
                                             <span key={ind} className=" table-body-row-1  " >
                                                 <p className="text-sm font-[500] w-[17.5%] px-[15px] text-slate-600 ">{readable_date(Number(updated_at)/1000)}</p>
                                                 <p className="text-sm font-[500] w-[15%] px-[15px] text-slate-600 overflow-x-auto">{deleted_by ? `${deleted_by.first_name} ${deleted_by.last_name}` : '--'}</p>
-                                                <p className="text-sm font-[500] w-[50%] px-[15px] cursor-pointer text-slate-600 hover:underline ">{deleted_file}</p>
-                                                <span className="w-[17.5%] px-[15px] flex items-center gap-5">
-                                                    <button className="h-[27.5px] rounded-[2.5px] bg-blue-500 hover:bg-blue-600 text-white px-5 text-sm" onClick={()=> handle_restore(data)}> Restore</button>
-
-                                                    <button className="h-[27.5px] rounded-[2.5px] bg-red-600 hover:bg-red-700 text-white px-5 text-sm" onClick={()=> handle_delete(data)}> Delete</button>
+                                                <p className="text-sm font-[500] w-[52.5%] px-[15px] cursor-pointer text-slate-600 hover:underline ">{deleted_file}</p>
+                                                <span className="w-[15%] px-[15px] flex items-center gap-5">
+                                                    <TrashActionBtn data={data} />
                                                 </span>
                                                 
                                                 
@@ -327,7 +325,7 @@ const Trash_page = () => {
                         </div>
                     </div>
 
-                    <span className="w-full h-[45px] flex flex-row items-center justify-between bg-white rounded-b-[3px] border-t border-gray-300 px-[15px] ">
+                    <span className="w-full max-xl:h-[40px] h-[45px] flex flex-row items-center justify-between bg-white rounded-b-[3px] border-t border-gray-300 px-[15px] ">
                         <span className="flex flex-row items-center justify-start gap-3 h-full">
                             <p className="text-md cursor-pointer" onClick={() => app_trash_action('prev')}>Prev</p>
                             <span className="w-auto h-full flex flex-row items-center justify-start">

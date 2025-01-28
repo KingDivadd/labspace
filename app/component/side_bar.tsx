@@ -37,42 +37,42 @@ const Side_bar = () => {
                 <span className="h-[40px] w-[40px] font-[600] text-white bg-blue-500 rounded-[40px] flex items-center justify-center ">
                     <MdOutlineAddTask size={22} className='' />
                 </span>
-                <span className="flex items-center justify-center">
+                <span className="max-xl:hidden flex items-center justify-center">
                     <p className="font-bold text-2xl md:text-3xl text-blue-500 ">Labp</p>
                     <p className="font-bold text-2xl md:text-3xl text-sky-500">space</p>
                 </span>
             </span>
 
-            <div className="w-full h-auto  flex-col px-[20px] ">
-                <div className=" h-auto flex flex-col items-center gap-[10px]  overflow-x-auto" style={{height: 'fit-content'}}>
+            <div className="w-full h-auto  flex-col px-[10px] xl:px-[20px] ">
+                <div className=" h-auto flex flex-col items-center gap-[10px] overflow-visible" style={{height: 'fit-content'}}>
                     <span className={route_nav === 'dashboard' ? 'active-nav-box' : 'nav-box'} onClick={() => {select_nav('dashboard') }}>
-                        <MdDashboard />
-                        <p className=" text-center"> Dashboard </p>
+                        <MdDashboard size={17} />
+                        <p className="max-xl:hidden text-sm text-center"> Dashboard </p>
                     </span>
 
                     <span className={route_nav === 'project' ? 'active-nav-box' : 'nav-box'} onClick={() => {select_nav('project') }}>
-                        <FaTasks />
-                        <p className="text-sm text-center">Projects</p>
+                        <FaTasks size={17} />
+                        <p className="max-xl:hidden text-sm text-center">Projects</p>
                     </span>
 
                     {loggedInUser.is_admin && <span className={route_nav === 'team' ? 'active-nav-box' : 'nav-box'} onClick={() => {select_nav('team') }}>
-                        <FaUsers />
-                        <p className="text-sm text-center"> Team </p>
+                        <FaUsers size={17} />
+                        <p className="max-xl:hidden text-sm text-center"> Team </p>
                     </span>}
 
                     {loggedInUser.is_admin && <span className={route_nav === 'trash' ? 'active-nav-box' : 'nav-box'} onClick={() => {select_nav('trash') }}>
-                        <FaTrashAlt />
-                        <p className="text-sm text-center"> Trash </p>
+                        <FaTrashAlt size={16} />
+                        <p className="max-xl:hidden text-sm text-center"> Trash </p>
                     </span>}
 
                 </div>
 
             </div>
-            <div className="absolute bottom-[25px] left-0 w-full flex flex-col items-start justify-end gap-[10px] px-[20px]">
+            <div className="absolute bottom-[25px] left-0 w-full flex flex-col items-start max-xl:items-center justify-end gap-[10px] px-[10px]  xl:px-[20px]">
 
                 <span className={'logout-box'} onClick={handle_logout} >
-                    <MdLogout />
-                    <p className=" text-center"> Logout </p>
+                    <MdLogout size={17} />
+                    <p className="max-xl:hidden text-sm text-center"> Logout </p>
                 </span>
             </div>
 

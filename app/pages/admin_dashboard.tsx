@@ -106,25 +106,25 @@ const Admin_dashboard = () => {
 
                         <p className="text-xl text-white font-[500]">Welcome {loggedInUser.first_name}</p>
 
-                            <div className="w-full flex justify-between gap-[10px] sm:gap-10 ">
+                            <div className="w-full flex max-sm:flex-wrap justify-between gap-[10px] sm:gap-10 ">
                             
 
 
-                            <div className="bg-white w-[45%] h-[90px] rounded-[5px]  p-[15px] shadow-md flex items-center justify-start gap-2">
-                                <span className="h-full w-20  flex items-center justify-center">
+                            <div className="bg-white max-xs:w-full w-1/2 sm:w-[45%] max-xs:h-[75px] max-xl:h-[80px] h-[90px] rounded-[5px]  p-[15px] shadow-md flex items-center justify-start gap-[10px] sm:gap-2">
+                                <span className="h-full max-xs:w-[70px] w-[60px] sm:w-20 flex items-center justify-center">
                                     <span className="h-[50px] w-[50px] text-white  rounded-[50px] bg-blue-500 flex items-center justify-center">
                                         <GoProjectRoadmap size={'50%'} />
                                     </span>
                                 </span>
-                                <div className="flex-1 flex flex-col items-start just1ify-center ">
+                                <div className="flex-1 flex  flex-col items-start just1ify-center ">
                                     <p className="text-md font-[400] ">Total Project</p>
                                     <p className="text-md font-[500]">{admin_dash.total_no_of_projects.toLocaleString() || 0}</p>
                                 </div>
 
                             </div>
 
-                            <div className="bg-white w-[45%] h-[90px] rounded-[5px]  p-[15px] shadow-md flex items-center justify-start gap-2">
-                                <span className="h-full w-20  flex items-center justify-center">
+                            <div className="bg-white max-xs:w-full w-1/2 bg-white sm:w-[45%] max-xs:h-[75px] max-xl:h-[80px] h-[90px] rounded-[5px]  p-[15px] shadow-md flex items-center justify-start gap-2">
+                                <span className="h-full max-xs:w-[70px] w-[60px] sm:w-20  flex items-center justify-center">
                                     <span className="h-[50px] w-[50px] text-white  rounded-[50px] bg-teal-600 flex items-center justify-center">
                                         <LiaMoneyBillWaveSolid size={'50%'} />
                                     </span>
@@ -144,21 +144,21 @@ const Admin_dashboard = () => {
                 {/* recent tasks table */}
                 <div className="w-full flex items-start justify-start p-[10px] pt-0">
                     <div className="bg-white w-full flex flex-col items-start justify-start shadow-lg rounded-[5px] border border-slate-100 ">
-                        <span className="h-[45px] w-full flex items-center justify-start px-[15px] ">
+                        <span className="h-[45px] w-full flex items-center justify-start px-[10px] sm:px-[15px] ">
                             <p className="text-md font-[500] ">Recent Projects</p>
                         </span>
                         
 
-                        <div className="w-full overflow-x-auto">
-                            <div className="min-w-[1024px] px-[15px] py-[10px] flex flex-col items-start justify-start mx-auto ">
-                                <span className="w-full h-[45px] flex items-center justify-between bg-blue-500 text-white rounded-[3px]">
-                                    <p className="text-sm w-[18%] px-[15px] ">Last Updated</p>
-                                    <p className="text-sm w-[14.5%] px-[15px] ">Project Title</p>
-                                    <p className="text-sm w-[10%] px-[15px] ">Project Cost</p>
-                                    <p className="text-sm w-[15%] px-[15px] ">Assigned To</p>
-                                    <p className="text-sm w-[10%] px-[15px] ">Stage</p>
-                                    <p className="text-sm w-[10%] px-[15px] ">Assets</p>
-                                    <p className="text-sm w-[15%] px-[15px] "></p>
+                        <div className="overflow-x-auto table-cont" >
+                            <div className="min-w-[950px] px-[10px] sm:px-[15px] py-[10px] flex flex-col items-start justify-start mx-auto ">
+                                <span className="w-full max-xl:h-[40px] h-[45px] flex items-center justify-between bg-blue-500 text-white rounded-[3px]">
+                                    <p className="text-sm w-[18%] px-[10px] sm:px-[15px] ">Last Updated</p>
+                                    <p className="text-sm w-[14.5%] px-[10px] sm:px-[15px] ">Project Title</p>
+                                    <p className="text-sm w-[12%] px-[10px] sm:px-[15px] ">Project Cost</p>
+                                    <p className="text-sm w-[15%] px-[10px] sm:px-[15px] ">Assigned To</p>
+                                    <p className="text-sm w-[12%] px-[10px] sm:px-[15px] ">Stage</p>
+                                    <p className="text-sm w-[10%] px-[10px] sm:px-[15px] ">Assets</p>
+                                    <p className="text-sm w-[11%] px-[10px] sm:px-[15px] "></p>
                                 </span>
 
                                 {admin_dash.recent_projects == null ? 
@@ -181,11 +181,11 @@ const Admin_dashboard = () => {
 
                                             return(
                                                 <span key={ind} className=" table-body-row-1  " >
-                                                <p className="text-sm font-[500] w-[18%] px-[15px] text-slate-600 ">{formatted_time(Number(updated_at))}</p>
-                                                <p className="text-sm font-[500] w-[14.5%] overflow truncate text-ellipsis  px-[15px] text-slate-600 ">{project_title}</p>
-                                                <p className="text-sm font-[500] w-[10%] overflow truncate text-ellipsis  px-[15px] text-slate-600 "> {Number(cost).toLocaleString()}</p>
+                                                <p className="text-sm font-[500] w-[18%] px-[10px] sm:px-[15px] text-slate-600 ">{formatted_time(Number(updated_at))}</p>
+                                                <p className="text-sm font-[500] w-[14.5%] overflow truncate text-ellipsis  px-[10px] sm:px-[15px] text-slate-600 ">{project_title}</p>
+                                                <p className="text-sm font-[500] w-[12%] overflow truncate text-ellipsis  px-[10px] sm:px-[15px] text-slate-600 "> {Number(cost).toLocaleString()}</p>
 
-                                                <span className="w-[15%] px-[15px] flex items-center justify-start overflow-visible ">
+                                                <span className="w-[15%] px-[10px] sm:px-[15px] flex items-center justify-start overflow-visible ">
                                                     {team.slice(0, 5).map((data: any, indd: number) => {
                                                         const { user_id, avatar, first_name, last_name, email, title, is_active, is_admin } = data.user;
                                                         return (
@@ -196,11 +196,11 @@ const Admin_dashboard = () => {
                                                     })}
                                                 </span>
 
-                                                <span className={`w-[10%] px-[15px] flex items-center justify-start gap-[5px] text-sm `}> {formated_stage} </span>
+                                                <span className={`w-[12%] px-[10px] sm:px-[15px] flex items-center justify-start gap-[5px] text-sm `}> {formated_stage} </span>
 
-                                                <span className="w-[10%] px-[15px] flex items-center justify-start gap-[5px] "> <AssetCont activities={info.activities} assets={info.assets} tasks={info.sub_task}  /> </span>
+                                                <span className="w-[10%] px-[10px] sm:px-[15px] flex items-center justify-start gap-[5px] "> <AssetCont activities={info.activities} assets={info.assets} tasks={info.sub_task}  /> </span>
 
-                                                <span className=" w-[15%] px-[15px] flex items-center justify-start gap-[10px]" >
+                                                <span className=" w-[11%] px-[10px] sm:px-[15px] flex items-center justify-start gap-[10px]" >
                                                     <ProjectActionBtn data={data} />
                                                 </span>
                                                 
@@ -218,7 +218,7 @@ const Admin_dashboard = () => {
                             </div>
                         </div>
 
-                        <span className="w-full h-[45px] flex flex-row items-center justify-between bg-white rounded-b-[3px] border-t border-gray-300 px-[15px] ">
+                        <span className="w-full h-[45px] flex flex-row items-center justify-between bg-white rounded-b-[3px] border-t border-gray-300 px-[10px] sm:px-[15px] ">
                             <span className="flex flex-row items-center justify-start gap-3 h-full">
                                 <p className="text-md cursor-pointer">Prev</p>
                                 <span className="w-[30px] h-[27.5px] flex items-center justify-center border border-slate-400 rounded-[2px]">

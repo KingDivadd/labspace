@@ -4,7 +4,7 @@ import Modal from '../component/modals/modal'
 import { useChat } from '../context/ChatContext'
 import { useRouter } from 'next/navigation'
 import { get_auth_request } from '../api'
-import Alert, {SmallAvatar, formatted_time, readable_date} from '../component/helper'
+import Alert, {SmallAvatar, TeamActionBtn, formatted_time, readable_date} from '../component/helper'
 import moment from 'moment'
 import Loading from '../component/loading'
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa6'
@@ -227,18 +227,18 @@ const Teams_page = () => {
 
                 {/* section user table */}
                 <div className=" bg-white w-full flex flex-col items-start justify-start shadow-lg  rounded-[3px] border border-slate-100">
-                    <span className=" w-full flex items-center justify-between px-[15px] py-[10px]  ">
+                    <span className=" w-full flex items-center justify-between px-[10px] sm:px-[15px] py-[10px]  ">
                         <p className="text-md font-[500] ">Team Members</p>
 
-                        <button className="h-[40px] px-5 bg-blue-500 hover:bg-blue-600 text-white rounded-[45px] text-sm " onClick={handle_new_user}>Add User</button>
+                        <button className="max-xl:h-[35px] h-[40px] px-5 bg-blue-500 hover:bg-blue-600 text-white rounded-[45px] text-sm " onClick={handle_new_user}>Add User</button>
                     </span>
                     
-                    <div className="w-full flex items-center justify-between px-[15px] pb-0 ">
+                    <div className="w-full flex items-center justify-between px-[10px] sm:px-[15px] pb-0 ">
 
                         <span className="flex items-center gap-5">
-                            <p className="text-sm">Showing</p>
+                            <p className="text-sm max-sm:hidden">Showing</p>
                             <div className="w-[85px] relative flex flex-col items-start justify-start z-10">
-                                <span className="h-[40px] w-full border border-slate-400 rounded-[3px] flex items-center justify-between px-[15px] text-sm" onClick={()=> setDrop_list_no(!drop_list_no)} > 
+                                <span className="max-xl:h-[35px] h-[40px] w-full border border-slate-400 rounded-[3px] flex items-center justify-between px-[10px] sm:px-[15px] text-sm" onClick={()=> setDrop_list_no(!drop_list_no)} > 
                                     {list_number == 0 ? "All": list_number }
                                     <span className="h-[20px] w-[20px] flex items-center justify-center">
                                         {drop_list_no ? <FaCaretUp size={'100%'} /> : <FaCaretDown size={'100%'} /> }
@@ -246,31 +246,31 @@ const Teams_page = () => {
                                 </span>
 
                                 {drop_list_no && <div className="w-full absolute top-[50px] left-0 flex flex-col items-start bg-white shadow-md rounded-[3px]">
-                                    <span className="rounded-t-[3px] h-[40px] w-full text-sm hover:bg-blue-600 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(15)}>15</span>
-                                    <span className="rounded-t-[3px] h-[40px] w-full text-sm hover:bg-blue-600 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(25)}>25</span>
-                                    <span className=" h-[40px] w-full text-sm hover:bg-blue-600 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(50)}>50</span>
-                                    <span className=" h-[40px] w-full text-sm hover:bg-blue-600 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(100)}>100</span>
-                                    <span className="rounded-b-[3px] h-[40px] w-full text-sm hover:bg-blue-600 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no('all')}>All</span>
+                                    <span className="rounded-t-[3px] max-xl:h-[35px] h-[40px] w-full text-sm hover:bg-blue-600 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(15)}>15</span>
+                                    <span className="rounded-t-[3px] max-xl:h-[35px] h-[40px] w-full text-sm hover:bg-blue-600 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(25)}>25</span>
+                                    <span className=" max-xl:h-[35px] h-[40px] w-full text-sm hover:bg-blue-600 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(50)}>50</span>
+                                    <span className=" max-xl:h-[35px] h-[40px] w-full text-sm hover:bg-blue-600 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(100)}>100</span>
+                                    <span className="rounded-b-[3px] max-xl:h-[35px] h-[40px] w-full text-sm hover:bg-blue-600 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no('all')}>All</span>
                                 </div>}
                             </div>
                         </span>
 
-                        <span className="w-[250px] ">
+                        <span className="max-xs:w-[150px] w-[250px] ">
                             <input type="text" placeholder='search' onChange={handle_filter} className='input-type-2 ' />
                         </span>
 
                     </div>
 
-                    <div className="w-full overflow-x-auto">
+                    <div className="table-cont overflow-x-auto">
 
-                        <div className="min-w-[1024px] px-[15px] py-[10px] flex flex-col items-start justify-start mx-auto ">
-                            <span className="w-full h-[45px] flex items-center justify-between rounded-[3px] bg-blue-500 text-white">
-                                <p className="text-sm w-[15%] px-[15px]  ">Last Updated</p>
-                                <p className="text-sm w-[18.5%] px-[15px]  ">Full Name</p>
-                                <p className="text-sm w-[21.5%] px-[15px]  ">Email</p>
-                                <p className="text-sm w-[17.5%] px-[15px]  ">Title</p>
-                                <p className="text-sm w-[10%] px-[15px]  ">Status</p>
-                                <p className="text-sm w-[17.5%] px-[15px]  ">Action</p>
+                        <div className="min-w-[1200px] px-[10px] sm:px-[15px] py-[10px] flex flex-col items-start justify-start mx-auto ">
+                            <span className="w-full max-xl:h-[40px] h-[45px] flex items-center justify-between rounded-[3px] bg-blue-500 text-white">
+                                <p className="text-sm w-[15%] px-[10px] sm:px-[15px]  ">Last Updated</p>
+                                <p className="text-sm w-[18.5%] px-[10px] sm:px-[15px]  ">Full Name</p>
+                                <p className="text-sm w-[22.5%] px-[10px] sm:px-[15px]  ">Email</p>
+                                <p className="text-sm w-[19%] px-[10px] sm:px-[15px]  ">Title</p>
+                                <p className="text-sm w-[10%] px-[10px] sm:px-[15px]  ">Status</p>
+                                <p className="text-sm w-[15%] px-[10px] sm:px-[15px] "></p>
                             </span>
 
                             {loading ? 
@@ -279,26 +279,25 @@ const Teams_page = () => {
                                 <Loading />
                             </div>
                             :
-                            <div className="w-full flex flex-col items-start justify-start overflow-y-auto" style={{ height: 'calc(100vh - 295px)'}}>
+                            <div className="w-full flex flex-col items-start justify-start overflow-y-auto" style={{ height: 'calc(100vh - 285px)'}}>
                                 <div className="w-full h-full flex flex-col justify-start">
                                     {filtered_user_box?.users.map((data: any, ind: number)=>{
                                         const {user_id, first_name, last_name, email, is_admin, title, role, created_at, updated_at,is_active } = data
                                         return(
                                             <span key={ind} className=" table-body-row-1  " >
-                                                {/* <p className="text-sm font-[500] w-[15%] px-[15px] ">{readable_date(Number(updated_at) / 1000)}</p> */}
-                                                <p className="text-sm font-[500] w-[15%] px-[15px] text-slate-600 ">{formatted_time(Number(updated_at))}</p>
-                                                <div className="text-sm font-[500] w-[18.5%] px-[15px] flex items-center justify-start gap-[20px] text-slate-600">
+                                                {/* <p className="text-sm font-[500] w-[15%] px-[10px] sm:px-[15px] ">{readable_date(Number(updated_at) / 1000)}</p> */}
+                                                <p className="text-sm font-[500] w-[15%] px-[10px] sm:px-[15px] text-slate-600 ">{formatted_time(Number(updated_at))}</p>
+                                                <div className="text-sm font-[500] w-[18.5%] px-[10px] sm:px-[15px] flex items-center justify-start gap-[20px] text-slate-600">
                                                     <SmallAvatar user={data} isActive={is_active} toggleActive={toggleActive} />
                                                     {first_name} {last_name}
                                                 </div>
-                                                <p className="text-sm font-[500] w-[21.5%] px-[15px] flex-wrap text-start text-slate-600">{email}</p>
-                                                <p className="text-sm font-[500] w-[17.5%] px-[15px] text-slate-600 ">{title}</p>
-                                                <span className=" w-[10%] px-[15px] flex items-center justify-start text-slate-600 " >
+                                                <p className="text-sm font-[500] w-[22.5%] px-[10px] sm:px-[15px] flex-wrap text-start text-slate-600">{email}</p>
+                                                <p className="text-sm font-[500] w-[19%] px-[10px] sm:px-[15px] text-slate-600 ">{title}</p>
+                                                <span className=" w-[10%] px-[10px] sm:px-[15px] flex items-center justify-start text-slate-600 " >
                                                     {is_active ? <p className="text-sm text-teal-600 font-[500]  ">Active</p> : <p className="text-sm text-red-600 font-[500]  ">Inactive</p>}
                                                 </span>
-                                                <span className=" w-[17.5%] px-[15px] flex items-center justify-start gap-[15px]" >
-                                                    <button className="px-5 h-[27.5px] text-sm rounded-[2.5px] text-white bg-amber-600 hover:bg-amber-700" onClick={()=> handle_edit(data)}>Edit</button>
-                                                    <button className="px-5 h-[27.5px] text-sm rounded-[2.5px] text-white bg-red-600 hover:bg-red-700" onClick={()=> handle_delete(data)}>Delete</button>
+                                                <span className=" w-[15%] px-[10px] sm:px-[15px] flex items-center justify-start gap-[15px]" >
+                                                    <TeamActionBtn data={data} />
                                                 </span>
                                                 
                                             </span>
@@ -310,7 +309,7 @@ const Teams_page = () => {
                         </div>
                     </div>
 
-                    <span className="w-full h-[45px] flex flex-row items-center justify-between bg-white rounded-b-[3px] border-t border-gray-300 px-[15px] ">
+                    <span className="w-full h-[45px] flex flex-row items-center justify-between bg-white rounded-b-[3px] border-t border-gray-300 px-[10px] sm:px-[15px] ">
                         <span className="flex flex-row items-center justify-start gap-3 h-full">
                             <p className="text-md cursor-pointer" onClick={() => app_users_action('prev')}>Prev</p>
                             <span className="w-auto h-full flex flex-row items-center justify-start">

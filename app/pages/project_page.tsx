@@ -268,21 +268,21 @@ const Project_page = () => {
             <div className="w-full flex flex-col justify-start items-center gap-5">
 
                 {/* section four recent transaction table */}
-                <div className="w-full bg-white flex flex-col items-start justify-start shadow-lg rounded-[3px] border border-slate-100">
-                    <span className=" w-full flex items-center justify-between px-[15px] py-[10px]  ">
+                <div className="w-full bg-white flex flex-col items-between justify-start shadow-lg rounded-[3px] border border-slate-100" style={{height: 'calc(100vh - 20px - 60px)'}}>
+                    <span className=" w-full flex items-center justify-between px-[10px] sm:px-[15px] py-[10px]  ">
                         <p className="text-md font-[500] ">Projects</p>
 
                         <span className="h-[40px]"></span>
 
-                        {loggedInUser.is_admin && <button className="h-[40px] px-5 bg-blue-500 hover:bg-blue-600 text-white rounded-[45px] text-sm " onClick={handle_add_project}>Add Project</button>}
+                        {loggedInUser.is_admin && <button className="max-xl:h-[35px] h-[40px] px-5 bg-blue-500 hover:bg-blue-600 text-white rounded-[45px] text-sm " onClick={handle_add_project}>Add Project</button>}
                     </span>
                     
-                    <div className="w-full flex flex-wrap items-center justify-between px-[15px] gap-5 pb-0 ">
+                    <div className="w-full flex flex-wrap items-center justify-between px-[10px] sm:px-[15px] gap-5 pb-0 ">
 
                         <span className="flex items-center max-sm:w-full max-sm:justify-between gap-5">
                             <p className="text-sm max-md:hidden">Showing</p>
                             <div className="w-[85px] relative flex flex-col items-start justify-start z-10">
-                                <span className="h-[40px] w-full border border-slate-400 rounded-[3px] flex items-center justify-between px-[15px] text-sm " onClick={()=> setDrop_list_no(!drop_list_no)} > 
+                                <span className="max-xl:h-[35px] h-[40px] w-full border border-slate-400 rounded-[3px] flex items-center justify-between px-[10px] sm:px-[15px] text-sm " onClick={()=> setDrop_list_no(!drop_list_no)} > 
                                     {list_number == 100000000000000 ? "All": list_number }
                                     <span className="h-[20px] w-[20px] flex items-center justify-center">
                                         {drop_list_no ? <FaCaretUp size={'100%'} /> : <FaCaretDown size={'100%'} /> }
@@ -290,19 +290,18 @@ const Project_page = () => {
                                 </span>
 
                                 {drop_list_no && <div className="w-full absolute top-[50px] left-0 flex flex-col items-start bg-white shadow-md rounded-[3px]">
-                                    <span className="rounded-t-[3px] h-[40px] w-full text-sm hover:bg-blue-500 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(15)}>15</span>
-                                    <span className="rounded-t-[3px] h-[40px] w-full text-sm hover:bg-blue-500 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(25)}>25</span>
-                                    <span className=" h-[40px] w-full text-sm hover:bg-blue-500 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(50)}>50</span>
-                                    <span className=" h-[40px] w-full text-sm hover:bg-blue-500 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(100)}>100</span>
-                                    <span className="rounded-b-[3px] h-[40px] w-full text-sm hover:bg-blue-500 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no('all')}>All</span>
+                                    <span className="rounded-t-[3px] max-xl:h-[35px] h-[40px] w-full text-sm hover:bg-blue-500 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(15)}>15</span>
+                                    <span className="rounded-t-[3px] max-xl:h-[35px] h-[40px] w-full text-sm hover:bg-blue-500 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(25)}>25</span>
+                                    <span className=" max-xl:h-[35px] h-[40px] w-full text-sm hover:bg-blue-500 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(50)}>50</span>
+                                    <span className=" max-xl:h-[35px] h-[40px] w-full text-sm hover:bg-blue-500 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(100)}>100</span>
+                                    <span className="rounded-b-[3px] max-xl:h-[35px] h-[40px] w-full text-sm hover:bg-blue-500 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no('all')}>All</span>
                                 </div>}
                             </div>
 
-                            <button className="text-sm sm:hidden px-5 whitespace-nowrap h-[45px] rounded-[3px] text-white bg-blue-600 hover:bg-blue-700" onClick={handle_add_project} >Add Task</button>
                         </span>
 
-                        <div className="max-sm:w-full flex items-center max-sm:justify-between justify-end gap-5">
-                            {loggedInUser.is_admin && <span className=" w-[150px] lg:w-[300px] h-[40px] ">
+                        <div className="max-sm:w-full flex items-center max-sm:justify-between justify-end gap-5 ">
+                            {loggedInUser.is_admin && <span className=" w-[150px] lg:w-[300px] max-xl:h-[35px] h-[40px] ">
                                 <Dropdown options={['All Projects', 'Assigned Project', 'Project Created']} id='project' placeholder='All Project' onSelect={handle_selected} />
                             </span>}
 
@@ -313,16 +312,16 @@ const Project_page = () => {
 
                     </div>
 
-                    <div className="w-full overflow-x-auto ">
-                        <div className="min-w-[1024px] px-[15px] py-[10px] flex flex-col items-start justify-start mx-auto ">
-                            <span className="w-full h-[45px] flex items-center justify-between bg-blue-500 text-white rounded-[3px]">
-                                <p className="text-sm w-[18%] px-[15px] ">Last Updated</p>
-                                <p className="text-sm w-[14.5%] px-[15px] ">Project Title</p>
-                                <p className="text-sm w-[10%] px-[15px] ">Project Cost</p>
-                                <p className="text-sm w-[15%] px-[15px] ">Assigned To</p>
-                                <p className="text-sm w-[10%] px-[15px] ">Stage</p>
-                                <p className="text-sm w-[10%] px-[15px] ">Assets</p>
-                                <p className="text-sm w-[15%] px-[15px] "></p>
+                    <div className="table-cont overflow-x-auto ">
+                        <div className="min-w-[950px] px-[10px] sm:px-[15px] py-[10px] flex flex-col items-start justify-start mx-auto ">
+                            <span className="w-full max-xl:h-[40px] h-[45px] flex items-center justify-between bg-blue-500 text-white rounded-[3px]">
+                                <p className="text-sm w-[18%] px-[10px] sm:px-[15px] ">Last Updated</p>
+                                <p className="text-sm w-[14.5%] px-[10px] sm:px-[15px] ">Project Title</p>
+                                <p className="text-sm w-[12%] px-[10px] sm:px-[15px] ">Project Cost</p>
+                                <p className="text-sm w-[15%] px-[10px] sm:px-[15px] ">Assigned To</p>
+                                <p className="text-sm w-[12%] px-[10px] sm:px-[15px] ">Stage</p>
+                                <p className="text-sm w-[10%] px-[10px] sm:px-[15px] ">Assets</p>
+                                <p className="text-sm w-[11%] px-[10px] sm:px-[15px] "></p>
                             </span>
 
                             {loading ? 
@@ -331,7 +330,7 @@ const Project_page = () => {
                                 <Loading />
                             </div>
                             :
-                            <div className="w-full flex flex-col items-start justify-start overflow-y-auto" style={{ height: 'calc(100vh - 295px)'}}>
+                            <div className="w-full flex flex-col items-start justify-start overflow-y-auto" style={{ height: 'calc(100vh - 285px)'}}>
                                 <div className="w-full h-full flex flex-col justify-start">
                                     
                                     {filtered_project_box?.projects.length ? 
@@ -345,11 +344,11 @@ const Project_page = () => {
 
                                         return(
                                             <span key={ind} className=" table-body-row-1  " >
-                                                <p className="text-sm font-[500] w-[18%] px-[15px] text-slate-600 ">{formatted_time(Number(updated_at))}</p>
-                                                <p className="text-sm font-[500] w-[14.5%] overflow truncate text-ellipsis  px-[15px] text-slate-600 ">{project_title}</p>
-                                                <p className="text-sm font-[500] w-[10%] overflow truncate text-ellipsis  px-[15px] text-slate-600 "> {Number(cost).toLocaleString()}</p>
+                                                <p className="text-sm font-[500] w-[18%] px-[10px] sm:px-[15px] text-slate-600 ">{formatted_time(Number(updated_at))}</p>
+                                                <p className="text-sm font-[500] w-[14.5%] overflow truncate text-ellipsis  px-[10px] sm:px-[15px] text-slate-600 ">{project_title}</p>
+                                                <p className="text-sm font-[500] w-[12%] overflow truncate text-ellipsis  px-[10px] sm:px-[15px] text-slate-600 "> {Number(cost).toLocaleString()}</p>
 
-                                                <span className="w-[15%] px-[15px] flex items-center justify-start overflow-visible ">
+                                                <span className="w-[15%] px-[10px] sm:px-[15px] flex items-center justify-start overflow-visible ">
                                                     {team.slice(0, 5).map((data: any, indd: number) => {
                                                         const { user_id, avatar, first_name, last_name, email, title, is_active, is_admin } = data.user;
                                                         return (
@@ -360,11 +359,11 @@ const Project_page = () => {
                                                     })}
                                                 </span>
 
-                                                <span className={`w-[10%] px-[15px] flex items-center justify-start gap-[5px] text-sm `}> {formated_stage} </span>
+                                                <span className={`w-[12%] px-[10px] sm:px-[15px] flex items-center justify-start gap-[5px] text-sm `}> {formated_stage} </span>
 
-                                                <span className="w-[10%] px-[15px] flex items-center justify-start gap-[5px] "> <AssetCont activities={info.activities} assets={info.assets} tasks={info.task}  /> </span>
+                                                <span className="w-[10%] px-[10px] sm:px-[15px] flex items-center justify-start gap-[5px] "> <AssetCont activities={info.activities} assets={info.assets} tasks={info.task}  /> </span>
 
-                                                <span className=" w-[15%] px-[15px] flex items-center justify-start gap-[10px]" >
+                                                <span className=" w-[11%] px-[10px] sm:px-[15px] flex items-center justify-start gap-[10px]" >
                                                     <ProjectActionBtn data={data} />
                                                 </span>
                                                 
@@ -383,7 +382,7 @@ const Project_page = () => {
                         </div>
                     </div>
 
-                    <span className="w-full h-[45px] flex flex-row items-center justify-between bg-white rounded-b-[3px] border-t border-slate-200 px-[15px] ">
+                    <span className="w-full h-[45px] flex flex-row items-center justify-between bg-white rounded-b-[3px] border-t border-slate-200 px-[10px] sm:px-[15px] ">
                         <span className="flex flex-row items-center justify-start gap-3 h-full">
                             <p className="text-md cursor-pointer" onClick={() => app_projects_action('prev')}>Prev</p>
                             <span className="w-auto h-full flex flex-row items-center justify-start">

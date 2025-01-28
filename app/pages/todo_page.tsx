@@ -315,8 +315,8 @@ const Todo_page = () => {
 
                     </div>
 
-                    <div className="w-full overflow-x-auto">
-                        <div className="min-w-[1350px] p-[15px] flex flex-col items-start justify-start mx-auto ">
+                    <div className="table-cont overflow-x-auto">
+                        <div className="min-w-[950px] p-[15px] flex flex-col items-start justify-start mx-auto ">
                             <span className="w-full h-[50px] flex items-center justify-between bg-blue-600 text-white rounded-[3px]">
                                 <p className="text-sm w-[15%] px-[15px] ">Last Updated</p>
                                 <p className="text-sm w-[8%] px-[15px] ">Task Id</p>

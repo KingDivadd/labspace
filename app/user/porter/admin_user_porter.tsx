@@ -19,7 +19,7 @@ const Admin_User_porter = () => {
 
     return (
         <div className="bg-white flex items-start justify-start w-full min-h-[100vh] overflow-y-auto ">
-            <div className="w-[285px] h-screen  ">
+            <div className="max-lg:hidden w-[200px] lg:w-[70px] bg-green-300 xl:w-[285px] h-screen overflow-visible ">
                 <Side_bar />
             </div>
             <div className="flex-1 flex flex-col items-start justify-between h-full bg-slate-100 ">
