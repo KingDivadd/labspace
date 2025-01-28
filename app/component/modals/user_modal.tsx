@@ -249,11 +249,11 @@ const User_modal = () => {
                 </div>}
 
                 {modalFor == 'delete' && 
-                <div className="max-sm:w-[95vw] mx-auto w-[450px] ">
+                <div className="max-xs:w-[90vw] max-sm:w-[400px] mx-auto w-[500px] ">
                     <div className="w-full p-[25px] border-b border-slate-200 flex flex-col items-center justify-center gap-5">
                         <div className="w-full flex flex-col items-center justify-center text-center gap-3 ">
-                            <p className="text-md font-[500]">Are your sure you want to delete user with name </p>
-                            <span className="w-full flex items-center justify-center gap-2">
+                            <p className="text-md font-[500]">Are your sure you want to delete </p>
+                            <span className="w-full flex items-center justify-center gap-2 whitespace-nowrap">
                                 <p className="text-md font-[600] ">{selectedItem.first_name} {selectedItem.last_name}</p> 
                                 <p className="text-md font-[500]">and title</p> 
                                 <p className="text-md font-[600] ">{selectedItem.title}</p> 

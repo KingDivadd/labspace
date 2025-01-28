@@ -104,8 +104,8 @@ const Trash_modal = () => {
                 </span>
 
                 {modalFor == 'delete' && 
-                <div className="max-sm:w-[95vw] mx-auto w-[450px] ">
-                    <div className="w-full p-[30px] border-b border-slate-200 flex flex-col items-center justify-center gap-5">
+                <div className="max-xs:w-[90vw] max-sm:w-[400px] mx-auto w-[500px] ">
+                    <div className="w-full p-[25px] border-b border-slate-200 flex flex-col items-center justify-center gap-5">
                         {selectedItem.deleted_project ? 
                             <div className="w-full flex flex-col items-center justify-center text-center gap-3 ">
                                 <p className="text-md font-[500]">Are your sure you want to permanently delete Project with Id of</p>
@@ -114,7 +114,7 @@ const Trash_modal = () => {
                                     <p className="text-md font-[500]">and title</p> 
                                     <p className="text-md font-[600] ">{selectedItem.deleted_project.project_title}</p> 
                                 </span>
-                                <span className="flex items-center gap-3">
+                                <span className="flex max-xs:flex-col items-center gap-3 justify-center">
                                     <span className="h-[20px] w-[20px] text-red-600"><IoWarningOutline size={'100%'} /></span>
                                     <p className="text-md font-[400]"> Please note, this action is not reversible</p>
                                 </span>
@@ -124,10 +124,10 @@ const Trash_modal = () => {
                                 <p className="text-md font-[500]">Are your sure you want to permanently delete </p>
                                 <span className="w-full flex items-center justify-center gap-2">
                                     <p className="text-md font-[600] ">{selectedItem.deleted_user.first_name} {selectedItem.deleted_user.last_name}</p> 
-                                    <p className="text-md font-[500]">who is a</p> 
+                                    <p className="text-md font-[500]">with title </p> 
                                     <p className="text-md font-[600] ">{selectedItem.deleted_user.title}</p> 
                                 </span>
-                                <span className="flex items-center gap-3">
+                                <span className="flex max-xs:flex-col items-center gap-3 justify-center">
                                     <span className="h-[20px] w-[20px] text-red-600"><IoWarningOutline size={'100%'} /></span>
                                     <p className="text-md font-[400]"> Please note, this action is not reversible</p>
                                 </span>
@@ -149,8 +149,8 @@ const Trash_modal = () => {
                 </div>}
 
                 {modalFor == 'restore' && 
-                <div className="max-sm:w-[95vw] mx-auto w-[450px] ">
-                    <div className="w-full p-[30px] border-b border-slate-200 flex flex-col items-center justify-center gap-5">
+                <div className="max-xs:w-[90vw] max-sm:w-[400px] mx-auto w-[500px] ">
+                    <div className="w-full p-[25px] border-b border-slate-200 flex flex-col items-center justify-center gap-5">
                         {selectedItem.deleted_project ? 
                             <div className="w-full flex flex-col items-center justify-center text-center gap-3 ">
                                 <p className="text-md font-[500]">Are your sure you want to restore project with Id of</p>
@@ -162,10 +162,10 @@ const Trash_modal = () => {
                             </div>
                             :
                             <div className="w-full flex flex-col items-center justify-center text-center gap-3 ">
-                                <p className="text-md font-[500]">Are your sure you want to restore user with name </p>
+                                <p className="text-md font-[500]">Are your sure you want to restore </p>
                                 <span className="w-full flex items-center justify-center gap-2">
                                     <p className="text-md font-[600] ">{selectedItem.deleted_user.first_name} {selectedItem.deleted_user.last_name}</p> 
-                                    <p className="text-md font-[500]">and title</p> 
+                                    <p className="text-md font-[500]">with title</p> 
                                     <p className="text-md font-[600] ">{selectedItem.deleted_user.title}</p> 
                                 </span>
                             </div>
