@@ -106,11 +106,11 @@ const Admin_dashboard = () => {
 
                         <p className="text-xl text-white font-[500]">Welcome {loggedInUser.first_name}</p>
 
-                            <div className="w-full flex max-sm:flex-wrap justify-between gap-[10px] sm:gap-10 ">
+                            <div className="w-full flex flex-wrap justify-between gap-[10px] sm:gap-5 md:gap-10 ">
                             
 
 
-                            <div className="bg-white max-xs:w-full w-1/2 sm:w-[45%] max-xs:h-[75px] max-xl:h-[80px] h-[90px] rounded-[5px]  p-[15px] shadow-md flex items-center justify-start gap-[10px] sm:gap-2">
+                            <div className="bg-white min-w-[180px] max-xs:h-[75px] flex-grow max-xl:h-[80px] h-[90px] rounded-[5px]  p-[15px] shadow-md flex items-center justify-start gap-[10px] sm:gap-2">
                                 <span className="h-full max-xs:w-[70px] w-[60px] sm:w-20 flex items-center justify-center">
                                     <span className="h-[50px] w-[50px] text-white  rounded-[50px] bg-blue-500 flex items-center justify-center">
                                         <GoProjectRoadmap size={'50%'} />
@@ -123,7 +123,7 @@ const Admin_dashboard = () => {
 
                             </div>
 
-                            <div className="bg-white max-xs:w-full w-1/2 bg-white sm:w-[45%] max-xs:h-[75px] max-xl:h-[80px] h-[90px] rounded-[5px]  p-[15px] shadow-md flex items-center justify-start gap-2">
+                            <div className="bg-white min-w-[180px] max-xs:h-[75px] flex-grow max-xl:h-[80px] h-[90px] rounded-[5px]  p-[15px] shadow-md flex items-center justify-start gap-2">
                                 <span className="h-full max-xs:w-[70px] w-[60px] sm:w-20  flex items-center justify-center">
                                     <span className="h-[50px] w-[50px] text-white  rounded-[50px] bg-teal-600 flex items-center justify-center">
                                         <LiaMoneyBillWaveSolid size={'50%'} />

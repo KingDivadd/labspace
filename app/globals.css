@@ -173,7 +173,7 @@
     @apply px-5 h-[45px] text-[14px] w-full flex items-center justify-start gap-2 relative whitespace-nowrap rounded-[45px] cursor-pointer;
 }
 
-@media (min-width: 1024px) and (max-width: 1280px) {
+@media (min-width: 1024px) and (max-width: 1279px) {
     .nav-box {
         @apply px-0 h-[40px] text-[14px] w-[40px] flex items-center justify-center gap-2 relative whitespace-nowrap cursor-pointer relative;
     }
@@ -187,7 +187,7 @@
     @apply px-5 h-[45px] text-[14px] w-full flex items-center justify-start gap-2 relative whitespace-nowrap rounded-[45px] bg-blue-500 text-white
 }
 
-@media (min-width: 1024px) and (max-width: 1280px) {
+@media (min-width: 1024px) and (max-width: 1279px) {
     .active-nav-box {
         @apply px-0 h-[40px] text-[14px] w-[40px] flex items-center justify-center gap-2 relative whitespace-nowrap rounded-[45px] bg-blue-500 text-white
     }

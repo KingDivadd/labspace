@@ -264,32 +264,31 @@ const Payment_page = () => {
                 {alert.message && <Alert message={alert.message} type={alert.type} />} 
             </span>
 
-            <div className="w-full flex flex-col justify-start items-center gap-5 ">
+            <div className="w-full flex flex-col justify-start items-center gap-5  ">
 
                 {/* section four recent payments table */}
-                <div className="w-full flex flex-col items-start justify-start shadow-lg border border-slate-200 rounded-[3px]  bg-white">
+                <div className="bg-white w-full flex flex-col items-start justify-start shadow-lg  rounded-[3px] border border-slate-100 overflow-x-auto">
                     
                     <div className="w-full flex flex-wrap items-center justify-between p-[15px] gap-5 pb-0 ">
 
-                        <span className="flex items-center max-sm:w-full max-sm:justify-between gap-5">
-                            <p className="text-sm max-md:hidden">Showing</p>
-                            <div className="w-[90px] relative flex flex-col items-start justify-start z-10">
-                                <span className="h-[40px] w-full border border-slate-400 rounded-[3px] flex items-center justify-between px-[15px] " onClick={()=> setDrop_list_no(!drop_list_no)} > 
-                                    {list_number == 100000000000000 ? "All": list_number }
+                        <span className="flex items-center gap-5">
+                            <p className="text-sm max-sm:hidden">Showing</p>
+                            <div className="w-[85px] relative flex flex-col items-start justify-start z-10">
+                                <span className="max-xl:h-[35px] h-[40px] w-full border border-slate-400 rounded-[3px] flex items-center justify-between px-[10px] sm:px-[15px] text-sm" onClick={()=> setDrop_list_no(!drop_list_no)} > 
+                                    {list_number == 0 ? "All": list_number }
                                     <span className="h-[20px] w-[20px] flex items-center justify-center">
                                         {drop_list_no ? <FaCaretUp size={'100%'} /> : <FaCaretDown size={'100%'} /> }
                                     </span>
                                 </span>
 
                                 {drop_list_no && <div className="w-full absolute top-[50px] left-0 flex flex-col items-start bg-white shadow-md rounded-[3px]">
-                                    <span className="rounded-t-[3px] h-[40px] w-full text-sm hover:bg-blue-500 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(15)}>15</span>
-                                    <span className="rounded-t-[3px] h-[40px] w-full text-sm hover:bg-blue-500 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(25)}>25</span>
-                                    <span className=" h-[40px] w-full text-sm hover:bg-blue-500 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(50)}>50</span>
-                                    <span className=" h-[40px] w-full text-sm hover:bg-blue-500 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(100)}>100</span>
-                                    <span className="rounded-b-[3px] h-[40px] w-full text-sm hover:bg-blue-500 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no('all')}>All</span>
+                                    <span className="rounded-t-[3px] max-xl:h-[35px] h-[40px] w-full text-sm hover:bg-blue-600 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(15)}>15</span>
+                                    <span className="rounded-t-[3px] max-xl:h-[35px] h-[40px] w-full text-sm hover:bg-blue-600 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(25)}>25</span>
+                                    <span className=" max-xl:h-[35px] h-[40px] w-full text-sm hover:bg-blue-600 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(50)}>50</span>
+                                    <span className=" max-xl:h-[35px] h-[40px] w-full text-sm hover:bg-blue-600 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no(100)}>100</span>
+                                    <span className="rounded-b-[3px] max-xl:h-[35px] h-[40px] w-full text-sm hover:bg-blue-600 hover:text-white flex items-center justify-center" onClick={()=> handle_list_no('all')}>All</span>
                                 </div>}
                             </div>
-
                         </span>
 
                         <div className="max-sm:w-full flex items-center max-sm:justify-between justify-end gap-5">
@@ -298,23 +297,23 @@ const Payment_page = () => {
                                 <input type="text" placeholder='Search...' onChange={handle_filter} className='input-type-2 ' />
                             </span>
 
-                            <button className="px-5 rounded-[40px] bg-blue-500 hover:bg-blue-600 text-white text-sm h-[40px]" onClick={handle_new_payment} >
+                            <button className="px-5 rounded-[40px] bg-blue-500 hover:bg-blue-600 text-white text-sm max-xl:h-[35px] h-[40px]" onClick={handle_new_payment} >
                                 Add Payment
                             </button>
                         </div>
 
                     </div>
 
-                    <div className="w-full overflow-x-auto">
-                        <div className="w-full min-w-[1024px] p-[15px] flex flex-col items-start justify-start mx-auto ">
-                            <span className="w-full h-[45px] flex items-center justify-between bg-blue-500 text-white rounded-[3px]">
+                    <div className="table-cont overflow-x-auto">
+                        <div className="w-full min-w-[1200px] p-[15px] flex flex-col items-start justify-start mx-auto ">
+                            <span className="w-full max-xl:h-[40px] h-[45px] flex items-center justify-between bg-blue-500 text-white rounded-[3px]">
                                 <p className="text-sm w-[10%] px-[15px] ">Payment Id</p>
                                 <p className="text-sm w-[8%] px-[15px] ">Project Id</p>
                                 <p className="text-sm w-[13%] px-[15px] ">Project Title</p>
                                 <p className="text-sm w-[13%] px-[15px] ">Payer Name</p>
                                 <p className="text-sm w-[8%] px-[15px] ">Amount</p>
-                                <p className="text-sm w-[10%] px-[15px] ">Added By</p>
-                                <p className="text-sm w-[15%] px-[15px] ">Payment File</p>
+                                <p className="text-sm w-[15%] px-[15px] ">Added By</p>
+                                <p className="text-sm w-[10%] px-[15px] ">Receipt</p>
                                 <p className="text-sm w-[15%] px-[15px] ">Date</p>
                                 <p className="text-sm w-[8%] px-[15px] ">Action</p>
                             </span>
@@ -325,7 +324,7 @@ const Payment_page = () => {
                                 <Loading />
                             </div>
                             :
-                            <div className="w-full h-[340px] flex flex-col items-start justify-start overflow-y-auto">
+                            <div className="w-full max-md:h-[290px] h-[340px] flex flex-col items-start justify-start overflow-y-auto">
                                 <div className="w-full h-full flex flex-col justify-start">
                                     
                                     {filtered_payment_box?.payments.length ? 
@@ -346,8 +345,8 @@ const Payment_page = () => {
                                                 <p className="text-sm font-[500] w-[13%] px-[15px] text-slate-600 ">{project.project_title}</p>
                                                 <p className="text-sm font-[500] w-[13%] px-[15px] text-slate-600 ">{payer_name}</p>
                                                 <p className="text-sm font-[500] w-[8%] px-[15px] text-slate-600 ">{Number(amount).toLocaleString()}</p>
-                                                <p className="text-sm font-[500] w-[10%] px-[15px] text-slate-600 ">{added_by.first_name} {added_by.last_name}</p>
-                                                <p className="text-sm font-[500] w-[15%] px-[15px] text-slate-600 hover:text-blue-600 hover:underline">
+                                                <p className="text-sm font-[500] w-[15%] px-[15px] text-slate-600 ">{added_by.first_name} {added_by.last_name}</p>
+                                                <p className="text-sm font-[500] w-[10%] px-[15px] text-slate-600 hover:text-blue-600 hover:underline">
                                                     {payment_receipt.length && <Link href={payment_receipt[0].url} >{payment_receipt[0].name}</Link>}
                                                 </p>
                                                 <p className="text-sm font-[500] w-[15%] px-[15px] text-slate-600 ">{formatted_time(Number(created_at))}</p>

@@ -32,7 +32,7 @@ const Side_bar = () => {
 
 
     return (
-        <div className="relative w-full h-full flex flex-col items-start justif-start gap-[50px] bg-white  ">
+        <div className="max-lg:hidden relative w-full h-full flex flex-col items-start justif-start gap-[50px] bg-white  ">
             <span className="h-[60px] pl-[20px] flex items-center justify-start gap-3 w-full ">
                 <span className="h-[40px] w-[40px] font-[600] text-white bg-blue-500 rounded-[40px] flex items-center justify-center ">
                     <MdOutlineAddTask size={22} className='' />

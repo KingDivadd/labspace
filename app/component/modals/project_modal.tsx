@@ -407,7 +407,7 @@ const Project_modal = () => {
 
                 </div>}
 
-                {(modalFor == 'create' || modalFor == 'edit') && <div className="max-sm:w-[95vw] mx-auto w-[450px] max-h-[92vh] sm:max-h-[92.5vh] overflow-y-auto">
+                {(modalFor == 'create' || modalFor == 'edit') && <div className=" max-xs:w-[90vw] max-sm:w-[400px] mx-auto w-[500px] max-h-[92vh] sm:max-h-[92.5vh] overflow-y-auto">
                     <span className="w-full px-[25px] h-[50px]  border-b border-slate-200 flex items-center justify-between ">
                         {modalFor == 'create' ? <p className="text-md font-[500]  ">New Project</p> : <p className="text-md font-[500]  "> {selectedItem.project_ind}</p>  }
                         
@@ -524,7 +524,7 @@ const Project_modal = () => {
 
                 </div>}
 
-                {(modalFor == 'create-task' || modalFor == 'edit-subproject') && <div className="sm:w-[450px] w-[400px]">
+                {(modalFor == 'create-task' || modalFor == 'edit-task') && <div className="max-xs:w-[90vw] max-sm:w-[400px] mx-auto w-[500px] ">
                     <span className="w-full px-[25px] h-[50px]  border-b border-slate-200 flex items-center justify-between ">
                         <p className="text-md font-[500]  ">New Task</p> 
                         
@@ -562,7 +562,7 @@ const Project_modal = () => {
 
                 {(modalFor == 'view') && 
 
-                    <div className="w-[90vw] flex flex-col items-start gap-2 mx-auto">
+                    <div className="max-xs:w-[90vw] max-sm:w-[90vw] w-[90vw] flex flex-col items-start gap-2 mx-auto">
                         <span className=" w-full px-[15px] h-[50px] flex items-center justify-between ">
                             <span className="flex items-center justify-start gap-5">
                                 <p className="text-md font-[500] "> {selectedItem.project_ind}</p> 
@@ -575,7 +575,7 @@ const Project_modal = () => {
                         <div className="w-full flex flex-col items-start justify-start gap-[15px] ">
 
                             {/* nav section */}
-                            <div className="w-full flex items-center justify-start gap-2 px-[15px] bg-white">
+                            <div className="w-full flex items-center justify-start gap-2 px-[15px] bg-white overflow-x-auto">
                                 <button className={ current_project_nav == 'project_details' ? `active-prj-nav-btn` : `prj-nav-btn`} onClick={()=> setCurrent_project_nav('project_details')}>
                                     Project Details
                                 </button>
@@ -598,7 +598,7 @@ const Project_modal = () => {
                             </div>
 
                             {current_project_nav == 'project_details' && 
-                            <div className="w-full px-[15px]  h-[535px] mb-[15px] flex flex-wrap items-start justify-between bg-white  gap-[25px] overflow-y-auto ">
+                            <div className="w-full px-[15px]  h-[550px] mb-[15px] flex flex-wrap items-start justify-between bg-white  gap-[25px] overflow-y-auto ">
                                 <div className="w-[430px] max-sm:w-full h-[530px] overflow-y-auto  rounded-[5px] border border-slate-200  p-[15px] ">
                                     <div className='w-full flex flex-col items-start justify-start gap-5 '>
                                         {/* first section Priority and stage */}
@@ -673,13 +673,13 @@ const Project_modal = () => {
 
                                 <div className="w-[430px] max-sm:w-full h-[530px] flex items-start justify-center  rounded-[5px] border border-slate-200  p-[15px] overflow-y-auto">
                                     {selectedItem.tasks.length ?
-                                        <div className="w-full  flex flex-wrap items-start justify-between gap-3">
+                                        <div className="w-full  flex flex-wrap items-start justify-between gap-3 max-sm:gap-2 ">
                                             {
                                                 selectedItem.tasks.map((data:any, ind: number)=>{
                                                     const {title, is_completed, due_date, created_at, task_id} = data
 
                                                     return(
-                                                        <span key={ind} className="min-w-[190px] min-h-[100px]  border border-slate-200 rounded-[3px] p-[10px] flex flex-col gap-3">
+                                                        <span key={ind} className="min-w-[190px] max-md:min-w-[175px] min-h-[100px]  border border-slate-200 rounded-[3px] p-[10px] flex flex-col gap-3">
                                                             <span className="flex items-start justify-between gap-3">
                                                                 <p className={`text-sm font-[500] whitespace-nowrap ${is_completed ? 'text-teal-500': 'text-amber-600'}`}> {is_completed ? "Completed":"Not Completed"} </p>
 
@@ -728,8 +728,8 @@ const Project_modal = () => {
                             {
                                 ( current_project_nav == 'activities') && 
                                 
-                                <div className="mx-auto h-[535px] max-sm:h-[70vh] max-lg:h-[600px]  mb-[15px] flex flex-wrap items-start justify-between bg-white  gap-[25px] overflow-y-auto">
-                                    <div className="w-[775px] max-lg:w-[450px] max-xl:w-[500px] max-md:w-full h-[530px] max-lg:h-[375px] flex flex-col items-start gap-[25px] ">
+                                <div className="mx-auto h-[550px] mb-[15px] flex flex-wrap items-start justify-between bg-white gap-[10px] xl:gap-[25px] overflow-y-auto p-[15px] bg-teal-300">
+                                    <div className="w-[63%] max-lg:w-[58%] max-md:w-full h-[520px] max-md:h-[59%] flex flex-col items-start gap-[25px] ">
                                         <p className="text-md font-[500] ">Activities</p>
 
                                         <div className="w-full flex flex-col  overflow-y-auto ">
@@ -741,7 +741,7 @@ const Project_modal = () => {
                                                     const formattedTime = moment(Number(date)).fromNow();
                                                     const user = {first_name: created_by.first_name, last_name: created_by.last_name, avatar: created_by.avatar}
                                                     return(
-                                                        <div key={ind} className="md:w-[80%] activity-cont-1 "> 
+                                                        <div key={ind} className="w-[95%] lg:w-[80%] activity-cont-1 "> 
                                                             <span className="w-[60px] h-full flex flex-col items-center justify-start gap-[5px] activity-col-1 ">
                                                                     <Avatar user={user} isActive={true} toggleActive={true} />  
                                                                 <span className="w-[1px] bg-slate-400 activity-line-1" style={{height: 'calc(100% - 50px)'}} ></span>
@@ -758,7 +758,7 @@ const Project_modal = () => {
                                         </div>
                                     </div>
 
-                                    <div className="w-full  lg:w-[400px] xl:w-[450px]  h-[530px] max-lg:h-auto flex flex-col items-start gap-[25px]  ">
+                                    <div className="w-[33%] max-lg:w-[40%] max-md:w-full  h-[520px] max-md:h-[39%] flex flex-col items-start gap-[25px] max-md:gap-[10px] ">
                                         <p className="text-md font-[500] ">Add Activity</p>
 
                                         <div className="w-full flex flex-wrap items-start justify-start gap-5">
@@ -805,10 +805,10 @@ const Project_modal = () => {
                                             </div>
 
 
-                                        <div className="w-full h-full max-lg:h-[150px]   flex flex-col items-start justify-between gap-[25px]">
+                                        <div className="w-full h-full max-md:h-[150px]   flex flex-col items-start justify-between max-md:gap-[15px] gap-[20px]">
                                             <textarea name="description" id="description" value={activity.description} onChange={handle_activity_change} placeholder='Type...' className=' text-area-input-1' style={{height: 'calc(100% - 70px)'}}></textarea>
 
-                                            <span className="w-full flex items-center justify-end gap-[15px] ">
+                                            <span className="w-full flex items-center justify-end gap-[15px]">
 
                                                 <button className="text-sm h-[45px] px-5 rounded-[2.5px] hover:border hover:border-red-600 hover:text-red-600 " onClick={()=> setShowModal(false)}>Cancel </button>
 
@@ -828,7 +828,7 @@ const Project_modal = () => {
 
                             {
                                 current_project_nav == 'payment-history' &&
-                                <div className=" w-[100%] h-[535px] max-sm:h-[70vh] max-lg:h-[600px]  mb-[15px] flex flex-wrap items-start justify-between bg-white  gap-[25px]  overflow-y-auto">
+                                <div className=" w-[100%] h-[550px] max-sm:h-[70vh] max-lg:h-[600px]  mb-[15px] flex flex-wrap items-start justify-between bg-white  gap-[25px]  overflow-y-auto">
                                     <Payment_page />
                                 </div>
                             }
