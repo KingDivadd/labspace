@@ -382,7 +382,7 @@ const Project_modal = () => {
                 </span>
 
                 {modalFor == 'delete' && 
-                <div className="max-sm:w-[95vw] mx-auto w-[450px] ">
+                <div className="max-xs:w-[90vw] max-sm:w-[400px] mx-auto w-[500px] ">
                     <div className="w-full p-[25px] border-b border-slate-200 flex flex-col items-center justify-center gap-5">
                         <div className="w-full flex flex-col items-center justify-center text-center gap-3 ">
                             <p className="text-md font-[500]">Are your sure you want to delete project with Id of</p>
@@ -407,7 +407,8 @@ const Project_modal = () => {
 
                 </div>}
 
-                {(modalFor == 'create' || modalFor == 'edit') && <div className=" max-xs:w-[90vw] max-sm:w-[400px] mx-auto w-[500px] max-h-[92vh] sm:max-h-[92.5vh] overflow-y-auto">
+                {(modalFor == 'create' || modalFor == 'edit') && 
+                <div className=" max-xs:w-[90vw] max-sm:w-[400px] mx-auto w-[500px] max-h-[92vh] sm:max-h-[92.5vh] overflow-y-auto">
                     <span className="w-full px-[25px] h-[50px]  border-b border-slate-200 flex items-center justify-between ">
                         {modalFor == 'create' ? <p className="text-md font-[500]  ">New Project</p> : <p className="text-md font-[500]  "> {selectedItem.project_ind}</p>  }
                         

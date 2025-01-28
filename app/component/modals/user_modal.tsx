@@ -167,15 +167,16 @@ const User_modal = () => {
 
     return (
         <div className="w-full">
-            <div className=" bg-white max-h-[90vh] w-[450px] rounded-[5px] shadow-md border border-slate-200  overflow-y-auto relative " >
+            <div className=" bg-white max-h-[90vh] rounded-[5px] shadow-md border border-slate-200  overflow-y-auto relative " >
                 <span className="px-[20px] flex items-center justify-end absolute top-[15px] right-[50px] z-20 h-[50px]  ">
 
                     {alert.message && <Alert message={alert.message} type={alert.type} />} 
                 </span>
 
-                { (modalFor == 'create' || modalFor == 'edit') && <div className="w-full">
+                { (modalFor == 'create' || modalFor == 'edit') && 
+                <div className="max-xs:w-[90vw] max-sm:w-[400px] mx-auto w-[500px] ">
 
-                    <span className="w-full px-[25px] h-[50px] border-b border-slate-300 flex items-center justify-between ">
+                    <span className="w-full px-[25px] h-[50px]  border-b border-slate-200 flex items-center justify-between">
                         {modalFor == 'create' ? <p className="text-md font-[500] ">New User</p> :
                         <div className="flex justify-start items-center gap-5">
                             <Avatar user={selectedItem} isActive={isActive} toggleActive={toggleActive} />
@@ -189,7 +190,7 @@ const User_modal = () => {
                         {/* <span className="h-[20px] w-[20px] flex items-center justify-center cursor-pointer" onClick={handle_close_modal}><FaRegCircleXmark size={'100%'}  className='hover:text-red-600' /> </span> */}
                     </span>
 
-                    <div className="w-full flex flex-col items-start justify-start gap-[37.5px] p-[25px]">
+                    <div className="w-full flex flex-col items-start justify-start gap-[30px] p-[25px]">
                         <span className="w-full flex flex-col items-start justify-start gap-2">
                             <p className="text-sm ">First Name</p>
                             <input type="text" name='first_name' placeholder='john' value={auth.first_name} onChange={handle_change} className='input-type-1' />
@@ -210,13 +211,13 @@ const User_modal = () => {
                             <input type="email" name='email' placeholder='john.doe@gmail.com' value={auth.email} onChange={handle_change} className='input-type-1' />
                         </span>
 
-                        <div className="w-full flex items-center justify-between">
-                            <span className=" flex items-center justify-start gap-10 ">
+                        <div className="w-full flex flex-wrap items-center justify-between max-xs:justify-center max-xs:gap-[15px] ">
+                            <span className=" flex items-center justify-between gap-10 w-[190px]">
                                 <label htmlFor="is_admin" className="text-sm    cursor-pointer " >Admin Priveleges</label>
                                 <input type="checkbox" name="is_admin" id="is_admin" className='h-[17.5px] w-[17.5px] ' checked={auth.is_admin} onChange={(e) => setAuth({...auth, is_admin: e.target.checked})} />
                             </span>
 
-                            <span className=" flex items-center justify-start gap-10 ">
+                            <span className=" flex items-center justify-between gap-10 w-[190px]">
                                 <label htmlFor="is_active" className="text-sm    cursor-pointer " >Suspend User</label>
                                 <input type="checkbox" name="is_active" id="is_active" className='h-[17.5px] w-[17.5px] ' checked={!auth.is_active} onChange={(e) =>{ setAuth({...auth, is_active: !e.target.checked}); setIsActive(!auth.is_active)}} />
                             </span>
