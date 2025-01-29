@@ -63,6 +63,10 @@ interface ChatContextType {
     setAdmin_dash: (admin_dash: AdminDashProps)=>void;
     current_project_nav: string;
     setCurrent_project_nav: (current_project_nav: string) => void;
+    task_action: string;
+    setTask_action: (task_action: string) => void;
+    selected_task: any;
+    setSelected_task: (selected_task: any) => void;
 }
 
 
@@ -90,6 +94,8 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [project, setProject] = useState(null)
     const [current_project_nav, setCurrent_project_nav] = useState('project_details')
     const [selected_payment, setSelected_payment] = useState(null)
+    const [task_action, setTask_action] = useState('create-task')
+    const [selected_task, setSelected_task] = useState(null)
 
 
     return (
@@ -104,7 +110,7 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             profileToggle, setProfileToggle,
             loggedInUser, setLoggedInUser, loadingDot, setLoadingDot, app_users, setApp_users, notification,  setNotification,
             admin_dash, setAdmin_dash, project, setProject, current_project_nav, setCurrent_project_nav,
-            selected_payment, setSelected_payment, 
+            selected_payment, setSelected_payment, task_action, setTask_action, setSelected_task, selected_task
             }}>
             {children}
         </ChatContext.Provider>

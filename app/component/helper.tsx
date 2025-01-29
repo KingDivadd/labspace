@@ -841,7 +841,7 @@ interface ProjectActBtnInt {
 
 export const TaskActionBtn:React.FC<ProjectActBtnInt> = ({data})=> {
     const [dropList, setDropList] = useState(false);
-    const {setModalFor, setModalSource, setSelectedItem, setShowModal, showModal, setCurrent_project_nav, selectedItem} = useChat()
+    const {setModalFor, setModalSource, setSelectedItem, setShowModal, showModal, setSelected_task, setTask_action} = useChat()
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     async function handle_complete_task(data:any){
@@ -859,16 +859,29 @@ export const TaskActionBtn:React.FC<ProjectActBtnInt> = ({data})=> {
         }
     }
 
+    const handleScroll = (type:string) => {
+        window.location.hash = type
+    };
+
     function handle_action(type: string){
         setDropList(false)
+        setSelected_task(data)
         if (type == 'edit'){
-            setShowModal(!showModal)
-            setModalFor('view')
-            setModalSource('project-modal')
-            setSelectedItem(data)
+
+            handleScroll('new-task')
+            setTask_action('edit-task')
+
         }
         else if (type == 'completed'){
-            handle_complete_task(data)
+
+            handleScroll('completed-task')
+            setTask_action('completed-task')
+
+        }else if (type == 'delete'){
+
+            handleScroll('delete-task')
+            setTask_action('delete-task')
+
         }
         
     }
@@ -897,7 +910,7 @@ export const TaskActionBtn:React.FC<ProjectActBtnInt> = ({data})=> {
 
             {dropList && <div className="absolute right-[0px] top-[20px] z-10 bg-white w-[145px] h-auto rounded-[3px] shadow-md border border-slate-100 p-[10px] flex flex-col items-start gap-3 ">
                 <p className="projct-action-list" onClick={()=> handle_action('edit')} >Edit</p>
-                <p className="projct-action-list" onClick={()=> handle_action('completed')} >Completedd</p>
+                <p className="projct-action-list" onClick={()=> handle_action('completed')} >Completed</p>
                 <p className="projct-action-list" onClick={()=> handle_action('delete')} >Delete</p>
             </div>}
         </div>

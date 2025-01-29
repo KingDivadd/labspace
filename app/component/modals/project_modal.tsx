@@ -22,7 +22,7 @@ type ProjectBox = {
 
 const Project_modal = () => {
     const router = useRouter()
-    const { modalFor, setModalFor, setShowModal, selectedItem, app_users, setTrigger_notification,trigger_notification, current_project_nav, setCurrent_project_nav} = useChat()
+    const { modalFor, setModalFor, setShowModal, selectedItem, app_users, setTrigger_notification,trigger_notification, current_project_nav, setCurrent_project_nav, task_action, selected_task} = useChat()
     const [alert, setAlert] = useState({message: '', type: ''})
     const [project_box, setProject_box] = useState<ProjectBox>({project_title: "", priority: 'normal', cost: 0, stage: 'todo', team: [], assets: []})
     const [tasks, setTasks] = useState({title:'', is_completed: false, date:'2024-12-10', due_date: 0  })
@@ -154,7 +154,7 @@ const Project_modal = () => {
                 
                 const box = {title: tasks.title, due_date: convert_to_unix(tasks.date) * 1000}
 
-                const response = await post_auth_request(`app/creat-task/${selectedItem.project_id}`, box)                
+                const response = await post_auth_request(`app/create-task/${selectedItem.project_id}`, box)                
 
                 if (response.status == 200 || response.status == 201){
 
@@ -394,7 +394,7 @@ const Project_modal = () => {
                             
                         </div>
 
-                        <button className="text-sm w-[95px] flex items-center justify-center h-[45px] rounded-[3px] bg-red-600 hover:bg-red-700 text-white" onClick={handle_delete} disabled={loading}>
+                        <button className="text-sm w-[95px] flex items-center justify-center text-sm max-sm:h-[40px] h-[45px] rounded-[3px] bg-red-600 hover:bg-red-700 text-white" onClick={handle_delete} disabled={loading}>
                             {loading ? (
                             <svg className="w-[25px] h-[25px] animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
@@ -505,14 +505,14 @@ const Project_modal = () => {
                     <div className="w-full flex items-center justify-end gap-5 p-[25px] pt-0 ">
                         <button className="text-sm w-[95px] bg-white text-sm rounded-[3px] hover:text-red-600 border border-white h-[45px] hover:border-red-600 " onClick={modalFor == 'edit' ?  handle_edit_cancel : handle_cancel_project } > Cancel </button>
 
-                        {modalFor == 'create'?  <button className="text-sm w-[95px] flex items-center justify-center h-[45px] rounded-[3px] bg-blue-500 hover:bg-blue-600 text-white" onClick={handle_Submit} disabled={loading}>
+                        {modalFor == 'create'?  <button className="text-sm w-[95px] flex items-center justify-center text-sm max-sm:h-[40px] h-[45px] rounded-[3px] bg-blue-500 hover:bg-blue-600 text-white" onClick={handle_Submit} disabled={loading}>
                             {loading ? (
                             <svg className="w-[25px] h-[25px] animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
                                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
                             </svg>
                             ) : 'Submit'}
-                        </button> : <button className="text-sm w-[95px] flex items-center justify-center h-[45px] rounded-[3px] bg-amber-600 hover:bg-amber-700 text-white" onClick={handle_edit} disabled={loading}>
+                        </button> : <button className="text-sm w-[95px] flex items-center justify-center text-sm max-sm:h-[40px] h-[45px] rounded-[3px] bg-amber-600 hover:bg-amber-700 text-white" onClick={handle_edit} disabled={loading}>
                             {loading ? (
                             <svg className="w-[25px] h-[25px] animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
@@ -546,6 +546,10 @@ const Project_modal = () => {
                                 <button className={ current_project_nav == 'project_details' ? `active-prj-nav-btn` : `prj-nav-btn`} onClick={()=> setCurrent_project_nav('project_details')}>
                                     Project Details
                                 </button>
+
+                                <button className={ current_project_nav == 'task' ? `active-prj-nav-btn` : `prj-nav-btn`} onClick={()=> setCurrent_project_nav('task')}>
+                                    Tasks
+                                </button>
                                 
                                 <button className={ current_project_nav == 'activities' ? `active-prj-nav-btn` : `prj-nav-btn`} onClick={()=> setCurrent_project_nav('activities')}>
                                     Activities / Timeline
@@ -559,9 +563,6 @@ const Project_modal = () => {
                                     Edit Project
                                 </button>
 
-                                <button className={ current_project_nav == 'task' ? `active-prj-nav-btn` : `prj-nav-btn`} onClick={()=> setCurrent_project_nav('task')}>
-                                    Tasks
-                                </button>
                                 
                             </div>
 
@@ -780,7 +781,7 @@ const Project_modal = () => {
 
                                                 <button className="text-sm h-[45px] px-5 rounded-[2.5px] hover:border hover:border-red-600 hover:text-red-600 " onClick={()=> setShowModal(false)}>Cancel </button>
 
-                                                <button className="text-sm w-[95px] flex items-center justify-center h-[45px] rounded-[3px] bg-blue-500 hover:bg-blue-600 text-white" onClick={handle_create_activity} disabled={loading}>
+                                                <button className="text-sm w-[95px] flex items-center justify-center text-sm max-sm:h-[40px] h-[45px] rounded-[3px] bg-blue-500 hover:bg-blue-600 text-white" onClick={handle_create_activity} disabled={loading}>
                                                     {loading ? (
                                                     <svg className="w-[25px] h-[25px] animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
@@ -800,27 +801,27 @@ const Project_modal = () => {
                                 <div className="w-full mx-auto h-[550px] mb-[15px] flex flex-wrap items-start justify-between bg-white gap-[10px] xl:gap-[25px] overflow-y-auto p-[15px] ">
                                     
                                     <div className="w-[60%] max-lg:w-[53%] max-md:w-full h-[520px] max-md:h-full flex flex-col items-start gap-[25px] ">
-                                        <span className="w-full flex items-center justify-between" id='all_tasks'>
+                                        <span className="w-full flex items-center justify-between" id='all-tasks'>
                                             <p className="text-md font-[500] ">Tasks</p>
 
-                                            <Link href={'#new_task'} className="sm:hidden px-5 h-[35px] bg-blue-500 hover:bg-blue-600 rounded-[3px] text-sm text-white flex items-center justify-center" >Add Task</Link>
+                                            <Link href={'#new-task'} className="sm:hidden px-5 h-[35px] bg-blue-500 hover:bg-blue-600 rounded-[3px] text-sm text-white flex items-center justify-center" >Add Task</Link>
                                         </span>
 
                                         <div className="w-full h-full flex flex-col overflow-y-auto ">
                                             <div className="w-full h-full flex flex-wrap items-start justify-start gap-[20px] ">
                                                 {/* each activity */}
                                                 {selectedItem.tasks.length ?
-                                                    <div className="w-full  flex flex-wrap items-start justify-start gap-3 max-sm:gap-2 ">
+                                                    <div className="w-full  flex flex-wrap items-start justify-start max-sm:justify-between gap-3 max-sm:gap-2 ">
                                                         {
                                                             selectedItem.tasks.map((data:any, ind: number)=>{
                                                                 const {title, is_completed, due_date, created_at, task_id} = data
 
                                                                 return(
-                                                                    <span key={ind} className="w-[220px] h-[190px]  border border-slate-200 rounded-[3px] p-[10px] flex flex-col gap-3">
+                                                                    <span key={ind} className="max-xs:w-[160px] max-xs:h-[150px] w-[220px] h-[190px]  border border-slate-200 rounded-[3px] p-[10px] flex flex-col gap-3">
                                                                         <span className="flex items-start justify-between gap-3">
                                                                             <p className={`text-sm font-[500] whitespace-nowrap ${is_completed ? 'text-teal-500': 'text-amber-600'}`}> {is_completed ? "Completed":"Not Completed"} </p>
 
-                                                                            <TaskActionBtn data={data} />
+                                                                            <TaskActionBtn data={data}  />
                                                                         </span>
                                                                         <span className="flex items-start justify-start gap-3">
                                                                             <p className="text-sm font-[500]"> {title} </p>
@@ -850,12 +851,12 @@ const Project_modal = () => {
 
                                             <p className="text-md font-[500] ">Action</p>
 
-                                            <Link href={'#all_tasks'} className=" sm:hidden px-5 h-[35px] bg-blue-500 hover:bg-blue-600 rounded-[3px] text-sm text-white flex items-center justify-center" >All Task</Link>
+                                            <Link href={'#all-tasks'} className=" sm:hidden px-5 h-[35px] bg-blue-500 hover:bg-blue-600 rounded-[3px] text-sm text-white flex items-center justify-center" >All Task</Link>
                                         </div>
 
-                                        <div className="w-full  border border-slate-300 rounded-[5px]" id='new_task'>
+                                        {(task_action == 'create-task' || task_action == 'edit-task') && <div className="w-full  border border-slate-300 rounded-[5px]" id='new-task'>
                                             <span className="w-full px-[25px] h-[50px]  border-b border-slate-200 flex items-center justify-between ">
-                                                <p className="text-md font-[500]  ">New Task</p> 
+                                                <p className="text-md font-[500]  ">{task_action == 'create-task' ? 'New Task' : `${selected_task.title}`}</p> 
                                                 
                                             </span>
 
@@ -875,28 +876,72 @@ const Project_modal = () => {
                                             <div className="mt-10 w-full flex items-center justify-end gap-5 p-[25px] pt-0 ">
                                                 <button className="text-sm w-[95px] bg-white text-sm rounded-[3px] hover:text-red-600 border border-white h-[45px] hover:border-red-600 " onClick={handle_edit_cancel} > Cancel </button>
 
-                                                <button className="text-sm w-[95px] flex items-center justify-center h-[45px] rounded-[3px] bg-blue-500 hover:bg-blue-600 text-white" onClick={handle_create_task} disabled={loading}>
-                                                    {loading ? (
-                                                    <svg className="w-[25px] h-[25px] animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
-                                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                                                    </svg>
-                                                    ) : 'Submit'}
-                                                </button>
+                                                
 
-                                                {/* <button className="text-sm w-[95px] flex items-center justify-center h-[45px] rounded-[3px] bg-amber-500 hover:bg-amber-600 text-white" onClick={handle_update_task} disabled={loading}>
+                                                <button className="text-sm w-[95px] flex items-center justify-center text-sm max-sm:h-[40px] h-[45px] rounded-[3px] bg-amber-500 hover:bg-amber-600 text-white" onClick={handle_create_task} disabled={loading}>
                                                     {loading ? (
                                                     <svg className="w-[25px] h-[25px] animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
                                                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
                                                     </svg>
                                                     ) : 'Update'}
-                                                </button> */}
+                                                </button>
                                                 
                                             </div>
 
 
-                                        </div>
+                                        </div>}
+
+                                        {task_action == 'completed-task' && <div className="w-full  border border-slate-300 rounded-[5px]" id='new-task'>
+                                            <span className="w-full px-[25px] h-[50px]  border-b border-slate-200 flex items-center justify-between ">
+                                                <p className="text-md font-[500]  ">{selected_task.title}</p> 
+                                                
+                                            </span>
+
+                                            <div className="w-full flex flex-col items-center justify-start gap-[30px] p-[25px]">
+                                                <div className="w-full flex flex-col items-center justify-center text-center gap-3 ">
+                                                    <p className="text-md font-[500]">Mark {selected_task.title} as Completed </p>
+                                                    
+                                                </div>
+
+                                                <button className="w-[110px] flex items-center justify-center text-sm max-sm:h-[40px] h-[45px] rounded-[3px] bg-teal-500 hover:bg-teal-600 text-white" onClick={handle_delete} disabled={loading}>
+                                                    {loading ? (
+                                                    <svg className="w-[25px] h-[25px] animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
+                                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                                    </svg>
+                                                    ) : 'Completed'}
+                                                </button>
+
+                                            </div>
+
+
+
+                                        </div>}
+
+                                        {task_action == 'delete-task' && 
+                                        <div className="w-full  border border-slate-300 rounded-[5px]" id='delete-task'>
+                                            <div className="w-full p-[25px] border-b border-slate-200 flex flex-col items-center justify-center gap-5">
+                                                <div className="w-full flex flex-col items-center justify-center text-center gap-3 ">
+                                                    <p className="text-md font-[500]">Are your sure you want to delete task with title </p>
+                                                    <span className="w-full flex items-center justify-center gap-2 whitespace-nowrap">
+                                                        <p className="text-md font-[600] ">{'Task I'} </p> 
+                                                    </span>
+                                                    
+                                                </div>
+
+                                                <button className="w-[95px] flex items-center justify-center text-sm max-sm:h-[40px] h-[45px] rounded-[3px] bg-red-600 hover:bg-red-700 text-white" onClick={handle_delete} disabled={loading}>
+                                                    {loading ? (
+                                                    <svg className="w-[25px] h-[25px] animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
+                                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                                    </svg>
+                                                    ) : 'Delete'}
+                                                </button>
+                                            </div>
+
+
+                                        </div>}
 
 
                                         
