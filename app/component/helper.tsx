@@ -479,7 +479,7 @@ export const Dropdown: React.FC<DropdownProps> = ({ id, options, placeholder = "
 
     return (
     <div className="relative w-full h-full " ref={dropdownRef}>
-        <button className="w-full bg-white border border-slate-400 rounded-[3px] shadow-sm px-[10px]  h-[35px] text-left text-sm focus:ring-blue-500 "
+        <button className="w-full bg-white border border-slate-400 rounded-[3px] shadow-sm px-[10px]  h-full  text-left text-sm focus:ring-blue-500 "
         onClick={toggleDropdown}>
             {selectedOption || placeholder}
             <span className="float-right h-[20px] w-[20px] text-slate-700">
@@ -931,8 +931,9 @@ export const ProjectActionBtn:React.FC<ProjectActBtnInt> = ({data})=> {
         }
         else if (type == 'tasks'){
             setShowModal(!showModal)
-            setModalFor('create-task')
+            setModalFor('view')
             setModalSource('project-modal')
+            setCurrent_project_nav('task')
             setSelectedItem(data)
         }
         else if (type == 'activities'){
@@ -980,7 +981,7 @@ export const ProjectActionBtn:React.FC<ProjectActBtnInt> = ({data})=> {
             {dropList && <div className="absolute right-0 top-[35px] z-10 bg-white w-[175px] h-auto rounded-[3px] shadow-md border border-slate-100 p-[10px] flex flex-col items-start gap-3 ">
                 <p className="projct-action-list" onClick={()=> handle_action('view')} >View</p>
                 <p className="projct-action-list" onClick={()=> handle_action('edit')} >Edit</p>
-                <p className="projct-action-list" onClick={()=> handle_action('tasks')} >Add Tasks</p>
+                <p className="projct-action-list" onClick={()=> handle_action('tasks')} >Tasks</p>
                 <p className="projct-action-list" onClick={()=> handle_action('activities')} >Activities / Timeline</p>
                 <p className="projct-action-list" onClick={()=> handle_action('payment-history')} >Payment History</p>
                 <p className="projct-action-list" onClick={()=> handle_action('delete')} >Delete</p>

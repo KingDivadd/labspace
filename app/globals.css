@@ -200,7 +200,7 @@
 }
 
 .prj-nav-btn {
-    @apply h-[40px] text-[13px] px-[20px] flex items-center justify-center gap-2 relative whitespace-nowrap rounded-[45px] cursor-pointer;
+    @apply h-[35px] text-[13px] px-[20px] flex items-center justify-center gap-2 relative whitespace-nowrap rounded-[45px] cursor-pointer;
 }
 
 .prj-nav-btn:hover {
@@ -208,7 +208,7 @@
 }
 
 .active-prj-nav-btn {
-    @apply h-[40px] text-[13px] px-[20px] flex items-center justify-center gap-2 relative whitespace-nowrap rounded-[45px] bg-blue-500 text-white
+    @apply h-[35px] text-[13px] px-[20px] flex items-center justify-center gap-2 relative whitespace-nowrap rounded-[45px] bg-blue-500 text-white
 }
 
 .logout-box {

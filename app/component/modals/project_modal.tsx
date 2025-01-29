@@ -8,9 +8,8 @@ import Loading from '../loading'
 import { delete_auth_request, patch_auth_request, post_auth_request } from '../../api'
 import { useRouter } from 'next/navigation'
 import moment from 'moment'
-import { IoWarningOutline } from 'react-icons/io5'
 import Payment_page from '../../pages/payment_page'
-import { HiOutlineDotsVertical } from 'react-icons/hi'
+import Link from 'next/link'
 
 type ProjectBox = {
     project_title: string;
@@ -154,7 +153,8 @@ const Project_modal = () => {
             try {
                 
                 const box = {title: tasks.title, due_date: convert_to_unix(tasks.date) * 1000}
-                const response = await post_auth_request(`app/create-task/${selectedItem.project_id}`, box)                
+
+                const response = await post_auth_request(`app/creat-task/${selectedItem.project_id}`, box)                
 
                 if (response.status == 200 || response.status == 201){
 
@@ -182,7 +182,7 @@ const Project_modal = () => {
         }
     }
 
-    async function handle_submit(e: any) {
+    async function handle_Submit(e: any) {
         e.preventDefault();        
 
         if (!project_box.project_title || !project_box.priority || !project_box.stage || !project_box.team.length) {
@@ -505,7 +505,7 @@ const Project_modal = () => {
                     <div className="w-full flex items-center justify-end gap-5 p-[25px] pt-0 ">
                         <button className="text-sm w-[95px] bg-white text-sm rounded-[3px] hover:text-red-600 border border-white h-[45px] hover:border-red-600 " onClick={modalFor == 'edit' ?  handle_edit_cancel : handle_cancel_project } > Cancel </button>
 
-                        {modalFor == 'create'?  <button className="text-sm w-[95px] flex items-center justify-center h-[45px] rounded-[3px] bg-blue-500 hover:bg-blue-600 text-white" onClick={handle_submit} disabled={loading}>
+                        {modalFor == 'create'?  <button className="text-sm w-[95px] flex items-center justify-center h-[45px] rounded-[3px] bg-blue-500 hover:bg-blue-600 text-white" onClick={handle_Submit} disabled={loading}>
                             {loading ? (
                             <svg className="w-[25px] h-[25px] animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
@@ -525,41 +525,7 @@ const Project_modal = () => {
 
                 </div>}
 
-                {(modalFor == 'create-task' || modalFor == 'edit-task') && <div className="max-xs:w-[90vw] max-sm:w-[400px] mx-auto w-[500px] ">
-                    <span className="w-full px-[25px] h-[50px]  border-b border-slate-200 flex items-center justify-between ">
-                        <p className="text-md font-[500]  ">New Task</p> 
-                        
-                    </span>
 
-                    <div className="w-full flex flex-col items-start justify-start gap-[30px] p-[25px]">
-                        <span className="w-full flex flex-col items-start justify-start gap-2">
-                            <p className="text-sm ">Title</p>
-                            <input type="text" name='title' placeholder='Title' value={tasks.title} onChange={handle_change} className='input-type-1' />
-                        </span>
-
-                        <span className="hidden w-full flex flex-col items-start justify-start gap-2">
-                            <p className="text-sm ">Due Date</p>
-                            <input type="date" name='date' placeholder='' value={tasks.date} onChange={handle_change} className='input-type-1' />
-                        </span>
-
-                    </div>
-
-                    <div className="mt-10 w-full flex items-center justify-end gap-5 p-[25px] pt-0 ">
-                        <button className="text-sm w-[95px] bg-white text-sm rounded-[3px] hover:text-red-600 border border-white h-[45px] hover:border-red-600 " onClick={handle_edit_cancel} > Cancel </button>
-
-                        <button className="text-sm w-[95px] flex items-center justify-center h-[45px] rounded-[3px] bg-blue-500 hover:bg-blue-600 text-white" onClick={handle_create_task} disabled={loading}>
-                            {loading ? (
-                            <svg className="w-[25px] h-[25px] animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
-                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                            </svg>
-                            ) : 'submit'}
-                        </button>
-                        
-                    </div>
-
-
-                </div>}
 
                 {(modalFor == 'view') && 
 
@@ -592,10 +558,11 @@ const Project_modal = () => {
                                 <button className={ current_project_nav == 'edit-project' ? `active-prj-nav-btn` : `prj-nav-btn`} onClick={()=> {setCurrent_project_nav('edit-project'); handle_edit_projet()}}>
                                     Edit Project
                                 </button>
-                                
-                                <button className={ current_project_nav == 'create-task' ? `active-prj-nav-btn` : `prj-nav-btn`} onClick={()=> {setCurrent_project_nav('create-task'); setModalFor('create-task')}}>
-                                    Create Task
+
+                                <button className={ current_project_nav == 'task' ? `active-prj-nav-btn` : `prj-nav-btn`} onClick={()=> setCurrent_project_nav('task')}>
+                                    Tasks
                                 </button>
+                                
                             </div>
 
                             {current_project_nav == 'project_details' && 
@@ -803,7 +770,7 @@ const Project_modal = () => {
                                                 />
                                                 <label htmlFor="assigned" className="text-sm cursor-pointer">Assigned</label>
                                             </span>
-                                            </div>
+                                        </div>
 
 
                                         <div className="w-full h-full max-md:h-[150px]   flex flex-col items-start justify-between max-md:gap-[15px] gap-[20px]">
@@ -828,11 +795,122 @@ const Project_modal = () => {
                             }
 
                             {
+                                ( current_project_nav == 'task') && 
+                                
+                                <div className="w-full mx-auto h-[550px] mb-[15px] flex flex-wrap items-start justify-between bg-white gap-[10px] xl:gap-[25px] overflow-y-auto p-[15px] ">
+                                    
+                                    <div className="w-[60%] max-lg:w-[53%] max-md:w-full h-[520px] max-md:h-full flex flex-col items-start gap-[25px] ">
+                                        <span className="w-full flex items-center justify-between" id='all_tasks'>
+                                            <p className="text-md font-[500] ">Tasks</p>
+
+                                            <Link href={'#new_task'} className="sm:hidden px-5 h-[35px] bg-blue-500 hover:bg-blue-600 rounded-[3px] text-sm text-white flex items-center justify-center" >Add Task</Link>
+                                        </span>
+
+                                        <div className="w-full h-full flex flex-col overflow-y-auto ">
+                                            <div className="w-full h-full flex flex-wrap items-start justify-start gap-[20px] ">
+                                                {/* each activity */}
+                                                {selectedItem.tasks.length ?
+                                                    <div className="w-full  flex flex-wrap items-start justify-start gap-3 max-sm:gap-2 ">
+                                                        {
+                                                            selectedItem.tasks.map((data:any, ind: number)=>{
+                                                                const {title, is_completed, due_date, created_at, task_id} = data
+
+                                                                return(
+                                                                    <span key={ind} className="w-[220px] h-[190px]  border border-slate-200 rounded-[3px] p-[10px] flex flex-col gap-3">
+                                                                        <span className="flex items-start justify-between gap-3">
+                                                                            <p className={`text-sm font-[500] whitespace-nowrap ${is_completed ? 'text-teal-500': 'text-amber-600'}`}> {is_completed ? "Completed":"Not Completed"} </p>
+
+                                                                            <TaskActionBtn data={data} />
+                                                                        </span>
+                                                                        <span className="flex items-start justify-start gap-3">
+                                                                            <p className="text-sm font-[500]"> {title} </p>
+                                                                        </span>
+
+
+                                                                        <span className="flex items-start justify-start gap-3">
+                                                                            <p className="text-[11px] font-[400]"> {formatted_time(Number(created_at))} </p>
+                                                                        </span>
+
+                                                                    </span>
+                                                                )
+                                                            })
+                                                        }
+                                                    </div>
+                                                    :
+                                                    <div className="w-full h-full flex items-center justify-center border border-slate-300 rounded-[5px]">
+                                                        <p className="text-sm font-[500]">No Task Created Yet.</p>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="w-[36%] max-lg:w-[45%] max-md:w-full  h-[520px] max-md:h-full flex flex-col items-start gap-[25px] max-md:gap-[10px]  p-[15px] ">
+                                        <div className="w-full flex justify-between items-center">
+
+                                            <p className="text-md font-[500] ">Action</p>
+
+                                            <Link href={'#all_tasks'} className=" sm:hidden px-5 h-[35px] bg-blue-500 hover:bg-blue-600 rounded-[3px] text-sm text-white flex items-center justify-center" >All Task</Link>
+                                        </div>
+
+                                        <div className="w-full  border border-slate-300 rounded-[5px]" id='new_task'>
+                                            <span className="w-full px-[25px] h-[50px]  border-b border-slate-200 flex items-center justify-between ">
+                                                <p className="text-md font-[500]  ">New Task</p> 
+                                                
+                                            </span>
+
+                                            <div className="w-full flex flex-col items-start justify-start gap-[30px] p-[25px]">
+                                                <span className="w-full flex flex-col items-start justify-start gap-2">
+                                                    <p className="text-sm ">Title</p>
+                                                    <input type="text" name='title' placeholder='Title' value={tasks.title} onChange={handle_change} className='input-type-1' />
+                                                </span>
+
+                                                <span className="hidden w-full flex flex-col items-start justify-start gap-2">
+                                                    <p className="text-sm ">Due Date</p>
+                                                    <input type="date" name='date' placeholder='' value={tasks.date} onChange={handle_change} className='input-type-1' />
+                                                </span>
+
+                                            </div>
+
+                                            <div className="mt-10 w-full flex items-center justify-end gap-5 p-[25px] pt-0 ">
+                                                <button className="text-sm w-[95px] bg-white text-sm rounded-[3px] hover:text-red-600 border border-white h-[45px] hover:border-red-600 " onClick={handle_edit_cancel} > Cancel </button>
+
+                                                <button className="text-sm w-[95px] flex items-center justify-center h-[45px] rounded-[3px] bg-blue-500 hover:bg-blue-600 text-white" onClick={handle_create_task} disabled={loading}>
+                                                    {loading ? (
+                                                    <svg className="w-[25px] h-[25px] animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
+                                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                                    </svg>
+                                                    ) : 'Submit'}
+                                                </button>
+
+                                                {/* <button className="text-sm w-[95px] flex items-center justify-center h-[45px] rounded-[3px] bg-amber-500 hover:bg-amber-600 text-white" onClick={handle_update_task} disabled={loading}>
+                                                    {loading ? (
+                                                    <svg className="w-[25px] h-[25px] animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
+                                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                                    </svg>
+                                                    ) : 'Update'}
+                                                </button> */}
+                                                
+                                            </div>
+
+
+                                        </div>
+
+
+                                        
+                                    </div>
+                                </div>
+                            }
+
+                            {
                                 current_project_nav == 'payment-history' &&
                                 <div className=" w-[100%] h-[550px] max-sm:h-[70vh] max-lg:h-[600px]  mb-[15px] flex flex-wrap items-start justify-between bg-white  gap-[25px]  overflow-y-auto">
                                     <Payment_page />
                                 </div>
                             }
+
 
 
                         </div>
