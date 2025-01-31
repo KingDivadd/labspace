@@ -41,7 +41,7 @@ const User_modal = () => {
 
     function handle_change(e:any) {
         const name = e.target.name
-        const value = e.target.value
+        const value = e.target.value.trim()
         setAuth({...auth, [name]: value})
     }
 
