@@ -274,7 +274,7 @@ const Project_page = () => {
 
                         <span className="h-[40px]"></span>
 
-                        {loggedInUser.is_admin && <button className="max-xl:h-[35px] h-[40px] px-5 bg-blue-500 hover:bg-blue-600 text-white rounded-[45px] text-sm " onClick={handle_add_project}>Add Project</button>}
+                        {loggedInUser.is_admin && <button className="max-xl:h-[35px] h-[40px] px-5 bg-blue-500 hover:bg-blue-600 text-white rounded-[3px] text-sm " onClick={handle_add_project}>Add Project</button>}
                     </span>
                     
                     <div className="w-full flex flex-wrap items-center justify-between px-[10px] sm:px-[15px] gap-5 pb-0 ">

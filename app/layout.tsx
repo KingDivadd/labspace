@@ -3,8 +3,8 @@ import "./globals.css";
 import {ChatProvider} from '@/app/context/ChatContext'
 
 export const metadata: Metadata = {
-  title: "Labpspace",
-  description: "A lab porter for managing and assigning tasks",
+  title: "Labspace",
+  description: "A lab porter for managing and assigning lab projects and tasks",
   keywords: "",
 
 };

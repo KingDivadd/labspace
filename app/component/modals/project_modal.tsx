@@ -536,7 +536,7 @@ const Project_modal = () => {
                                 <p className="text-md font-[500] ">{project_box.project_title}</p>
                             </span>
 
-                            <button className="text-sm h-[35px] text-sm rounded-[35px] hover:text-white hover:bg-red-500 px-5  " onClick={()=> setShowModal(false)}  >Close</button>
+                            <button className="text-sm h-[35px] text-sm rounded-[3px] hover:text-white hover:bg-red-500 px-5  " onClick={()=> setShowModal(false)}  >Close</button>
                         </span>
 
                         <div className="w-full flex flex-col items-start justify-start gap-[15px] ">
@@ -652,7 +652,7 @@ const Project_modal = () => {
                                                             <span className="flex items-start justify-between gap-3">
                                                                 <p className={`text-sm font-[500] whitespace-nowrap ${is_completed ? 'text-teal-500': 'text-amber-600'}`}> {is_completed ? "Completed":"Not Completed"} </p>
 
-                                                                <TaskActionBtn data={data} />
+                                                                {/* <TaskActionBtn data={data} /> */}
                                                             </span>
                                                             <span className="flex items-start justify-start gap-3">
                                                                 <p className="text-sm font-[500]"> {title} </p>

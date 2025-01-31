@@ -230,7 +230,7 @@ const Teams_page = () => {
                     <span className=" w-full flex items-center justify-between px-[10px] sm:px-[15px] py-[10px]  ">
                         <p className="text-md font-[500] ">Team Members</p>
 
-                        <button className="max-xl:h-[35px] h-[40px] px-5 bg-blue-500 hover:bg-blue-600 text-white rounded-[45px] text-sm " onClick={handle_new_user}>Add User</button>
+                        <button className="max-xl:h-[35px] h-[40px] px-5 bg-blue-500 hover:bg-blue-600 text-white rounded-[3px] text-sm " onClick={handle_new_user}>Add User</button>
                     </span>
                     
                     <div className="w-full flex items-center justify-between px-[10px] sm:px-[15px] pb-0 ">
