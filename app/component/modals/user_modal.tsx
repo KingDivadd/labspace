@@ -176,7 +176,7 @@ const User_modal = () => {
                 { (modalFor == 'create' || modalFor == 'edit') && 
                 <div className="max-xs:w-[90vw] max-sm:w-[400px] mx-auto w-[500px] ">
 
-                    <span className="w-full px-[25px] h-[50px]  border-b border-slate-200 flex items-center justify-between">
+                    <span className="w-full px-[25px] h-[60px]  border-b border-slate-200 flex items-center justify-between">
                         {modalFor == 'create' ? <p className="text-md font-[500] ">New User</p> :
                         <div className="flex justify-start items-center gap-5">
                             <Avatar user={selectedItem} isActive={isActive} toggleActive={toggleActive} />
