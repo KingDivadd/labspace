@@ -265,11 +265,11 @@ const Teams_page = () => {
 
                         <div className="min-w-[1000px] px-[10px] sm:px-[15px] py-[10px] flex flex-col items-start justify-start mx-auto ">
                             <span className="w-full max-xl:h-[40px] h-[45px] flex items-center justify-between rounded-[3px] bg-blue-500 text-white">
-                                <p className="text-sm w-[15%] px-[10px] sm:px-[15px]  ">Last Updated</p>
+                                <p className="text-sm w-[17%] px-[10px] sm:px-[15px]  ">Last Updated</p>
                                 <p className="text-sm w-[18.5%] px-[10px] sm:px-[15px]  ">Full Name</p>
                                 <p className="text-sm w-[22.5%] px-[10px] sm:px-[15px]  ">Email</p>
                                 <p className="text-sm w-[19%] px-[10px] sm:px-[15px]  ">Title</p>
-                                <p className="text-sm w-[10%] px-[10px] sm:px-[15px]  ">Status</p>
+                                <p className="text-sm w-[8%] px-[10px] sm:px-[15px]  ">Status</p>
                                 <p className="text-sm w-[15%] px-[10px] sm:px-[15px] "></p>
                             </span>
 
@@ -286,14 +286,14 @@ const Teams_page = () => {
                                         return(
                                             <span key={ind} className=" table-body-row-1  " >
                                                 {/* <p className="text-sm font-[500] w-[15%] px-[10px] sm:px-[15px] ">{readable_date(Number(updated_at) / 1000)}</p> */}
-                                                <p className="text-sm font-[500] w-[15%] px-[10px] sm:px-[15px] text-slate-600 ">{formatted_time(Number(updated_at))}</p>
+                                                <p className="text-sm font-[500] w-[17%] px-[10px] sm:px-[15px] text-slate-600 ">{formatted_time(Number(updated_at))}</p>
                                                 <div className="text-sm font-[500] w-[18.5%] px-[10px] sm:px-[15px] flex items-center justify-start gap-[20px] text-slate-600">
                                                     <SmallAvatar user={data} isActive={is_active} toggleActive={toggleActive} />
                                                     {first_name} {last_name}
                                                 </div>
                                                 <p className="text-sm font-[500] w-[22.5%] px-[10px] sm:px-[15px] flex-wrap text-start text-slate-600">{email}</p>
                                                 <p className="text-sm font-[500] w-[19%] px-[10px] sm:px-[15px] text-slate-600 ">{title}</p>
-                                                <span className=" w-[10%] px-[10px] sm:px-[15px] flex items-center justify-start text-slate-600 " >
+                                                <span className=" w-[8%] px-[10px] sm:px-[15px] flex items-center justify-start text-slate-600 " >
                                                     {is_active ? <p className="text-sm text-teal-600 font-[500]  ">Active</p> : <p className="text-sm text-red-600 font-[500]  ">Inactive</p>}
                                                 </span>
                                                 <span className=" w-[15%] px-[10px] sm:px-[15px] flex items-center justify-start gap-[15px]" >

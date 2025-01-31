@@ -165,7 +165,7 @@ const App_header = () => {
                 <div className="max-xs:hidden relative flex items-center">
 
                     <span className="h-[40px] w-[40px] rounded-[40px] bg-blue-500 flex items-center justify-center text-white text-sm font-[500] cursor-pointer" onClick={() => setShowNotification(!showNotification)}>
-                        {loggedInUser.first_name && getInitials(`${loggedInUser.first_name} ${loggedInUser.last_name}`)}
+                        {(loggedInUser.first_name && loggedInUser.last_name) && getInitials(`${loggedInUser.first_name} ${loggedInUser.last_name}`)}
                     </span>
 
                     {showNotification && 
@@ -181,7 +181,7 @@ const App_header = () => {
                                             backgroundPosition: 'center',
                                         }}
                                     >
-                                        {<span className="text-sm font-semibold">{getInitials(`${loggedInUser.first_name} ${loggedInUser.last_name}`)}</span>}
+                                        {(loggedInUser.first_name && loggedInUser.last_name) && <span className="text-sm font-semibold">{getInitials(`${loggedInUser.first_name} ${loggedInUser.last_name}`)}</span>}
                                     </div>
                                     {/* Green Dot on Dropdown Avatar */}
                                     <span
