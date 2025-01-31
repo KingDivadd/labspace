@@ -226,7 +226,7 @@ const Teams_page = () => {
 
 
                 {/* section user table */}
-                <div className=" bg-white w-full flex flex-col items-start justify-start shadow-lg  rounded-[3px] border border-slate-100">
+                <div className="w-full bg-white flex flex-col items-between justify-start shadow-lg rounded-[3px] border border-slate-100" style={{height: 'calc(100vh - 20px - 60px)'}}>
                     <span className=" w-full flex items-center justify-between px-[10px] sm:px-[15px] py-[10px]  ">
                         <p className="text-md font-[500] ">Team Members</p>
 
@@ -261,9 +261,9 @@ const Teams_page = () => {
 
                     </div>
 
-                    <div className="table-cont overflow-x-auto">
+                    <div className="table-cont overflow-x-auto ">
 
-                        <div className="min-w-[1200px] px-[10px] sm:px-[15px] py-[10px] flex flex-col items-start justify-start mx-auto ">
+                        <div className="min-w-[1000px] px-[10px] sm:px-[15px] py-[10px] flex flex-col items-start justify-start mx-auto ">
                             <span className="w-full max-xl:h-[40px] h-[45px] flex items-center justify-between rounded-[3px] bg-blue-500 text-white">
                                 <p className="text-sm w-[15%] px-[10px] sm:px-[15px]  ">Last Updated</p>
                                 <p className="text-sm w-[18.5%] px-[10px] sm:px-[15px]  ">Full Name</p>
@@ -279,7 +279,7 @@ const Teams_page = () => {
                                 <Loading />
                             </div>
                             :
-                            <div className="w-full flex flex-col items-start justify-start overflow-y-auto" style={{ height: 'calc(100vh - 285px)'}}>
+                            <div className="w-full flex flex-col items-start justify-start overflow-y-auto" style={{ height: 'calc(100vh - 295px)'}}>
                                 <div className="w-full h-full flex flex-col justify-start">
                                     {filtered_user_box?.users.map((data: any, ind: number)=>{
                                         const {user_id, first_name, last_name, email, is_admin, title, role, created_at, updated_at,is_active } = data

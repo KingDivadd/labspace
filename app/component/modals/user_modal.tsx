@@ -183,7 +183,6 @@ const User_modal = () => {
                             <p className="text-md font-[500] ">{selectedItem.first_name} {selectedItem.last_name}</p>
                         </div>}
 
-
                         {auth.is_admin && <p className="text-md font-[500] ">Admin</p>}
                         
 

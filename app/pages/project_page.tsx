@@ -330,7 +330,7 @@ const Project_page = () => {
                                 <Loading />
                             </div>
                             :
-                            <div className="w-full flex flex-col items-start justify-start overflow-y-auto" style={{ height: 'calc(100vh - 285px)'}}>
+                            <div className="w-full flex flex-col items-start justify-start overflow-y-auto" style={{ height: 'calc(100vh - 295px)'}}>
                                 <div className="w-full h-full flex flex-col justify-start">
                                     
                                     {filtered_project_box?.projects.length ? 
