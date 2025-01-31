@@ -242,7 +242,7 @@ const App_header = () => {
                             </span>
 
                             {loggedInUser.is_admin && <span className={route_nav === 'team' ? 'active-nav-box' : 'nav-box'} onClick={() => {select_nav('team'); setShow_side_bar(false) }}>
-                                <FaTrashAlt size={16} />
+                                <FaUsers size={16} />
                                 <p className=" text-sm text-center"> Team </p>
                             </span>}
                             
