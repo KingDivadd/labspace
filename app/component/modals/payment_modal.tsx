@@ -247,7 +247,7 @@ const Payment_modal = () => {
                             <input type="text" name='payer_name' disabled placeholder='John Doe' value={payment_box?.payer_name} onChange={handle_change} className='input-type-1' />
                         </span>
 
-                        <span className="w-full flex flex-col items-start justify-start gap-2">
+                        <span className="hidden w-full flex flex-col items-start justify-start gap-2">
                             <p className="text-sm ">Upload Receipt</p>
                             <div className="w-full flex items-center justify-end">
                                 <FileUpload id='payment_receipt' maxFiles={5} onFileChange={handle_file_change} initialFiles={payment_box.payment_receipt} />
