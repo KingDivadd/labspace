@@ -38,6 +38,7 @@ const Payment_modal = () => {
         if (modalFor != 'create') {
             const {payment_id, payer_name, project_id, payment_receipt, amount, project } = selected_payment
 
+
             const id = payment_id.split('-')
 
             const new_id =  `PY${id[0]}`
@@ -49,6 +50,10 @@ const Payment_modal = () => {
             
             setTimeout(() => {
                 setPayment_box({ ...payment_box, payer_name: payer_name, project_id: project_id, payment_receipt, amount: Number(amount) })
+            }, 100);
+        }else{
+            setTimeout(() => {
+                setPayment_box({...payment_box, payer_name: selectedItem.project_title})
             }, 100);
         }
     }, [])
@@ -239,7 +244,7 @@ const Payment_modal = () => {
                         <span className="w-full flex flex-col items-start justify-start gap-2">
                             <p className="text-sm ">Payer Name </p>
 
-                            <input type="text" name='payer_name' placeholder='John Doe' value={payment_box?.payer_name} onChange={handle_change} className='input-type-1' />
+                            <input type="text" name='payer_name' disabled placeholder='John Doe' value={payment_box?.payer_name} onChange={handle_change} className='input-type-1' />
                         </span>
 
                         <span className="w-full flex flex-col items-start justify-start gap-2">

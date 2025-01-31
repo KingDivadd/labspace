@@ -297,7 +297,7 @@ const Payment_page = () => {
                                 <input type="text" placeholder='Search...' onChange={handle_filter} className='input-type-2 ' />
                             </span>
 
-                            <button className="px-5 rounded-[40px] bg-blue-500 hover:bg-blue-600 text-white text-sm max-xl:h-[35px] h-[40px]" onClick={handle_new_payment} >
+                            <button className="px-5 rounded-[3px] bg-blue-500 hover:bg-blue-600 text-white text-sm max-xl:h-[35px] h-[40px]" onClick={handle_new_payment} >
                                 Add Payment
                             </button>
                         </div>

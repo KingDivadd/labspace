@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation'
 import moment from 'moment'
 import Payment_page from '../../pages/payment_page'
 import Link from 'next/link'
+import Drop_down_1 from '../drop_down'
 
 type ProjectBox = {
     project_title: string;
@@ -31,7 +32,12 @@ const Project_modal = () => {
     const [loading, setLoading] = useState(false)
     const [user_drop, setUser_drop] = useState(false)
     const dropdownRef = useRef<HTMLDivElement>(null);
+    const [dropArray, setDropArray] = useState<string[]>(['Tissue Processing','H&E/Other Routine stains', 'Immunohistochemistry', 'Photomicrography', 'Quatification'])
+    const [selected_item, setSelected_item] = useState('')
 
+    useEffect(() => {
+        setTasks({...tasks, title:selected_item})
+    }, [selected_item])
     
 
     useEffect(() => {
@@ -863,7 +869,7 @@ const Project_modal = () => {
                                             <div className="w-full flex flex-col items-start justify-start gap-[30px] p-[25px]">
                                                 <span className="w-full flex flex-col items-start justify-start gap-2">
                                                     <p className="text-sm ">Title</p>
-                                                    <input type="text" name='title' placeholder='Title' value={tasks.title} onChange={handle_change} className='input-type-1' />
+                                                    <span className="w-full h-[45px]"><Drop_down_1 dropArray={dropArray} setDropArray={setDropArray} selected_item={selected_item} setSelected_item={setSelected_item} showAlert={showAlert} /> </span>
                                                 </span>
 
                                                 <span className="hidden w-full flex flex-col items-start justify-start gap-2">

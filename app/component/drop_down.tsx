@@ -96,7 +96,7 @@ const Drop_down_1 = ({dropArray, setDropArray, selected_item, setSelected_item, 
                     <span className="flex-1 "> 
                         <input type="text" name='list_add_input' value={drop_input.list_add_input} onChange={(e:any)=> setDrop_input({...drop_input, list_add_input: e.target.value})}  placeholder='add item' className="input-type-3" /> 
                     </span>
-                    <button className="h-[35px] rounded-[3px] px-5 bg-blue-600 hover:bg-blue-700 text-white" onClick={handle_list_add}>Add</button>
+                    <button className="h-[35px] rounded-[3px] px-5 bg-blue-500 hover:bg-blue-600 text-white text-sm" onClick={handle_list_add}>Add</button>
                 </span>
 
             </div>}

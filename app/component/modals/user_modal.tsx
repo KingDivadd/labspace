@@ -167,7 +167,7 @@ const User_modal = () => {
 
     return (
         <div className="w-full">
-            <div className=" bg-white max-h-[90vh] rounded-[5px] shadow-md border border-slate-200  overflow-y-auto relative " >
+            <div className=" bg-white rounded-[5px] shadow-md border border-slate-200  overflow-y-auto relative " >
                 <span className="px-[20px] flex items-center justify-end absolute top-[15px] right-[50px] z-20 h-[50px]  ">
 
                     {alert.message && <Alert message={alert.message} type={alert.type} />} 
