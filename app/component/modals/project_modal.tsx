@@ -23,7 +23,7 @@ type ProjectBox = {
 
 const Project_modal = () => {
     const router = useRouter()
-    const { modalFor, setModalFor, setShowModal, selectedItem, app_users, setTrigger_notification,trigger_notification, current_project_nav, setCurrent_project_nav, task_action, selected_task} = useChat()
+    const { modalFor, setModalFor, setShowModal, selectedItem, app_users, setTrigger_notification,trigger_notification, current_project_nav, setCurrent_project_nav, task_action, setTask_action, selected_task} = useChat()
     const [alert, setAlert] = useState({message: '', type: ''})
     const [project_box, setProject_box] = useState<ProjectBox>({project_title: "", priority: 'normal', cost: 0, stage: 'todo', team: [], assets: []})
     const [tasks, setTasks] = useState({title:'', is_completed: false, date:'2024-12-10', due_date: 0  })
@@ -168,6 +168,142 @@ const Project_modal = () => {
                     showAlert(response.data.msg, "success")
                     setLoading(false)
                     setTrigger_notification(!trigger_notification)
+
+                    setTimeout(() => {
+                        setModalFor('view')
+                        setCurrent_project_nav('project_details')
+                    }, 1500);
+
+                }
+                else{
+                    showAlert(response.response.data.err, "error")
+                    setLoading(false)
+                }
+            } catch (err:any) {
+                console.error('Network or unexpected error:', err);
+                showAlert('An unexpected error occurred. Please try again later.', 'error');
+            } finally {
+                setLoading(false); 
+            }
+        }
+    }
+
+    useEffect(() => {
+        if (selected_task){
+
+            setTasks({...tasks, title: selected_task.title})
+        }else{
+            setTask_action('create-task')
+        }
+    }, [selected_task])
+
+    async function handle_edit_task(e: any) {
+        e.preventDefault();        
+        console.log('edit task ',tasks)
+
+        if (!tasks.title ) {
+            if (!tasks.title){showAlert('Please enter task title', 'warning')}
+
+            return;
+        } else {
+            setLoading(true); 
+            try {
+                
+                const box = {title: tasks.title, due_date: convert_to_unix(tasks.date) * 1000}
+
+                const response = await patch_auth_request(`app/edit-task/${selected_task.task_id}/${selectedItem.project_id}`, box) 
+
+                if (response.status == 200 || response.status == 201){
+
+
+                    showAlert(response.data.msg, "success")
+                    setLoading(false)
+                    setTrigger_notification(!trigger_notification)
+                    setTask_action('create-task')
+
+                    setTimeout(() => {
+                        setModalFor('view')
+                        setCurrent_project_nav('project_details')
+                    }, 1500);
+
+                }
+                else{
+                    showAlert(response.response.data.err, "error")
+                    setLoading(false)
+                }
+            } catch (err:any) {
+                console.error('Network or unexpected error:', err);
+                showAlert('An unexpected error occurred. Please try again later.', 'error');
+            } finally {
+                setLoading(false); 
+            }
+        }
+    }
+
+    async function handle_complete_task(e: any) {
+        e.preventDefault();        
+
+        if (!tasks.title ) {
+            if (!tasks.title){showAlert('Please enter task title', 'warning')}
+
+            return;
+        } else {
+            setLoading(true); 
+            try {
+                
+                const box = {title: tasks.title, due_date: convert_to_unix(tasks.date) * 1000}
+
+                const response = await patch_auth_request(`app/complete-task/${selected_task.task_id}/${selectedItem.project_id}`, box)                
+
+                if (response.status == 200 || response.status == 201){
+
+
+                    showAlert(response.data.msg, "success")
+                    setLoading(false)
+                    setTrigger_notification(!trigger_notification)
+                    setTask_action('create-task')
+
+                    setTimeout(() => {
+                        setModalFor('view')
+                        setCurrent_project_nav('project_details')
+                    }, 1500);
+
+                }
+                else{
+                    showAlert(response.response.data.err, "error")
+                    setLoading(false)
+                }
+            } catch (err:any) {
+                console.error('Network or unexpected error:', err);
+                showAlert('An unexpected error occurred. Please try again later.', 'error');
+            } finally {
+                setLoading(false); 
+            }
+        }
+    }
+
+    async function handle_delete_task(e: any) {
+        e.preventDefault();        
+
+        if (!tasks.title ) {
+            if (!tasks.title){showAlert('Please enter task title', 'warning')}
+
+            return;
+        } else {
+            setLoading(true); 
+            try {
+                
+                const box = {title: tasks.title, due_date: convert_to_unix(tasks.date) * 1000}
+
+                const response = await delete_auth_request(`app/delete-task/${selected_task.task_id}/${selectedItem.project_id}`)           
+
+                if (response.status == 200 || response.status == 201){
+
+
+                    showAlert(response.data.msg, "success")
+                    setLoading(false)
+                    setTrigger_notification(!trigger_notification)
+                    setTask_action('create-task')
 
                     setTimeout(() => {
                         setModalFor('view')
@@ -820,7 +956,7 @@ const Project_modal = () => {
                                                     <div className="w-full  flex flex-wrap items-start justify-start max-sm:justify-between gap-3 max-sm:gap-2 ">
                                                         {
                                                             selectedItem.tasks.map((data:any, ind: number)=>{
-                                                                const {title, is_completed, due_date, created_at, task_id} = data
+                                                                const {title, is_completed, due_date, updated_at, task_id} = data
 
                                                                 return(
                                                                     <span key={ind} className="max-xs:w-[160px] max-xs:h-[150px] w-[220px] h-[190px]  border border-slate-200 rounded-[3px] p-[10px] flex flex-col gap-3">
@@ -835,7 +971,7 @@ const Project_modal = () => {
 
 
                                                                         <span className="flex items-start justify-start gap-3">
-                                                                            <p className="text-[11px] font-[400]"> {formatted_time(Number(created_at))} </p>
+                                                                            <p className="text-[11px] font-[400]"> {formatted_time(Number(updated_at))} </p>
                                                                         </span>
 
                                                                     </span>
@@ -858,6 +994,8 @@ const Project_modal = () => {
                                             <p className="text-md font-[500] ">Action</p>
 
                                             <Link href={'#all-tasks'} className=" sm:hidden px-5 h-[35px] bg-blue-500 hover:bg-blue-600 rounded-[3px] text-sm text-white flex items-center justify-center" >All Task</Link>
+
+                                            {task_action != 'create-task' && <button className="max-sm:hidden max-xl:h-[35px] h-[40px] px-5 rounded-[3px] text-white text-sm bg-blue-500 hover:bg-blue-600 " onClick={()=> setTask_action('create-task')}>Add Task</button>}
                                         </div>
 
                                         {(task_action == 'create-task' || task_action == 'edit-task') && <div className="w-full  border border-slate-300 rounded-[5px]" id='new-task'>
@@ -884,14 +1022,23 @@ const Project_modal = () => {
 
                                                 
 
-                                                <button className="text-sm w-[95px] flex items-center justify-center text-sm max-sm:h-[40px] h-[45px] rounded-[3px] bg-amber-500 hover:bg-amber-600 text-white" onClick={handle_create_task} disabled={loading}>
+                                                {task_action == 'create-task' && <button className="text-sm w-[95px] flex items-center justify-center text-sm max-sm:h-[40px] h-[45px] rounded-[3px] bg-blue-500 hover:bg-blue-600 text-white" onClick={handle_create_task} disabled={loading}>
+                                                    {loading ? (
+                                                    <svg className="w-[25px] h-[25px] animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
+                                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                                    </svg>
+                                                    ) : 'Submit'}
+                                                </button> }
+
+                                                {task_action == 'edit-task' && <button className="text-sm w-[95px] flex items-center justify-center text-sm max-sm:h-[40px] h-[45px] rounded-[3px] bg-amber-500 hover:bg-amber-600 text-white" onClick={handle_edit_task} disabled={loading}>
                                                     {loading ? (
                                                     <svg className="w-[25px] h-[25px] animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
                                                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
                                                     </svg>
                                                     ) : 'Update'}
-                                                </button>
+                                                </button>}
                                                 
                                             </div>
 
@@ -910,7 +1057,7 @@ const Project_modal = () => {
                                                     
                                                 </div>
 
-                                                <button className="w-[110px] flex items-center justify-center text-sm max-sm:h-[40px] h-[45px] rounded-[3px] bg-teal-500 hover:bg-teal-600 text-white" onClick={handle_delete} disabled={loading}>
+                                                <button className="w-[110px] flex items-center justify-center text-sm max-sm:h-[40px] h-[45px] rounded-[3px] bg-teal-500 hover:bg-teal-600 text-white" onClick={handle_complete_task} disabled={loading}>
                                                     {loading ? (
                                                     <svg className="w-[25px] h-[25px] animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
@@ -929,14 +1076,14 @@ const Project_modal = () => {
                                         <div className="w-full  border border-slate-300 rounded-[5px]" id='delete-task'>
                                             <div className="w-full p-[25px] border-b border-slate-200 flex flex-col items-center justify-center gap-5">
                                                 <div className="w-full flex flex-col items-center justify-center text-center gap-3 ">
-                                                    <p className="text-md font-[500]">Are your sure you want to delete task with title </p>
+                                                    <p className="text-md font-[500]">Are your sure you want to delete {selected_task && selected_task.title} </p>
                                                     <span className="w-full flex items-center justify-center gap-2 whitespace-nowrap">
                                                         <p className="text-md font-[600] ">{'Task I'} </p> 
                                                     </span>
                                                     
                                                 </div>
 
-                                                <button className="w-[95px] flex items-center justify-center text-sm max-sm:h-[40px] h-[45px] rounded-[3px] bg-red-600 hover:bg-red-700 text-white" onClick={handle_delete} disabled={loading}>
+                                                <button className="w-[95px] flex items-center justify-center text-sm max-sm:h-[40px] h-[45px] rounded-[3px] bg-red-600 hover:bg-red-700 text-white" onClick={handle_delete_task} disabled={loading}>
                                                     {loading ? (
                                                     <svg className="w-[25px] h-[25px] animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
