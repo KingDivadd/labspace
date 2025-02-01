@@ -210,7 +210,7 @@ const Admin_dashboard = () => {
                                         </>
                                         : 
                                         <div className="w-full flex items-center justify-center h-full  ">
-                                            <p className="text-md font-[500] ">No Task has been created yet.</p>
+                                            <p className="text-md font-[500] ">{loggedInUser.is_admin ? 'No Project has been created yet' : 'No Project has been assigned to you yet.'}</p>
                                         </div> }
                                     </div>
                                 </div>}

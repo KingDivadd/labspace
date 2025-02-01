@@ -33,8 +33,6 @@ const Login = () => {
             try {
                 
                 const response = await post_auth_request('app/persist-login', auth)            
-                
-
 
                 if (response.status == 200 || response.status == 201){
 
@@ -50,9 +48,13 @@ const Login = () => {
                     setTimeout(() => {
                         router.push('/user/porter')
                     }, 1500);
+                }else if (response.response.status == 401){
+                    showAlert(response.response.data.err, "error")
                 }
                 else{
+                    showAlert(response.response.data.err, "error")
                     setLoading(false)
+                    setSubmitted(false)
                 }
             } catch (err:any) {
             } finally {
@@ -112,7 +114,6 @@ const Login = () => {
                 if (response.status == 200 || response.status == 201){
 
                     localStorage.setItem('x-id-key' ,response.headers.get('x-id-key'));
-                    sessionStorage.setItem('role', response.data.user_data.user_role)
                     
                     showAlert(response.data.msg, "success")
                     setAuth({...auth, email: '', password: ''})
