@@ -108,8 +108,6 @@ const Project_modal = () => {
     async function handle_create_activity(e: any) {
         e.preventDefault();        
 
-        console.log(activity)
-
         if (!activity.description || !activity.activity_type) {
             if (!activity.description){showAlert('Please enter activity description', 'warning')}
             if (!activity.activity_type){showAlert('Please select an activity type', 'warning')}
@@ -199,7 +197,6 @@ const Project_modal = () => {
 
     async function handle_edit_task(e: any) {
         e.preventDefault();        
-        console.log('edit task ',tasks)
 
         if (!tasks.title ) {
             if (!tasks.title){showAlert('Please enter task title', 'warning')}
