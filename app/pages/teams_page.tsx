@@ -22,6 +22,9 @@ const Teams_page = () => {
     const [drop_list_no, setDrop_list_no] = useState(false) 
 
     useEffect(() => {
+        if (user_box || filtered_user_box){
+            setLoading(false)
+        }
         const x_id_key = localStorage.getItem('x-id-key')
         if (x_id_key) {
             handle_fetch_users(list_number, page_number)

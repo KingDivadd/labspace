@@ -14,7 +14,6 @@ const Trash_page = () => {
     const {loggedInUser, modalFor, setModalFor, selectedItem, setSelectedItem, showModal, setShowModal, setModalSource, modalSource, setApp_users, trash_box, setTrash_box, filtered_trash_box, setFiltered_trash_box} = useChat()
     const [page_number, setPage_number] = useState(1)
     const [list_number, setList_number] = useState(15)
-
     const [filters, setFilters] = useState({filter_input: '', disposition: ''})
     const [alert, setAlert] = useState({message: '', type: ''})
     const [loading, setLoading] = useState(true)
@@ -24,6 +23,9 @@ const Trash_page = () => {
     const [filter_trash, setFilter_trash] = useState('all')
 
     useEffect(() => {
+        if (trash_box || filtered_trash_box){
+            setLoading(false)
+        }
         const x_id_key = localStorage.getItem('x-id-key')
         if (x_id_key) {
             handle_fetch_trash(list_number, page_number)

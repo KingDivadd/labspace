@@ -23,8 +23,12 @@ const Project_page = () => {
 
 
     useEffect(() => {
+        if (project_box || filtered_project_box){
+            setLoading(false)
+        }
         const x_id_key = localStorage.getItem('x-id-key')
         if (x_id_key) {
+            
             handle_fetch_projects(list_number, page_number)
         }else{
             router.push('/auth/login')

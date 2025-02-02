@@ -53,7 +53,7 @@ const Payment_modal = () => {
             }, 100);
         }else{
             setTimeout(() => {
-                setPayment_box({...payment_box, payer_name: selectedItem.project_title})
+                setPayment_box({...payment_box, payer_name: selectedItem.project_title, project_id: selectedItem.project_id})
             }, 100);
         }
     }, [])

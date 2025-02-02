@@ -41,7 +41,7 @@ const Project_modal = () => {
     
 
     useEffect(() => {
-        // setTasks({...tasks, due_date: convert_to_unix()})
+        
         if (modalFor != 'create') {
 
             const { project_title, priority, stage, team, assets, cost } = selectedItem
@@ -50,10 +50,7 @@ const Project_modal = () => {
                 setModalFor('edit')
             }else if (current_project_nav == 'create-project') {
                 setModalFor('create-project')
-            }
-
-            // const project_stage = stage == 'todo' ? 'Todo' : stage == 'completed' ? 'Completed' : stage == 'in_progress' ? "In Progress" :  ""
-            // const project_priority = priority == 'high' ? 'High' : priority == 'low' ? 'Low' : priority == 'normal' ? 'Normal': ''                    
+            }                   
 
             const user_ids = team.map((data: any) => data.user.user_id)
 
@@ -131,6 +128,8 @@ const Project_modal = () => {
 
                     setActivity({description: '', activity_type: ''})
 
+                    selectedItem.activities.push(response.data.new_activity)
+
                 }
                 else{
                     showAlert(response.response.data.err, "error")
@@ -166,11 +165,7 @@ const Project_modal = () => {
                     showAlert(response.data.msg, "success")
                     setLoading(false)
                     setTrigger_notification(!trigger_notification)
-
-                    setTimeout(() => {
-                        setModalFor('view')
-                        setCurrent_project_nav('project_details')
-                    }, 1500);
+                    selectedItem.tasks.push(response.data.task)
 
                 }
                 else{
@@ -218,11 +213,11 @@ const Project_modal = () => {
                     setTrigger_notification(!trigger_notification)
                     setTask_action('create-task')
 
-                    setTimeout(() => {
-                        setModalFor('view')
-                        setCurrent_project_nav('project_details')
-                    }, 1500);
-
+                    selectedItem.tasks.forEach((data: any, ind: number) => {
+                        if (selected_task.task_id == data.task_id){
+                            selectedItem.tasks[ind] = response.data.task
+                        }
+                    });
                 }
                 else{
                     showAlert(response.response.data.err, "error")
@@ -260,10 +255,11 @@ const Project_modal = () => {
                     setTrigger_notification(!trigger_notification)
                     setTask_action('create-task')
 
-                    setTimeout(() => {
-                        setModalFor('view')
-                        setCurrent_project_nav('project_details')
-                    }, 1500);
+                    selectedItem.tasks.forEach((data: any, ind: number) => {
+                        if (selected_task.task_id == data.task_id){
+                            selectedItem.tasks[ind] = response.data.task
+                        }
+                    });
 
                 }
                 else{
@@ -302,10 +298,11 @@ const Project_modal = () => {
                     setTrigger_notification(!trigger_notification)
                     setTask_action('create-task')
 
-                    setTimeout(() => {
-                        setModalFor('view')
-                        setCurrent_project_nav('project_details')
-                    }, 1500);
+                    selectedItem.tasks.forEach((data: any, ind: number) => {
+                        if (selected_task.task_id == data.task_id){
+                            selectedItem.tasks.splice(ind, 1)
+                        }
+                    });
 
                 }
                 else{
@@ -965,7 +962,6 @@ const Project_modal = () => {
                                                                         <span className="flex items-start justify-start gap-3">
                                                                             <p className="text-sm font-[500]"> {title} </p>
                                                                         </span>
-
 
                                                                         <span className="flex items-start justify-start gap-3">
                                                                             <p className="text-[11px] font-[400]"> {formatted_time(Number(updated_at))} </p>
