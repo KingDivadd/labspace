@@ -11,29 +11,16 @@ import { FaCaretUp, FaCaretDown } from 'react-icons/fa6'
 
 const Project_page = () => {
     const router = useRouter()
+    const {loggedInUser, modalFor, setModalFor, selectedItem, setSelectedItem, showModal, setShowModal, setModalSource, modalSource, app_users, setApp_users, project_box, setProject_box, filtered_project_box, setFiltered_project_box } = useChat()
     const [page_number, setPage_number] = useState(1)
     const [list_number, setList_number] = useState(15)
-    const [project_box, setTask_box] = useState<Props | null>(null);
-    const [filtered_project_box, setFiltered_project_box] = useState<Props | null>(null);
     const [filters, setFilters] = useState({filter_input: '', disposition: ''})
-    const {loggedInUser, modalFor, setModalFor, selectedItem, setSelectedItem, showModal, setShowModal, setModalSource, modalSource, app_users, setApp_users, } = useChat()
     const [alert, setAlert] = useState({message: '', type: ''})
     const [loading, setLoading] = useState(true)
     const [isActive, setIsActive] = useState(true);
     const toggleActive = () => setIsActive(!isActive);
     const [drop_list_no, setDrop_list_no] = useState(false)
 
-
-    interface Props {
-        forEach?(arg0: (data: any, ind: number) => void): unknown;
-        filter?(arg0: (project: any) => any): unknown;
-        map?(arg0: (data: any) => void): unknown;
-        total_number_of_pages?: number; // Now optional and can be undefined
-        total_number_of_projects?: number; // Now optional can be undefined
-        no_of_assigned_project?: number;
-        projects: any[];
-        users: any
-    } 
 
     useEffect(() => {
         const x_id_key = localStorage.getItem('x-id-key')
@@ -61,7 +48,7 @@ const Project_page = () => {
 
                     const projects = response.data
                     setLoading(false);
-                    setTask_box(projects)
+                    setProject_box(projects)
                     setFiltered_project_box(projects)
                     setApp_users(projects?.users)
 

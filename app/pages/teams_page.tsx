@@ -11,28 +11,15 @@ import { FaCaretUp, FaCaretDown } from 'react-icons/fa6'
 
 const Teams_page = () => {
     const router = useRouter()
+    const {modalFor, setModalFor, selectedItem, setSelectedItem, showModal, setShowModal, setModalSource, modalSource, user_box, setUser_box, filtered_user_box, setFiltered_user_box} = useChat()
     const [page_number, setPage_number] = useState(1)
     const [list_number, setList_number] = useState(15)
-    const [user_box, setLead_box] = useState<Props | null>(null);
-    const [filtered_user_box, setFiltered_user_box] = useState<Props | null>(null);
     const [filters, setFilters] = useState({filter_input: '', disposition: ''})
-    const {modalFor, setModalFor, selectedItem, setSelectedItem, showModal, setShowModal, setModalSource, modalSource} = useChat()
     const [alert, setAlert] = useState({message: '', type: ''})
     const [loading, setLoading] = useState(true)
     const [isActive, setIsActive] = useState(true);
     const toggleActive = () => setIsActive(!isActive);
-    const [drop_list_no, setDrop_list_no] = useState(false)
-
-
-
-    interface Props {
-        forEach?(arg0: (data: any, ind: number) => void): unknown;
-        filter?(arg0: (user: any) => any): unknown;
-        map?(arg0: (data: any) => void): unknown;
-        total_number_of_pages?: number; // Now optional and can be undefined
-        total_number_of_users?: number; // Now optional can be undefined
-        users: any;
-    } 
+    const [drop_list_no, setDrop_list_no] = useState(false) 
 
     useEffect(() => {
         const x_id_key = localStorage.getItem('x-id-key')
@@ -62,7 +49,7 @@ const Teams_page = () => {
                     const users = response.data
 
 
-                    setLead_box(users)
+                    setUser_box(users)
                     setFiltered_user_box(users)
                     setLoading(false)
 
@@ -294,7 +281,7 @@ const Teams_page = () => {
                                                 <p className="text-sm font-[500] w-[22.5%] px-[10px] sm:px-[15px] flex-wrap text-start text-slate-600">{email}</p>
                                                 <p className="text-sm font-[500] w-[19%] px-[10px] sm:px-[15px] text-slate-600 ">{title}</p>
                                                 <span className=" w-[8%] px-[10px] sm:px-[15px] flex items-center justify-start text-slate-600 " >
-                                                    {is_active ? <p className="text-sm text-teal-600 font-[500]  ">Active</p> : <p className="text-sm text-red-600 font-[500]  ">Inactive</p>}
+                                                    {is_active ? <p className="text-sm text-teal-600 font-[500]  ">Active</p> : <p className="text-sm text-red-600 font-[500]  ">Suspended</p>}
                                                 </span>
                                                 <span className=" w-[15%] px-[10px] sm:px-[15px] flex items-center justify-start gap-[15px]" >
                                                     <TeamActionBtn data={data} />

@@ -11,29 +11,17 @@ import { FaCaretUp, FaCaretDown } from 'react-icons/fa6'
 
 const Trash_page = () => {
     const router = useRouter()
+    const {loggedInUser, modalFor, setModalFor, selectedItem, setSelectedItem, showModal, setShowModal, setModalSource, modalSource, setApp_users, trash_box, setTrash_box, filtered_trash_box, setFiltered_trash_box} = useChat()
     const [page_number, setPage_number] = useState(1)
     const [list_number, setList_number] = useState(15)
-    const [trash_box, setTrash_box] = useState<Props | null>(null);
-    const [filtered_trash_box, setFiltered_trash_box] = useState<Props | null>(null);
+
     const [filters, setFilters] = useState({filter_input: '', disposition: ''})
-    const {loggedInUser, modalFor, setModalFor, selectedItem, setSelectedItem, showModal, setShowModal, setModalSource, modalSource, setApp_users} = useChat()
     const [alert, setAlert] = useState({message: '', type: ''})
     const [loading, setLoading] = useState(true)
     const [isActive, setIsActive] = useState(true);
     const toggleActive = () => setIsActive(!isActive);
     const [drop_list_no, setDrop_list_no] = useState(false)
     const [filter_trash, setFilter_trash] = useState('all')
-
-
-
-    interface Props {
-        forEach?(arg0: (data: any, ind: number) => void): unknown;
-        filter?(arg0: (trash: any) => any): unknown;
-        map?(arg0: (data: any) => void): unknown;
-        total_number_of_pages?: number; // Now optional and can be undefined
-        total_number_of_trash?: number; // Now optional can be undefined
-        trash: any[];
-    } 
 
     useEffect(() => {
         const x_id_key = localStorage.getItem('x-id-key')

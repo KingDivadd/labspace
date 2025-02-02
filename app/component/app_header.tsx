@@ -223,7 +223,12 @@ const App_header = () => {
             <div className={show_side_bar ? 'lg:hidden show-side-bar' : 'lg:hidden hide-side-bar'}>
                 <div className="relative w-full h-full flex flex-col items-start justif-start gap-[50px] bg-white ">
 
-                    <span className="h-[60px] w-full px-[10px] flex items-center justify-end">
+                    <span className="h-[60px] w-full px-[10px] flex items-center justify-between">
+                        <span className=" flex items-center justify-center">
+                            <p className="font-bold text-xl md:text-2xl text-blue-500 ">Labp</p>
+                            <p className="font-bold text-xl md:text-2xl text-sky-500">space</p>
+                        </span>
+
                         <span className="lg:hidden h-[40px] w-[40px] font-[600] rounded-[40px] flex items-center justify-center " onClick={()=> setShow_side_bar(false)}>
                             <IoClose  size={22} />
                         </span>

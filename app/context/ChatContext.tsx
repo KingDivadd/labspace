@@ -22,6 +22,35 @@ interface AdminDashProps {
     total_no_of_completed_projects:number, total_no_of_assigned_projects:number                     
 }
 
+interface Props {
+    forEach?(arg0: (data: any, ind: number) => void): unknown;
+    filter?(arg0: (project: any) => any): unknown;
+    map?(arg0: (data: any) => void): unknown;
+    total_number_of_pages?: number; // Now optional and can be undefined
+    total_number_of_projects?: number; // Now optional can be undefined
+    no_of_assigned_project?: number;
+    projects: any[];
+    users: any
+} 
+
+
+interface TeamProps {
+    forEach?(arg0: (data: any, ind: number) => void): unknown;
+    filter?(arg0: (user: any) => any): unknown;
+    map?(arg0: (data: any) => void): unknown;
+    total_number_of_pages?: number; // Now optional and can be undefined
+    total_number_of_users?: number; // Now optional can be undefined
+    users: any;
+}
+
+interface TrashProps {
+    forEach?(arg0: (data: any, ind: number) => void): unknown;
+    filter?(arg0: (trash: any) => any): unknown;
+    map?(arg0: (data: any) => void): unknown;
+    total_number_of_pages?: number; // Now optional and can be undefined
+    total_number_of_trash?: number; // Now optional can be undefined
+    trash: any[];
+} 
 interface ChatContextType {
     header_nav: string; 
     setHeader_nav: (header_nav: string) => void; 
@@ -67,6 +96,18 @@ interface ChatContextType {
     setTask_action: (task_action: string) => void;
     selected_task: any;
     setSelected_task: (selected_task: any) => void;
+    project_box: Props | null;
+    setProject_box: (project_box: Props | null) => void;
+    filtered_project_box: Props | null;
+    setFiltered_project_box: (filtered_project_box: Props | null) => void;
+    user_box: TeamProps | null;
+    setUser_box: (user_box: TeamProps | null) => void;
+    filtered_user_box: TeamProps | null;
+    setFiltered_user_box: (filtered_user_box: TeamProps | null) => void;
+    trash_box: TrashProps | null;
+    setTrash_box: (trash_box: TrashProps | null) => void;
+    filtered_trash_box: TrashProps | null;
+    setFiltered_trash_box: (filtered_trash_box: TrashProps | null) => void;
 }
 
 
@@ -90,12 +131,25 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [loadingDot, setLoadingDot] = useState(true)
     const [app_users, setApp_users] = useState(null)
     const [notification, setNotification] = useState({number_of_unread_notification:0, unread_notifications:null})
-    const [admin_dash, setAdmin_dash] = useState({recent_notification:null, recent_projects:null, recent_users:null, recent_payments:null, total_no_of_assigned_projects:0, total_no_of_completed_projects:0, total_no_of_projects:0, total_project_cost:0})
+
+    
     const [project, setProject] = useState(null)
     const [current_project_nav, setCurrent_project_nav] = useState('project_details')
     const [selected_payment, setSelected_payment] = useState(null)
     const [task_action, setTask_action] = useState('create-task')
     const [selected_task, setSelected_task] = useState(null)
+    // for admin page
+    const [admin_dash, setAdmin_dash] = useState({recent_notification:null, recent_projects:null, recent_users:null, recent_payments:null, total_no_of_assigned_projects:0, total_no_of_completed_projects:0, total_no_of_projects:0, total_project_cost:0})
+
+    // for project page
+    const [project_box, setProject_box] = useState<Props | null>(null);
+    const [filtered_project_box, setFiltered_project_box] = useState<Props | null>(null);
+    // for team page
+    const [user_box, setUser_box] = useState<TeamProps | null>(null);
+    const [filtered_user_box, setFiltered_user_box] = useState<TeamProps | null>(null);
+    // for trash page
+    const [trash_box, setTrash_box] = useState<TrashProps | null>(null);
+    const [filtered_trash_box, setFiltered_trash_box] = useState<TrashProps | null>(null);
 
 
     return (
@@ -110,7 +164,7 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             profileToggle, setProfileToggle,
             loggedInUser, setLoggedInUser, loadingDot, setLoadingDot, app_users, setApp_users, notification,  setNotification,
             admin_dash, setAdmin_dash, project, setProject, current_project_nav, setCurrent_project_nav,
-            selected_payment, setSelected_payment, task_action, setTask_action, setSelected_task, selected_task
+            selected_payment, setSelected_payment, task_action, setTask_action, setSelected_task, selected_task, project_box, setProject_box, filtered_project_box, setFiltered_project_box, user_box, setUser_box, filtered_user_box, setFiltered_user_box, trash_box, setTrash_box, filtered_trash_box, setFiltered_trash_box
             }}>
             {children}
         </ChatContext.Provider>
