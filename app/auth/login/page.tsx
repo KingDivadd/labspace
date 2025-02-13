@@ -109,8 +109,8 @@ const Login = () => {
             setLoading(true); 
             try {
                 
+                const response = await post_request('app/login', auth)         
                 
-                console.log('response : \n',response)
                 if (response.status == 200 || response.status == 201){
 
                     localStorage.setItem('x-id-key' ,response.headers.get('x-id-key'));
