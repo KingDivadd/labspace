@@ -40,9 +40,7 @@ const Admin_dashboard = () => {
                 
                 const response = await get_auth_request('app/admin-dashboard')     
 
-                if (response.status == 200 || response.status == 201){
-                    console.log(response.data)
-                    
+                if (response.status == 200 || response.status == 201){                    
                     setAdmin_dash(response.data)
                 }else if(response.response.status == 401){
                     router.push('/auth/login')
@@ -239,7 +237,7 @@ const Admin_dashboard = () => {
                                                 <span key={ind} className=" table-body-row-1  " >
                                                 <p className="text-sm font-[500] w-[18%] px-[10px] sm:px-[15px] text-slate-600 ">{formatted_time(Number(updated_at))}</p>
                                                 <p className="text-sm font-[500] w-[14.5%] overflow truncate text-ellipsis  px-[10px] sm:px-[15px] text-slate-600 ">{project_title}</p>
-                                                <p className="text-sm font-[500] w-[12%] overflow truncate text-ellipsis  px-[10px] sm:px-[15px] text-slate-600 "> {loggedInUser.is_admin && Number(cost).toLocaleString()}</p>
+                                                <p className="text-sm font-[500] w-[12%] overflow truncate text-ellipsis  px-[10px] sm:px-[15px] text-slate-600 "> {loggedInUser.is_admin ? Number(cost).toLocaleString() : "********"}</p>
 
                                                 <span className="w-[15%] px-[10px] sm:px-[15px] flex items-center justify-start overflow-visible ">
                                                     {team.slice(0, 5).map((data: any, indd: number) => {
