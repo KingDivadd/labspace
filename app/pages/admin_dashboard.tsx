@@ -110,7 +110,21 @@ const Admin_dashboard = () => {
                         <div className="w-full flex flex-wrap justify-between 2xl:justify-between gap-[10px]  ">
                 
                                 {/* project due */}
-                            <div className="bg-white min-w-[180px] max-xs:h-[75px] flex-grow max-xl:h-[80px] h-[90px] rounded-[5px]  p-[15px] shadow-md flex items-center justify-start gap-[10px] sm:gap-2">
+
+                            <div className={` ${loggedInUser.is_admin && "hidden"} bg-white min-w-[180px] max-xs:h-[75px] flex-grow max-xl:h-[80px] h-[90px] rounded-[5px]  p-[15px] shadow-md flex items-center justify-start gap-[10px] sm:gap-2`}>
+                                <span className="h-full max-xs:w-[70px] w-[60px] sm:w-[55px] flex items-center justify-center">
+                                    <span className="h-[50px] w-[50px] text-white  rounded-[50px] bg-blue-500 flex items-center justify-center">
+                                        <GoProjectRoadmap size={'50%'} />
+                                    </span>
+                                </span>
+                                <div className="flex-1 flex  flex-col items-start just1ify-center ">
+                                    <p className="text-md font-[400] ">Assigned Project</p>
+                                    <p className="text-md font-[500]">{admin_dash?.total_no_of_assigned_projects.toLocaleString() || 0}</p>
+                                </div>
+
+                            </div>
+
+                            <div className={`${!loggedInUser.is_admin && 'hidden'} bg-white min-w-[180px] max-xs:h-[75px] flex-grow max-xl:h-[80px] h-[90px] rounded-[5px]  p-[15px] shadow-md flex items-center justify-start gap-[10px] sm:gap-2`}>
                                 <span className="h-full max-xs:w-[70px] w-[60px] sm:w-[55px] flex items-center justify-center">
                                     <span className="h-[50px] w-[50px] text-white  rounded-[50px] bg-blue-500 flex items-center justify-center">
                                         <GoProjectRoadmap size={'50%'} />
@@ -124,7 +138,7 @@ const Admin_dashboard = () => {
                             </div>
 
                                 {/* project pending */}
-                            <div className="bg-white min-w-[180px] max-xs:h-[75px] flex-grow max-xl:h-[80px] h-[90px] rounded-[5px]  p-[15px] shadow-md flex items-center justify-start gap-[10px] sm:gap-2">
+                            <div className={` bg-white min-w-[180px] max-xs:h-[75px] flex-grow max-xl:h-[80px] h-[90px] rounded-[5px]  p-[15px] shadow-md flex items-center justify-start gap-[10px] sm:gap-2`}>
                                 <span className="h-full max-xs:w-[70px] w-[60px] sm:w-[55px] flex items-center justify-center">
                                     <span className="h-[50px] w-[50px] text-white  rounded-[50px] bg-amber-500 flex items-center justify-center">
                                         <GoProjectRoadmap size={'50%'} />
@@ -138,7 +152,7 @@ const Admin_dashboard = () => {
                             </div>
 
                             {/* Gross (Total Project Cost) */}
-                            <div className="bg-white min-w-[180px] max-xs:h-[75px] flex-grow max-xl:h-[80px] h-[90px] rounded-[5px]  p-[15px] shadow-md flex items-center justify-start gap-[10px] sm:gap-2">
+                            <div className={`${!loggedInUser.is_admin && 'hidden'} bg-white min-w-[180px] max-xs:h-[75px] flex-grow max-xl:h-[80px] h-[90px] rounded-[5px]  p-[15px] shadow-md flex items-center justify-start gap-[10px] sm:gap-2`}>
                                 <span className="h-full max-xs:w-[70px] w-[60px] sm:w-[55px] flex items-center justify-center">
                                     <span className="h-[50px] w-[50px] text-white  rounded-[50px] bg-blue-500 flex items-center justify-center">
                                         <LiaMoneyBillWaveSolid size={'50%'} />
@@ -152,7 +166,7 @@ const Admin_dashboard = () => {
                             </div>
 
                             {/* Gross (Total Project Cost) */}
-                            <div className="bg-white min-w-[180px] max-xs:h-[75px] flex-grow max-xl:h-[80px] h-[90px] rounded-[5px]  p-[15px] shadow-md flex items-center justify-start gap-[10px] sm:gap-2">
+                            <div className={`${!loggedInUser.is_admin && 'hidden'} bg-white min-w-[180px] max-xs:h-[75px] flex-grow max-xl:h-[80px] h-[90px] rounded-[5px]  p-[15px] shadow-md flex items-center justify-start gap-[10px] sm:gap-2`}>
                                 <span className="h-full max-xs:w-[70px] w-[60px] sm:w-[55px] flex items-center justify-center">
                                     <span className="h-[50px] w-[50px] text-white  rounded-[50px] bg-green-600 flex items-center justify-center">
                                         <LiaMoneyBillWaveSolid size={'50%'} />
@@ -165,7 +179,7 @@ const Admin_dashboard = () => {
 
                             </div>
 
-                            <div className="bg-white min-w-[180px] max-xs:h-[75px] flex-grow max-xl:h-[80px] h-[90px] rounded-[5px]  p-[15px] shadow-md flex items-center justify-start gap-[10px] sm:gap-2">
+                            <div className={`${!loggedInUser.is_admin && 'hidden'} bg-white min-w-[180px] max-xs:h-[75px] flex-grow max-xl:h-[80px] h-[90px] rounded-[5px]  p-[15px] shadow-md flex items-center justify-start gap-[10px] sm:gap-2`}>
                                 <span className="h-full max-xs:w-[70px] w-[60px] sm:w-[55px]  flex items-center justify-center">
                                     <span className="h-[50px] w-[50px] text-white  rounded-[50px] bg-amber-500 flex items-center justify-center">
                                         <FaExclamation size={'50%'} />
