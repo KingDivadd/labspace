@@ -23,7 +23,7 @@ type ProjectBox = {
 
 const Project_modal = () => {
     const router = useRouter()
-    const { modalFor, setModalFor, setShowModal, selectedItem, app_users, setTrigger_notification,trigger_notification, current_project_nav, setCurrent_project_nav, task_action, setTask_action, selected_task} = useChat()
+    const { modalFor, setModalFor, setShowModal, selectedItem, app_users, setTrigger_notification,trigger_notification, current_project_nav, setCurrent_project_nav, task_action, setTask_action, selected_task, loggedInUser} = useChat()
     const [alert, setAlert] = useState({message: '', type: ''})
     const [project_box, setProject_box] = useState<ProjectBox>({project_title: "", priority: 'normal', cost: 0, stage: 'todo', team: [], assets: []})
     const [tasks, setTasks] = useState({title:'', is_completed: false, date:'2024-12-10', due_date: 0  })
@@ -691,9 +691,9 @@ const Project_modal = () => {
                                     Activities / Timeline
                                 </button>
                                 
-                                <button className={ current_project_nav == 'payment-history' ? `active-prj-nav-btn` : `prj-nav-btn`} onClick={()=> setCurrent_project_nav('payment-history')}>
+                                {loggedInUser.is_admin && <button className={ current_project_nav == 'payment-history' ? `active-prj-nav-btn` : `prj-nav-btn`} onClick={()=> setCurrent_project_nav('payment-history')}>
                                     Payment History
-                                </button>
+                                </button>}
                                 
                                 <button className={ current_project_nav == 'edit-project' ? `active-prj-nav-btn` : `prj-nav-btn`} onClick={()=> {setCurrent_project_nav('edit-project'); handle_edit_projet()}}>
                                     Edit Project
@@ -735,7 +735,7 @@ const Project_modal = () => {
                                             </span>
                                         </span>
 
-                                        <div className="w-full flex items-center justify-between flex-wrap gap-5">
+                                        {loggedInUser.is_admin && <div className="w-full flex items-center justify-between flex-wrap gap-5">
                                             <span className="flex items-center gap-3 whitespace-nowrap">
                                                 <p className="text-sm">Project Cost</p>
                                                 <p className="text-sm font-[500]"># {Number(selectedItem.cost).toLocaleString()}</p>
@@ -748,7 +748,7 @@ const Project_modal = () => {
                                                 <p className="text-sm">Amount Due</p>
                                                 <p className="text-sm font-[500] text-red-600"># {selectedItem.amount_due ? Number(selectedItem.amount_due).toLocaleString() : '0'}</p>
                                             </span>
-                                        </div>
+                                        </div>}
 
                                         <span className=" w-full h-[50px] bg-slate-100 rounded-[2px] flex items-center justify-between px-10 gap-10">
                                             <span className="h-[40px] my-auto flex items-center justify-start gap-[15px]">
