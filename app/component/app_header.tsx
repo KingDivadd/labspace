@@ -151,7 +151,7 @@ const App_header = () => {
 
                 <span className=" max-xs:hidden text-md whitespace-nowrap"> <Show_current_date_time /> </span>
 
-                <div className="relative flex items-center justify-end gap-5 " >
+                <div className="hidden flex items-center justify-end gap-5 " >
                     <button className="  rounded-[3px] text-sm whitespace-nowrap flex items-center justify-center gap-2 relative" >
                         <span className="h-[20px] w-[20px]">
                             <IoMdNotificationsOutline size={20} />
