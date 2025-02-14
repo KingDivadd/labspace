@@ -115,7 +115,7 @@ const User_dashboard = () => {
                                 <p className="text-sm w-[15%] px-[15px] ">Action</p>
                             </span>
 
-                            {admin_dash.recent_projects == null ? 
+                            {admin_dash && admin_dash.recent_projects == null ? 
                             
                             <div className="w-full h-[500px] flex items-center justify-center  ">
                                 <Loading />
@@ -184,7 +184,7 @@ const User_dashboard = () => {
                         </span>
                         <span className="flex flex-row items-center justify-end gap-3 h-full">
                             <p className="text-md"> 
-                                Showing 1-15 of {admin_dash.recent_projects ? <>{admin_dash.recent_projects.length} </>:'0'}
+                                Showing 1-15 of {admin_dash && admin_dash.recent_projects ? <>{admin_dash.recent_projects.length} </>:'0'}
                             </p>
                         </span>
                     </span>
