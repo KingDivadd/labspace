@@ -11,6 +11,7 @@ import moment from 'moment'
 import Payment_page from '../../pages/payment_page'
 import Link from 'next/link'
 import Drop_down_1 from '../drop_down'
+import { TbCurrencyNaira } from 'react-icons/tb'
 
 type ProjectBox = {
     project_title: string;
@@ -23,7 +24,7 @@ type ProjectBox = {
 
 const Project_modal = () => {
     const router = useRouter()
-    const { modalFor, setModalFor, setShowModal, selectedItem, app_users, setTrigger_notification,trigger_notification, current_project_nav, setCurrent_project_nav, task_action, setTask_action, selected_task, loggedInUser} = useChat()
+    const { modalFor, setModalFor, setShowModal, selectedItem, setSelectedItem, app_users, setTrigger_notification,trigger_notification, current_project_nav, setCurrent_project_nav, task_action, setTask_action, selected_task, loggedInUser} = useChat()
     const [alert, setAlert] = useState({message: '', type: ''})
     const [project_box, setProject_box] = useState<ProjectBox>({project_title: "", priority: 'normal', cost: 0, stage: 'todo', team: [], assets: []})
     const [tasks, setTasks] = useState({title:'', is_completed: false, date:'2024-12-10', due_date: 0  })
@@ -508,6 +509,12 @@ const Project_modal = () => {
         };
     }, []);
 
+    function handle_close(){
+        setShowModal(false)
+        setSelectedItem(null)
+        setCurrent_project_nav('project_details')
+    }
+
 
     return (
         <div className="w-full ">
@@ -530,14 +537,18 @@ const Project_modal = () => {
                             
                         </div>
 
-                        <button className="text-sm w-[95px] flex items-center justify-center text-sm max-sm:h-[40px] h-[45px] rounded-[3px] bg-red-600 hover:bg-red-700 text-white" onClick={handle_delete} disabled={loading}>
-                            {loading ? (
-                            <svg className="w-[25px] h-[25px] animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
-                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                            </svg>
-                            ) : 'Delete'}
-                        </button>
+                        <div className="w-full flex items-center gap-2 justify-center">
+                            <button className=" h-[45px] px-5 border border-white hover:border-red-500 hover:text-red-500 text-sm rounded-[3px]  " onClick={handle_close}>Cancel</button>
+                            
+                            <button className="text-sm w-[95px] flex items-center justify-center max-sm:h-[40px] h-[45px] rounded-[3px] bg-red-600 hover:bg-red-700 text-white" onClick={handle_delete} disabled={loading}>
+                                {loading ? (
+                                <svg className="w-[25px] h-[25px] animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                </svg>
+                                ) : 'Delete'}
+                            </button>
+                        </div>
                     </div>
 
 
@@ -545,12 +556,15 @@ const Project_modal = () => {
 
                 {(modalFor == 'create' || modalFor == 'edit') && 
                 <div className=" max-xs:w-[90vw] max-sm:w-[400px] mx-auto w-[500px] max-h-[92vh] sm:max-h-[92.5vh] overflow-y-auto">
-                    <span className="w-full px-[25px] h-[50px]  border-b border-slate-200 flex items-center justify-between ">
-                        {modalFor == 'create' ? <p className="text-md font-[500]  ">New Project</p> : <p className="text-md font-[500]  "> {selectedItem.project_ind}</p>  }
-                        
+                    <div className="w-full flex items-center justify-between">
 
-                        {/* <span className="h-[15px] w-[15px] flex items-center justify-center cursor-pointer" onClick={handle_close_modal}><FaRegCircleXmark size={'100%'}  className='hover:text-red-600' /> </span> */}
-                    </span>
+                        <span className="w-full px-[25px] h-[50px]  border-b border-slate-200 flex items-center justify-between ">
+                            {modalFor == 'create' ? <p className="text-md font-[500]  ">New Project</p> : <p className="text-md font-[500]  "> {selectedItem.project_ind}</p>  }
+                            
+
+                            <button className="h-[35px] px-5 bg-blue-500 hover:bg-blue-600 text-sm text-white rounded-[3px]" onClick={handle_close}>Close</button>
+                        </span>
+                    </div>
 
                     <div className="w-full flex flex-col items-start justify-start gap-[30px] p-[25px]">
                         <span className="w-full flex flex-col items-start justify-start gap-2">
@@ -672,7 +686,7 @@ const Project_modal = () => {
                                 <p className="text-md font-[500] ">{project_box.project_title}</p>
                             </span>
 
-                            <button className="text-sm h-[35px] text-sm rounded-[3px] hover:text-white hover:bg-red-500 px-5  " onClick={()=> setShowModal(false)}  >Close</button>
+                            <button className="h-[35px] px-5 bg-blue-500 hover:bg-blue-600 text-sm text-white rounded-[3px]" onClick={()=> {setShowModal(false); setSelectedItem(null)}}>Close</button>
                         </span>
 
                         <div className="w-full flex flex-col items-start justify-start gap-[15px] ">
@@ -738,15 +752,15 @@ const Project_modal = () => {
                                         {loggedInUser.is_admin && <div className="w-full flex items-center justify-between flex-wrap gap-5">
                                             <span className="flex items-center gap-3 whitespace-nowrap">
                                                 <p className="text-sm">Project Cost</p>
-                                                <p className="text-sm font-[500]"># {Number(selectedItem.cost).toLocaleString()}</p>
+                                                <p className="text-sm font-[500] flex items-center"><TbCurrencyNaira size={17} className='text-slate-600' /> {Number(selectedItem.cost).toLocaleString()}</p>
                                             </span>
                                             <span className="flex items-center gap-3 whitespace-nowrap">
                                                 <p className="text-sm">Total Amount Paid</p>
-                                                <p className="text-sm font-[500] text-teal-700"># {selectedItem.total_amount_paid ? Number(selectedItem.total_amount_paid).toLocaleString(): '0'}</p>
+                                                <p className="text-sm font-[500] text-teal-600 flex items-center"><TbCurrencyNaira size={17} className='text-teal-600' /> {selectedItem.total_amount_paid ? Number(selectedItem.total_amount_paid).toLocaleString(): '0'}</p>
                                             </span>
                                             <span className="flex items-center gap-3 whitespace-nowrap">
                                                 <p className="text-sm">Amount Due</p>
-                                                <p className="text-sm font-[500] text-red-600"># {selectedItem.amount_due ? Number(selectedItem.amount_due).toLocaleString() : '0'}</p>
+                                                <p className="text-sm font-[500] text-red-600 flex items-center"><TbCurrencyNaira size={17} className='text-red-600' /> {selectedItem.amount_due ? Number(selectedItem.amount_due).toLocaleString() : '0'}</p>
                                             </span>
                                         </div>}
 
@@ -1076,14 +1090,18 @@ const Project_modal = () => {
                                                     
                                                 </div>
 
-                                                <button className="w-[95px] flex items-center justify-center text-sm max-sm:h-[40px] h-[45px] rounded-[3px] bg-red-600 hover:bg-red-700 text-white" onClick={handle_delete_task} disabled={loading}>
-                                                    {loading ? (
-                                                    <svg className="w-[25px] h-[25px] animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
-                                                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                                                    </svg>
-                                                    ) : 'Delete'}
-                                                </button>
+                                                <div className="w-full flex items-center gap-2 justify-center">
+                                                    <button className=" h-[45px] px-5 border border-white hover:border-red-500 hover:text-red-500 text-sm rounded-[3px]  " onClick={handle_close}>Cancel</button>
+                                                    
+                                                    <button className="w-[95px] flex items-center justify-center text-sm max-sm:h-[40px] h-[45px] rounded-[3px] bg-red-600 hover:bg-red-700 text-white" onClick={handle_delete_task} disabled={loading}>
+                                                        {loading ? (
+                                                        <svg className="w-[25px] h-[25px] animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3"></circle>
+                                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                                        </svg>
+                                                        ) : 'Delete'}
+                                                    </button>
+                                                </div>
                                             </div>
 
 

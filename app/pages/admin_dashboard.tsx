@@ -10,6 +10,7 @@ import Link from 'next/link'
 import { FaExclamation, FaMoneyBillWave } from 'react-icons/fa6'
 import { GoProjectRoadmap } from 'react-icons/go'
 import { LiaMoneyBillWaveSolid } from 'react-icons/lia'
+import { TbCurrencyNaira } from 'react-icons/tb'
 
 const Admin_dashboard = () => {
     const router = useRouter()
@@ -158,7 +159,7 @@ const Admin_dashboard = () => {
                                 </span>
                                 <div className="flex-1 flex  flex-col items-start just1ify-center ">
                                     <p className="text-md font-[400] ">Total Project Cost</p>
-                                    <p className="text-md font-[500]">#{admin_dash?.total_project_cost.toLocaleString() || 0}</p>
+                                    <p className="text-md font-[500] flex items-center"><TbCurrencyNaira size={18} className='text-slate-600' /> {admin_dash?.total_project_cost.toLocaleString() || 0}</p>
                                 </div>
 
                             </div>
@@ -172,7 +173,7 @@ const Admin_dashboard = () => {
                                 </span>
                                 <div className="flex-1 flex  flex-col items-start just1ify-center ">
                                     <p className="text-md font-[400] ">Amount Paid</p>
-                                    <p className="text-md font-[500]">#{admin_dash?.total_amount_paid.toLocaleString() || 0}</p>
+                                    <p className="text-md font-[500] flex items-center"><TbCurrencyNaira size={18} className='text-slate-600' /> {admin_dash?.total_amount_paid.toLocaleString() || 0}</p>
                                 </div>
 
                             </div>
@@ -185,7 +186,7 @@ const Admin_dashboard = () => {
                                 </span>
                                 <div className="flex-1 flex flex-col items-start just1ify-center ">
                                     <p className="text-md font-[400] ">Amount Due</p>
-                                    <p className="text-md font-[500]">#{admin_dash?.total_amount_due.toLocaleString() || 0}</p>
+                                    <p className="text-md font-[500] flex items-center"><TbCurrencyNaira size={18} className='text-slate-600' /> {admin_dash?.total_amount_due.toLocaleString() || 0}</p>
                                 </div>
 
                             </div>
@@ -237,7 +238,7 @@ const Admin_dashboard = () => {
                                                 <span key={ind} className=" table-body-row-1  " >
                                                 <p className="text-sm font-[500] w-[18%] px-[10px] sm:px-[15px] text-slate-600 ">{formatted_time(Number(updated_at))}</p>
                                                 <p className="text-sm font-[500] w-[14.5%] overflow truncate text-ellipsis  px-[10px] sm:px-[15px] text-slate-600 ">{project_title}</p>
-                                                <p className="text-sm font-[500] w-[12%] overflow truncate text-ellipsis  px-[10px] sm:px-[15px] text-slate-600 "> {loggedInUser.is_admin ? Number(cost).toLocaleString() : "********"}</p>
+                                                <p className="text-sm font-[500] w-[12%] overflow truncate text-ellipsis flex px-[10px] sm:px-[15px] text-slate-600 "> {loggedInUser.is_admin && <TbCurrencyNaira size={17} className='text-slate-600' />}  {loggedInUser.is_admin ? Number(cost).toLocaleString() : "********"}</p>
 
                                                 <span className="w-[15%] px-[10px] sm:px-[15px] flex items-center justify-start overflow-visible ">
                                                     {team.slice(0, 5).map((data: any, indd: number) => {

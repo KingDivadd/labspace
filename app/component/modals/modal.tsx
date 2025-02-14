@@ -37,7 +37,7 @@ const Modal = ({ showModal, setShowModal, selectedItem, setSelectedItem, modalFo
                 <div className="fixed inset-0 transition-opacity" aria-hidden="true">
                     <div className="absolute inset-0 bg-gray-500 opacity-35"></div>
                 </div>
-                <div className="w-full h-screen flex items-center justify-center overflow-hidden shadow-xl transform transition-all" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-description" onClick={handleCloseModal}>
+                <div className="w-full h-screen flex items-center justify-center overflow-hidden shadow-xl transform transition-all" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-description" >
 
                     <div className={"h-auto w-auto mx-auto shadow-xl flex items-start "}>
                         {/* the container for the input fields */}

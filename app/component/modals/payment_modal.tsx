@@ -205,9 +205,9 @@ const Payment_modal = () => {
                 </span>
 
 
-                {(modalFor == 'create' || modalFor == 'edit') && <div className="max-sm:w-[95vw] mx-auto w-[450px] max-h-[92vh] sm:max-h-[92.5vh] overflow-y-auto">
+                {(modalFor == 'create' || modalFor == 'edit') && <div className="max-xs:w-[90vw] max-sm:w-[400px] mx-auto w-[500px] max-h-[92vh] sm:max-h-[92.5vh] overflow-y-auto">
                     <span className="w-full px-[25px] h-[50px]  border-b border-slate-200 flex items-center justify-between ">
-                        {modalFor == 'create' ? <p className="text-md font-[500] text-slate-700 ">New Payment</p> : <p className="text-lg font-[600] text-slate-700 "> {payment_ind}</p>  }
+                        {modalFor == 'create' ? <p className="text-md font-[500] text-slate-700 ">New Payment</p> : <p className="text-md font-[500] text-slate-700 "> {payment_ind}</p>  }
                         
 
                         {/* <span className="h-[17.5px] w-[17.5px] flex items-center justify-center cursor-pointer" onClick={handle_close_modal}><FaRegCircleXmark size={'100%'}  className='hover:text-red-600' /> </span> */}
@@ -241,7 +241,7 @@ const Payment_modal = () => {
                             <input type="text" name='amount' placeholder='00,000.00' value={payment_box.amount == 0 ? '': Number(payment_box.amount).toLocaleString()} onChange={handle_change} className='input-type-1' />
                         </span>
 
-                        <span className="w-full flex flex-col items-start justify-start gap-2">
+                        <span className="hidden w-full flex flex-col items-start justify-start gap-2">
                             <p className="text-sm ">Payer Name </p>
 
                             <input type="text" name='payer_name' disabled placeholder='John Doe' value={payment_box?.payer_name} onChange={handle_change} className='input-type-1' />

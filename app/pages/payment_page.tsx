@@ -9,6 +9,8 @@ import moment from 'moment'
 import Loading from '../component/loading'
 import { FaCaretUp, FaCaretDown } from 'react-icons/fa6'
 import Link from 'next/link'
+import { LiaMoneyBillWaveSolid } from 'react-icons/lia'
+import { TbCurrencyNaira } from 'react-icons/tb'
 
 const Payment_page = () => {
     const router = useRouter()
@@ -39,6 +41,7 @@ const Payment_page = () => {
     } 
 
     useEffect(() => {
+
         const x_id_key = localStorage.getItem('x-id-key')
         if (x_id_key) {
             handle_fetch_payments(list_number, page_number)
@@ -266,8 +269,36 @@ const Payment_page = () => {
 
             <div className="w-full flex flex-col justify-start items-center gap-5  ">
 
+                <div className=" w-full flex flex-wrap items-center justify-start gap-5">
+                    
+                    <div className=" flex  items-center just1ify-center gap-3 whitespace-nowrap">
+                        <p className="text-md font-[400] ">Total Cost</p>
+                        <span className="flex items-center text-blue-500">
+                            <span className="h-[20px] w-[20px] "><TbCurrencyNaira size={'100%'} /></span>
+                            <p className="text-md font-[500] "> {selectedItem.cost.toLocaleString()}</p>
+                        </span>
+                    </div>
+                    
+                    <div className=" flex  items-center just1ify-center gap-3 whitespace-nowrap">
+                        <p className="text-md font-[400] ">Total Amount Paid</p>
+                        <span className="flex items-center text-teal-500">
+                        <span className="h-[20px] w-[20px] "><TbCurrencyNaira size={'100%'} /></span>
+                            <p className="text-md font-[500] "> {selectedItem.total_amount_paid.toLocaleString()}</p>
+                        </span>
+                    </div>
+                
+                    <div className=" flex  items-center just1ify-center gap-3 whitespace-nowrap">
+                        <p className="text-md font-[400] ">Total Amount Due</p>
+                        <span className="flex items-center text-red-500">
+                            <span className="h-[20px] w-[20px] "><TbCurrencyNaira size={'100%'} /></span>
+                            <p className="text-md font-[500] "> {selectedItem.amount_due.toLocaleString()}</p>
+                        </span>
+                    </div>
+
+                </div>
+
                 {/* section four recent payments table */}
-                <div className="bg-white w-full flex flex-col items-start justify-start shadow-lg  rounded-[3px] border border-slate-100 overflow-x-auto">
+                <div className="bg-white w-full flex flex-col items-start justify-start shadow-lg  rounded-[3px] border border-slate-200 overflow-x-auto">
                     
                     <div className="w-full flex flex-wrap items-center justify-between p-[15px] gap-5 pb-0 ">
 
@@ -306,25 +337,23 @@ const Payment_page = () => {
 
                     <div className="table-cont overflow-x-auto">
                         <div className="w-full min-w-[1200px] p-[15px] flex flex-col items-start justify-start mx-auto ">
-                            <span className="w-full max-xl:h-[40px] h-[45px] flex items-center justify-between bg-blue-500 text-white rounded-[3px]">
-                                <p className="text-sm w-[10%] px-[15px] ">Payment Id</p>
-                                <p className="text-sm w-[8%] px-[15px] ">Project Id</p>
-                                <p className="text-sm w-[13%] px-[15px] ">Project Title</p>
-                                <p className="text-sm w-[13%] px-[15px] ">Payer Name</p>
-                                <p className="text-sm w-[8%] px-[15px] ">Amount</p>
-                                <p className="text-sm w-[15%] px-[15px] ">Added By</p>
-                                <p className="text-sm w-[10%] px-[15px] ">Receipt</p>
-                                <p className="text-sm w-[15%] px-[15px] ">Date</p>
-                                <p className="text-sm w-[8%] px-[15px] ">Action</p>
+                            <span className="w-full  h-[40px] flex items-center justify-between bg-blue-500 text-white rounded-[3px]">
+                                <p className="text-sm w-[12%] px-[15px] ">Payment Id</p>
+                                <p className="text-sm w-[12%] px-[15px] ">Project Id</p>
+                                <p className="text-sm w-[17%] px-[15px] ">Project Title</p>
+                                <p className="text-sm w-[12%] px-[15px] ">Amount</p>
+                                <p className="text-sm w-[17%] px-[15px] ">Added By</p>
+                                <p className="text-sm w-[17%] px-[15px] ">Date</p>
+                                <p className="text-sm w-[10%] px-[15px] ">Action</p>
                             </span>
 
                             {loading ? 
                             
-                            <div className="w-full h-[340px] flex items-center justify-center  ">
+                            <div className="w-full h-[300px] flex items-center justify-center  ">
                                 <Loading />
                             </div>
                             :
-                            <div className="w-full max-md:h-[290px] h-[340px] flex flex-col items-start justify-start overflow-y-auto">
+                            <div className="w-full max-md:h-[300px] h-[300px] flex flex-col items-start justify-start overflow-y-auto">
                                 <div className="w-full h-full flex flex-col justify-start">
                                     
                                     {filtered_payment_box?.payments.length ? 
@@ -340,18 +369,14 @@ const Payment_page = () => {
 
                                         return(
                                             <span key={ind} className=" table-body-row-1  " >
-                                                <p className="text-sm font-[500] w-[10%] px-[15px] text-slate-600 ">{formatted_payment_id}</p>
-                                                <p className="text-sm font-[500] w-[8%] px-[15px] text-slate-600 ">{project.project_ind}</p>
-                                                <p className="text-sm font-[500] w-[13%] px-[15px] text-slate-600 ">{project.project_title}</p>
-                                                <p className="text-sm font-[500] w-[13%] px-[15px] text-slate-600 ">{payer_name}</p>
-                                                <p className="text-sm font-[500] w-[8%] px-[15px] text-slate-600 ">{Number(amount).toLocaleString()}</p>
-                                                <p className="text-sm font-[500] w-[15%] px-[15px] text-slate-600 ">{added_by.first_name} {added_by.last_name}</p>
-                                                <p className="text-sm font-[500] w-[10%] px-[15px] text-slate-600 hover:text-blue-600 hover:underline">
-                                                    {payment_receipt.length && <Link href={payment_receipt[0].url} >{payment_receipt[0].name}</Link>}
-                                                </p>
-                                                <p className="text-sm font-[500] w-[15%] px-[15px] text-slate-600 ">{formatted_time(Number(created_at))}</p>
-                                                <span className="px-[15px] w-[8%] flex items-center ">
-                                                    <button className="h-[27.5px] rounded-[2.5px] bg-amber-600 hover:bg-amber-700 text-white px-5 text-sm " onClick={()=> handle_edit(data)}>Edit</button>
+                                                <p className="text-sm font-[500] w-[12%] px-[15px] text-slate-600 ">{formatted_payment_id}</p>
+                                                <p className="text-sm font-[500] w-[12%] px-[15px] text-slate-600 ">{project.project_ind}</p>
+                                                <p className="text-sm font-[500] w-[17%] px-[15px] text-slate-600 ">{project.project_title}</p>
+                                                <p className="text-sm font-[500] w-[12%] px-[15px] text-slate-600 flex items-center"><TbCurrencyNaira size={17} className='text-slate-600' /> {Number(amount).toLocaleString()}</p>
+                                                <p className="text-sm font-[500] w-[17%] px-[15px] text-slate-600 ">{added_by.first_name} {added_by.last_name}</p>
+                                                <p className="text-sm font-[500] w-[17%] px-[15px] text-slate-600 ">{formatted_time(Number(created_at))}</p>
+                                                <span className="px-[15px] w-[10%] flex items-center ">
+                                                    <button className="h-[27.5px] rounded-[2.5px] bg-amber-500 hover:bg-amber-600 text-white px-5 text-sm " onClick={()=> handle_edit(data)}>Edit</button>
                                                 </span>
 
                                                 
@@ -369,7 +394,7 @@ const Payment_page = () => {
                         </div>
                     </div>
 
-                    <span className="w-full h-[45px] flex flex-row items-center justify-between bg-white rounded-b-[3px] border-t border-gray-300 px-[15px] ">
+                    <span className="w-full h-[45px] flex flex-row items-center justify-between bg-white rounded-b-[3px] border-t border-gray-200 px-[15px] ">
                         <span className="flex flex-row items-center justify-start gap-3 h-full">
                             <p className="text-md cursor-pointer" onClick={() => app_payments_action('prev')}>Prev</p>
                             <span className="w-auto h-full flex flex-row items-center justify-start">
