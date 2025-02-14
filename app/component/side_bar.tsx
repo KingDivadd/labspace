@@ -38,7 +38,7 @@ const Side_bar = () => {
                     <MdOutlineAddTask size={22} className='' />
                 </span>
                 <span className="max-xl:hidden flex items-center justify-center">
-                    <p className="font-bold text-2xl md:text-3xl text-blue-500 ">Labp</p>
+                    <p className="font-bold text-2xl md:text-3xl text-blue-500 ">Lab</p>
                     <p className="font-bold text-2xl md:text-3xl text-sky-500">space</p>
                 </span>
             </span>
