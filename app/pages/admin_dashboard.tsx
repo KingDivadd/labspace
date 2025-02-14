@@ -7,7 +7,7 @@ import Alert, { formatted_time, AvatarUserInfo, AssetCont, SmallAvatar, ProjectA
 import Loading from '../component/loading'
 import Modal from '../component/modals/modal'
 import Link from 'next/link'
-import { FaMoneyBillWave } from 'react-icons/fa6'
+import { FaExclamation, FaMoneyBillWave } from 'react-icons/fa6'
 import { GoProjectRoadmap } from 'react-icons/go'
 import { LiaMoneyBillWaveSolid } from 'react-icons/lia'
 
@@ -41,6 +41,7 @@ const Admin_dashboard = () => {
                 const response = await get_auth_request('app/admin-dashboard')     
 
                 if (response.status == 200 || response.status == 201){
+                    console.log(response.data)
                     
                     setAdmin_dash(response.data)
                 }else if(response.response.status == 401){
@@ -93,7 +94,7 @@ const Admin_dashboard = () => {
     }
 
     return (
-        <div className='relative w-full  flex items-start justify-center overflow-y-auto'style={{height: 'calc(100vh - 60px)'}}  >
+        <div className='relative w-full flex items-start justify-center overflow-y-auto'style={{height: 'calc(100vh - 60px)'}}  >
             <span className="px-[20px] flex items-center justify-end absolute top-[15px] right-[50px] z-20 h-[50px]  ">
 
                 {alert.message && <Alert message={alert.message} type={alert.type} />} 
@@ -106,32 +107,73 @@ const Admin_dashboard = () => {
 
                         <p className="text-xl text-white font-[500]">Welcome {loggedInUser.first_name}</p>
 
-                            <div className="w-full flex flex-wrap justify-between gap-[10px] sm:gap-5 md:gap-10 ">
-                            
-
-
+                        <div className="w-full flex flex-wrap justify-between 2xl:justify-between gap-[10px]  ">
+                
+                                {/* project due */}
                             <div className="bg-white min-w-[180px] max-xs:h-[75px] flex-grow max-xl:h-[80px] h-[90px] rounded-[5px]  p-[15px] shadow-md flex items-center justify-start gap-[10px] sm:gap-2">
-                                <span className="h-full max-xs:w-[70px] w-[60px] sm:w-20 flex items-center justify-center">
+                                <span className="h-full max-xs:w-[70px] w-[60px] sm:w-[55px] flex items-center justify-center">
                                     <span className="h-[50px] w-[50px] text-white  rounded-[50px] bg-blue-500 flex items-center justify-center">
                                         <GoProjectRoadmap size={'50%'} />
                                     </span>
                                 </span>
                                 <div className="flex-1 flex  flex-col items-start just1ify-center ">
-                                    <p className="text-md font-[400] ">Total Project</p>
-                                    <p className="text-md font-[500]">{admin_dash.total_no_of_projects.toLocaleString() || 0}</p>
+                                    <p className="text-md font-[400] ">Project Due</p>
+                                    <p className="text-md font-[500]">{admin_dash?.pending_project.toLocaleString() || 0}</p>
                                 </div>
 
                             </div>
 
-                            <div className="bg-white min-w-[180px] max-xs:h-[75px] flex-grow max-xl:h-[80px] h-[90px] rounded-[5px]  p-[15px] shadow-md flex items-center justify-start gap-2">
-                                <span className="h-full max-xs:w-[70px] w-[60px] sm:w-20  flex items-center justify-center">
-                                    <span className="h-[50px] w-[50px] text-white  rounded-[50px] bg-teal-600 flex items-center justify-center">
+                                {/* project pending */}
+                            <div className="bg-white min-w-[180px] max-xs:h-[75px] flex-grow max-xl:h-[80px] h-[90px] rounded-[5px]  p-[15px] shadow-md flex items-center justify-start gap-[10px] sm:gap-2">
+                                <span className="h-full max-xs:w-[70px] w-[60px] sm:w-[55px] flex items-center justify-center">
+                                    <span className="h-[50px] w-[50px] text-white  rounded-[50px] bg-amber-500 flex items-center justify-center">
+                                        <GoProjectRoadmap size={'50%'} />
+                                    </span>
+                                </span>
+                                <div className="flex-1 flex  flex-col items-start just1ify-center ">
+                                    <p className="text-md font-[400] ">Project Pending</p>
+                                    <p className="text-md font-[500]">{admin_dash?.pending_project.toLocaleString() || 0}</p>
+                                </div>
+
+                            </div>
+
+                            {/* Gross (Total Project Cost) */}
+                            <div className="bg-white min-w-[180px] max-xs:h-[75px] flex-grow max-xl:h-[80px] h-[90px] rounded-[5px]  p-[15px] shadow-md flex items-center justify-start gap-[10px] sm:gap-2">
+                                <span className="h-full max-xs:w-[70px] w-[60px] sm:w-[55px] flex items-center justify-center">
+                                    <span className="h-[50px] w-[50px] text-white  rounded-[50px] bg-blue-500 flex items-center justify-center">
                                         <LiaMoneyBillWaveSolid size={'50%'} />
                                     </span>
                                 </span>
-                                <div className="flex-1 flex flex-col items-start just1ify-center ">
+                                <div className="flex-1 flex  flex-col items-start just1ify-center ">
                                     <p className="text-md font-[400] ">Total Project Cost</p>
-                                    <p className="text-md font-[500]">#{admin_dash.total_project_cost.toLocaleString() || 0}</p>
+                                    <p className="text-md font-[500]">#{admin_dash?.total_project_cost.toLocaleString() || 0}</p>
+                                </div>
+
+                            </div>
+
+                            {/* Gross (Total Project Cost) */}
+                            <div className="bg-white min-w-[180px] max-xs:h-[75px] flex-grow max-xl:h-[80px] h-[90px] rounded-[5px]  p-[15px] shadow-md flex items-center justify-start gap-[10px] sm:gap-2">
+                                <span className="h-full max-xs:w-[70px] w-[60px] sm:w-[55px] flex items-center justify-center">
+                                    <span className="h-[50px] w-[50px] text-white  rounded-[50px] bg-green-600 flex items-center justify-center">
+                                        <LiaMoneyBillWaveSolid size={'50%'} />
+                                    </span>
+                                </span>
+                                <div className="flex-1 flex  flex-col items-start just1ify-center ">
+                                    <p className="text-md font-[400] ">Amount Paid</p>
+                                    <p className="text-md font-[500]">#{admin_dash?.total_amount_paid.toLocaleString() || 0}</p>
+                                </div>
+
+                            </div>
+
+                            <div className="bg-white min-w-[180px] max-xs:h-[75px] flex-grow max-xl:h-[80px] h-[90px] rounded-[5px]  p-[15px] shadow-md flex items-center justify-start gap-[10px] sm:gap-2">
+                                <span className="h-full max-xs:w-[70px] w-[60px] sm:w-[55px]  flex items-center justify-center">
+                                    <span className="h-[50px] w-[50px] text-white  rounded-[50px] bg-amber-500 flex items-center justify-center">
+                                        <FaExclamation size={'50%'} />
+                                    </span>
+                                </span>
+                                <div className="flex-1 flex flex-col items-start just1ify-center ">
+                                    <p className="text-md font-[400] ">Amount Due</p>
+                                    <p className="text-md font-[500]">#{admin_dash?.total_amount_due.toLocaleString() || 0}</p>
                                 </div>
 
                             </div>
@@ -161,7 +203,7 @@ const Admin_dashboard = () => {
                                     <p className="text-sm w-[11%] px-[10px] sm:px-[15px] "></p>
                                 </span>
 
-                                {admin_dash.recent_projects == null ? 
+                                {admin_dash && admin_dash.recent_projects == null ? 
                                 
                                 <div className="w-full  flex items-center justify-center  " style={{ height: 'calc(100vh - 355px)'}}>
                                     <Loading />
@@ -228,7 +270,7 @@ const Admin_dashboard = () => {
                             </span>
                             <span className="flex flex-row items-center justify-end gap-3 h-full">
                                 <p className="text-md"> 
-                                    Showing 1-15 of {admin_dash.recent_projects ? <>{admin_dash.recent_projects.length} </>:'0'}
+                                    Showing 1-15 of {admin_dash && admin_dash.recent_projects ? <>{admin_dash.recent_projects.length} </>:'0'}
                                 </p>
                             </span>
                         </span>

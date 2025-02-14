@@ -16,10 +16,15 @@ interface NotificationProp {
     number_of_unread_notification: number; unread_notifications: any
 }
 
-interface AdminDashProps {
-    recent_notification:any, recent_projects:any, recent_users:any, recent_payments:any,
-    total_no_of_projects:number, total_project_cost:number,
-    total_no_of_completed_projects:number, total_no_of_assigned_projects:number                     
+interface AdminProps {
+    recent_projects: any[]; 
+    total_no_of_assigned_projects:number; 
+    total_project_cost:number; 
+    total_amount_due:number; 
+    total_amount_paid:number; 
+    total_project:number; 
+    pending_project:number; 
+    total_project_due:number;                 
 }
 
 interface Props {
@@ -88,8 +93,8 @@ interface ChatContextType {
     setApp_users: (app_users: any) => void;
     project: any;
     setProject: (project: any) => void;
-    admin_dash: AdminDashProps;
-    setAdmin_dash: (admin_dash: AdminDashProps)=>void;
+    admin_dash: AdminProps | null;
+    setAdmin_dash: (admin_dash: AdminProps | null)=>void;
     current_project_nav: string;
     setCurrent_project_nav: (current_project_nav: string) => void;
     task_action: string;
@@ -139,7 +144,7 @@ export const ChatProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [task_action, setTask_action] = useState('create-task')
     const [selected_task, setSelected_task] = useState(null)
     // for admin page
-    const [admin_dash, setAdmin_dash] = useState({recent_notification:null, recent_projects:null, recent_users:null, recent_payments:null, total_no_of_assigned_projects:0, total_no_of_completed_projects:0, total_no_of_projects:0, total_project_cost:0})
+    const [admin_dash, setAdmin_dash] = useState<AdminProps | null>(null)
 
     // for project page
     const [project_box, setProject_box] = useState<Props | null>(null);
